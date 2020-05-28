@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} VAR representation implied by VECM}
+\PYG{n}{rvecm\PYGZus{}res}\PYG{o}{.}\PYG{n}{var\PYGZus{}rep}
+\end{Verbatim}

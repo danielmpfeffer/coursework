@@ -1,0 +1,28 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{import} \PYG{n+nn}{pandas} \PYG{k}{as} \PYG{n+nn}{pd}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k}{as} \PYG{n+nn}{plt}
+\PYG{k+kn}{import} \PYG{n+nn}{pandas\PYGZus{}datareader.data} \PYG{k}{as} \PYG{n+nn}{web}
+\PYG{k+kn}{import} \PYG{n+nn}{datetime}
+
+\PYG{c+c1}{\PYGZsh{} 1984:Q1 to 2015:Q4}
+\PYG{n}{start} \PYG{o}{=} \PYG{n}{datetime}\PYG{o}{.}\PYG{n}{datetime}\PYG{p}{(}\PYG{l+m+mi}{1984}\PYG{p}{,} \PYG{l+m+mi}{10}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n}{end} \PYG{o}{=} \PYG{n}{datetime}\PYG{o}{.}\PYG{n}{datetime}\PYG{p}{(}\PYG{l+m+mi}{2019}\PYG{p}{,} \PYG{l+m+mi}{12}\PYG{p}{,} \PYG{l+m+mi}{31}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Quarterly U.S. real GDP from the FRED}
+\PYG{n}{ts} \PYG{o}{=} \PYG{n}{web}\PYG{o}{.}\PYG{n}{DataReader}\PYG{p}{([}\PYG{l+s+s1}{\PYGZsq{}GPDI\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}GDP\PYGZsq{}}\PYG{p}{],} \PYG{l+s+s1}{\PYGZsq{}fred\PYGZsq{}}\PYG{p}{,} \PYG{n}{start}\PYG{p}{,} \PYG{n}{end}\PYG{p}{)}
+
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}log\PYGZus{}inv\PYGZsq{}}\PYG{p}{:} \PYG{n}{np}\PYG{o}{.}\PYG{n}{log}\PYG{p}{(}\PYG{n}{ts}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}GPDI\PYGZsq{}}\PYG{p}{]),}
+                  \PYG{l+s+s1}{\PYGZsq{}log\PYGZus{}gdp\PYGZsq{}}\PYG{p}{:}\PYG{n}{np}\PYG{o}{.}\PYG{n}{log}\PYG{p}{(}\PYG{n}{ts}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}GDP\PYGZsq{}}\PYG{p}{])\PYGZcb{})}
+
+\PYG{n}{fig}\PYG{p}{,} \PYG{p}{(}\PYG{n}{ax1}\PYG{p}{,} \PYG{n}{ax2}\PYG{p}{)} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplots}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{10}\PYG{p}{,}\PYG{l+m+mi}{4}\PYG{p}{))}
+
+\PYG{n}{ax1}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{y}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}log\PYGZus{}gdp\PYGZsq{}}\PYG{p}{],} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Log GDP\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{ax1}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{y}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}log\PYGZus{}inv\PYGZsq{}}\PYG{p}{],} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Log Investment\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{ax1}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{()}
+
+\PYG{n}{ax2}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{y}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}log\PYGZus{}inv\PYGZsq{}}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{n}{y}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}log\PYGZus{}gdp\PYGZsq{}}\PYG{p}{],} \PYG{l+s+s1}{\PYGZsq{}k\PYGZsq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Log Investment\PYGZhy{}GDP Ratio\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{ax2}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{()}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

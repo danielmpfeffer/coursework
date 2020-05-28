@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Generate grid}
+\PYG{n}{hyper\PYGZus{}mdds} \PYG{o}{=} \PYG{p}{[]}
+\PYG{n}{taus} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mi}{1}\PYG{o}{/}\PYG{l+m+mi}{1000}\PYG{p}{]} \PYG{o}{*} \PYG{l+m+mi}{6}
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{5}\PYG{p}{):}
+    \PYG{n}{taus}\PYG{p}{[}\PYG{n}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{=} \PYG{n}{taus}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{*}\PYG{l+m+mi}{10}
+    \PYG{n}{hyper\PYGZus{}mdds}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{ar\PYGZus{}bayes}\PYG{p}{(}\PYG{n}{ts}\PYG{p}{[:],} \PYG{n}{lags}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{tau}\PYG{o}{=}\PYG{n}{taus}\PYG{p}{[}\PYG{n}{i}\PYG{p}{])[}\PYG{l+s+s1}{\PYGZsq{}mdd\PYGZsq{}}\PYG{p}{])}
+\PYG{n}{hyper\PYGZus{}mdds}
+\end{Verbatim}

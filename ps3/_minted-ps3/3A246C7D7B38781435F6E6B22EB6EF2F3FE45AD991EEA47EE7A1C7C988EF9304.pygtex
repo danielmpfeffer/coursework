@@ -1,0 +1,29 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Initialize VAR(1) system parameters}
+\PYG{n}{Phi} \PYG{o}{=} \PYG{p}{[[}\PYG{o}{.}\PYG{l+m+mi}{6}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{],} \PYG{p}{[}\PYG{o}{.}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{o}{.}\PYG{l+m+mi}{9}\PYG{p}{]]}
+\PYG{n}{Sigma}\PYG{o}{=} \PYG{p}{[[}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{],} \PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{8}\PYG{p}{]]}
+
+\PYG{c+c1}{\PYGZsh{} Generate two U([0,1]) random varialbes}
+\PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{seed}\PYG{p}{(}\PYG{l+m+mi}{42}\PYG{p}{)}
+\PYG{n}{T} \PYG{o}{=} \PYG{l+m+mi}{1000}
+\PYG{n}{u1}\PYG{p}{,} \PYG{n}{u2} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{rand}\PYG{p}{(}\PYG{n}{T}\PYG{p}{),} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{rand}\PYG{p}{(}\PYG{n}{T}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Simulate N(0,I) random vector}
+\PYG{n}{iid\PYGZus{}innov} \PYG{o}{=} \PYG{n}{box\PYGZus{}muller}\PYG{p}{(}\PYG{n}{u1}\PYG{p}{,} \PYG{n}{u2}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Generate innovations via Cholesky factorization}
+\PYG{n}{L} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{linalg}\PYG{o}{.}\PYG{n}{cholesky}\PYG{p}{(}\PYG{n}{Sigma}\PYG{p}{)}
+\PYG{n}{eps} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{dot}\PYG{p}{(}\PYG{n}{L}\PYG{p}{,} \PYG{n}{iid\PYGZus{}innov}\PYG{p}{)}
+\PYG{n}{eps1}\PYG{p}{,} \PYG{n}{eps2} \PYG{o}{=} \PYG{n}{eps}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{eps}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}
+
+\PYG{c+c1}{\PYGZsh{} Allocate memory for y1 and y2 series}
+\PYG{n}{y1}\PYG{p}{,} \PYG{n}{y2} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{empty\PYGZus{}like}\PYG{p}{(}\PYG{n}{eps1}\PYG{p}{),} \PYG{n}{np}\PYG{o}{.}\PYG{n}{empty\PYGZus{}like}\PYG{p}{(}\PYG{n}{eps2}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Draw y0 from unconditional distribution}
+\PYG{n}{y1}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{y2}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{=} \PYG{n}{eps1}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{eps2}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+
+\PYG{c+c1}{\PYGZsh{} Simulate y1 and y2 series}
+\PYG{k}{for} \PYG{n}{t} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{T}\PYG{p}{):}
+    \PYG{n}{y1}\PYG{p}{[}\PYG{n}{t}\PYG{p}{]} \PYG{o}{=} \PYG{n}{Phi}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{][}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{o}{*}\PYG{n}{y1}\PYG{p}{[}\PYG{n}{t}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{+} \PYG{n}{eps1}\PYG{p}{[}\PYG{n}{t}\PYG{p}{]}
+    \PYG{n}{y2}\PYG{p}{[}\PYG{n}{t}\PYG{p}{]} \PYG{o}{=} \PYG{n}{Phi}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{][}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{o}{*}\PYG{n}{y1}\PYG{p}{[}\PYG{n}{t}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{+} \PYG{n}{Phi}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{][}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{o}{*}\PYG{n}{y2}\PYG{p}{[}\PYG{n}{t}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{+} \PYG{n}{eps2}\PYG{p}{[}\PYG{n}{t}\PYG{p}{]}
+\end{Verbatim}

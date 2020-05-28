@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Real VECM model}
+\PYG{n}{rvecm\PYGZus{}mod} \PYG{o}{=} \PYG{n}{VECM}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{k\PYGZus{}ar\PYGZus{}diff}\PYG{o}{=}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{deterministic}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}co\PYGZsq{}}\PYG{p}{,}
+                \PYG{n}{coint\PYGZus{}rank}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{freq}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}QS\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{rvecm\PYGZus{}res} \PYG{o}{=} \PYG{n}{rvecm\PYGZus{}mod}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{} Real VAR model}
+\PYG{n}{rvar\PYGZus{}mod} \PYG{o}{=} \PYG{n}{VAR}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{freq}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}QS\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{rvar\PYGZus{}res} \PYG{o}{=} \PYG{n}{var\PYGZus{}mod}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{)}
+\end{Verbatim}

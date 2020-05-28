@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{statsmodels.tsa.api} \PYG{k+kn}{import} \PYG{n}{VAR}\PYG{p}{,} \PYG{n}{VECM}
+
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{ts}\PYG{p}{[[}\PYG{l+s+s1}{\PYGZsq{}log\PYGZus{}inv\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}log\PYGZus{}gdp\PYGZsq{}}\PYG{p}{]]}
+\PYG{n}{vecm\PYGZus{}mod} \PYG{o}{=} \PYG{n}{VECM}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{k\PYGZus{}ar\PYGZus{}diff}\PYG{o}{=}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{deterministic}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}co\PYGZsq{}}\PYG{p}{,} \PYG{n}{coint\PYGZus{}rank}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{freq}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}QS\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{vecm\PYGZus{}res} \PYG{o}{=} \PYG{n}{vecm\PYGZus{}mod}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{()}
+
+\PYG{n}{var\PYGZus{}mod} \PYG{o}{=} \PYG{n}{VAR}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{freq}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}QS\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{var\PYGZus{}res} \PYG{o}{=} \PYG{n}{var\PYGZus{}mod}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{)}
+\end{Verbatim}

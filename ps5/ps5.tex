@@ -1,0 +1,291 @@
+\documentclass[oneside,reqno]{amsart}
+\usepackage{amsthm}
+\usepackage{dsfont}
+\setlength{\textwidth}{\paperwidth}\addtolength{\textwidth}{-2in}\calclayout
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usepackage{minted}
+\newminted{python3}{frame=lines}
+\usepackage{booktabs}
+\usepackage{enumitem}
+
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\var}{var}
+\DeclareMathOperator{\cov}{cov}
+\DeclareMathOperator{\corr}{corr}
+\DeclareMathOperator{\tr}{tr}
+\let\vec\relax\DeclareMathOperator{\vec}{vec}
+\newcommand{\eps}{\varepsilon}
+
+\theoremstyle{definition}
+\newtheorem{prob}{Problem}
+\renewcommand*{\proofname}{Solution}
+\setlist[enumerate]{label={(\roman*)}}
+
+\title{ECON 706: Problem Set 5}
+\author{Daniel Pfeffer}
+\date{\today}
+%------------------------------------------------------------------------------
+\begin{document}
+\maketitle
+
+\begin{prob}
+\textbf{Vector Autoregressions} 
+\\ \\
+Consider the following VAR
+\[
+	y_t = \Phi_0 + \Phi_1 y_{t-1} + \eps_t,
+	\qquad 
+	\eps_t \sim \text{iid N}(0, \Sigma),
+\]
+where $y_t$ is an $n \times 1$ vector. 
+\end{prob}
+
+\begin{enumerate}
+\item
+Show that the conditional maximum likelihood estimation of $\Phi$ is equivalent to equation-by-equation OLS estimation:
+\[
+	y_{it} = \Phi_{0i} + \Phi_{1i \cdot} y_{it-1} + \eps_{it},
+\]	
+where $\Phi_{1i \cdot}$ is the $i$th row of the $n\times n$ matrix $\Phi_1$.
+
+\begin{proof}
+Let $X_t = (1, y_{t-1})'$, $\Phi = (\Phi_0', \Phi_1')'$, and $\Phi^i = (\Phi_{0i}', \Phi_{1i}')'$. The least squares estimator for row (equation) $i$ is given by 
+\[
+	\hat\Phi^i = \left(\sum_{t=1}^T X_t X_t'\right)^{-1} \sum_{t=1}^T X_t y_{it}',
+\]
+and maximum likelihood estimator of $\Phi$ is 
+\begin{align*}
+	\hat\Phi &= \left(\sum_{t=1}^T X_t X_t'\right)^{-1} \sum_{t=1}^T X_t y_t'  \\
+	&= \left(\sum_{t=1}^T X_t X_t'\right)^{-1} \sum_{t=1}^T  X_t \begin{pmatrix} y_{1t} & y_{2t} & \cdots & y_{nt} \end{pmatrix} \\
+	&= \left(\sum_{t=1}^T X_t X_t'\right)^{-1} \begin{pmatrix} \sum_{t=1}^T X_t y_{1t} & \sum_{t=1}^T  X_t y_{2t} & \cdots & \sum_{t=1}^T  X_t y_{nt} \end{pmatrix} \\
+	&= \begin{pmatrix}
+		 (\sum_{t=1}^T X_t X_t')^{-1} \sum_{t=1}^T  X_t y_{1t} \\
+		  (\sum_{t=1}^T X_t X_t')^{-1} \sum_{t=1}^T  X_t y_{2t}\\
+		  \vdots \\
+		   (\sum_{t=1}^T X_t X_t')^{-1}  \sum_{t=1}^T  X_t y_{nt}
+	\end{pmatrix} \\
+	&= \begin{pmatrix}
+		\hat \Phi^1 & \hat\Phi^2 & \cdots & \hat \Phi^n
+	\end{pmatrix} \\
+	&= \begin{pmatrix} 
+		\hat \Phi_{01}' & \hat \Phi_{02}' & \cdots & \hat \Phi_{0n}' \\
+		\hat \Phi_{11}' & \hat \Phi_{12}' & \cdots & \hat \Phi_{1n}'
+	\end{pmatrix}.
+\end{align*}
+Hence the conditional maximum likelihood estimation of $\Phi_1$ is equivalent to equation-by-equation OLS estimation: $\hat \Phi_1 = (\hat \Phi_{11},  \hat \Phi_{12}, \dotsc, \hat \Phi_{1n})'$.
+\end{proof}
+
+\item
+Under the improper prior distribution
+\[
+	p(\Phi, \Sigma) \propto |\Sigma|^{-(n+1)/2},
+\]
+can the posterior means of the VAR coefficients be computed equation-by-equation? Are coefficients of equation $i$ \emph{a posteriori} uncorrelated with coefficients from equation $j$? 
+
+\begin{proof}
+Define the matrices $Y = (y_1', \dotsc, y_T')'$ and $X = (X_1', \dotsc, X_T')'$, and let $y_0$ be an $n\times 1$ vector with the initial observation. Then the likelihood function is
+\[
+	p(Y \mid y_0, \Phi, \Sigma) \propto 
+	|\Sigma|^{-T/2} \exp\left(-\frac{1}{2} \tr\left(\Sigma^{-1}(Y - X \Phi)' (Y - X \Phi) \right) \right).
+\]
+Define 
+\begin{align*}
+	\hat \Phi &= (X'X)^{-1}X'Y \\
+	S &= (Y - \hat \Phi)'(Y - \hat \Phi),
+\end{align*}
+and write 
+\begin{align}
+	p(Y \mid y_0, \Phi, \Sigma) &\propto 
+	|\Sigma|^{-T/2} \exp\left(-\frac{1}{2} \tr\left(\Sigma^{-1}(S + (\Phi - \hat \Phi)'X'X(\Phi - \hat\Phi) \right) \right) \\
+	&\propto 
+	|\Sigma|^{-T/2} \exp\left(-\frac{1}{2} \tr(S \Sigma^{-1}) - \frac{1}{2}\tr \left(\Sigma^{-1} (\Phi - \hat \Phi)' X'X (\Phi - \hat\Phi) \right) \right). \label{eq:rep2}
+\end{align}
+Let us also define $\beta = \vec(\Phi)$ and $\hat\beta = \vec(\hat\Phi)$. Then 
+\[
+	p(Y \mid y_0, \Phi, \Sigma) \propto 
+	|\Sigma|^{-T/2}  \exp\left(-\frac{1}{2} \tr\left((\beta - \hat\beta)' \Sigma^{-1} \otimes X'X (\beta - \hat\beta) \right) \right),
+\]
+which shows that the likelihood is characterized by a multivariate normal distribution with mean $\hat\beta$ and variance  $\Sigma \otimes (X'X)^{-1}$. 
+\par
+For the joint posterior, we have 
+\[
+	p(\Phi, \Sigma \mid Y,y_0) \propto 
+	|\Sigma|^{-(T+n+1)/2}  \exp\left(-\frac{1}{2} \tr\left(\Sigma^{-1}(S + (\Phi - \hat \Phi)'X'X(\Phi - \hat\Phi) \right) \right),  
+\]	 Equation \eqref{eq:rep2} leads to a factorization of the form 
+\[
+	p(\Phi, \Sigma \mid Y) = p(\Phi \mid \Sigma, Y)p(\Sigma \mid Y),
+\]
+and so the conditional posterior is
+\[
+	p(\Phi \mid \Sigma, Y) \propto
+	|\Sigma|^{-T/2}  \exp\left(-\frac{1}{2} \tr\left((\beta - \hat\beta)' \Sigma^{-1} \otimes X'X (\beta - \hat\beta) \right) \right),
+\]
+which we identify with a Gaussian distribution of the (vectorzied) form 
+\[
+	\vec(\Phi) \mid (\Sigma, Y) \sim N(\vec(\hat\Phi),  \Sigma \otimes (X'X)^{-1}). 
+\]
+So under this prior, we see that the posterior mean is MLE estimator and from (i), which coincides with equation-by-equation least squares estimator. The equation-by-equation posterior means of the VAR coefficients are not uncorrelated since the covariance depends on $\Sigma$.
+\end{proof}
+
+
+\item
+Download observations on real GDP growth and inflation from FRED for the period 1985:I to 2019:IV. Estimate a VAR(1) with intercept by OLS. Conditional on the OLS estimate, compute the eigenvalues of $\Phi_1$ and the unconditional mean and variance of $y_t$. Compare your estimate of the unconditional mean and variance obtained from the estimated VAR to sample means and variances of $y_t$. Would you expect them to be approximately the same? Are they approximately the same?
+
+
+\begin{proof}
+The following code estimates the VAR(1) and the results are presented in Table \ref{var1-res}.
+\begin{python3code}
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
+from statsmodels.tsa.api import VAR
+
+gdp = pd.read_csv('GDPC1.csv', index_col='DATE')
+infl = pd.read_csv('GDPDEF.csv', index_col='DATE')
+
+ts = gdp.join(infl, how='outer')
+
+# Convert to growth rates
+ts = np.log(ts).diff(axis=0)
+ts = ts.rename(columns={'GDPC1':'gdp_growth', 'GDPDEF': 'infl_growth'})
+ts = ts.dropna()
+
+mod = VAR(ts)
+res = mod.fit(maxlags=1)
+\end{python3code}
+
+\begin{table}[!h]
+\caption{VAR(1) results.}
+\begin{center}
+\begin{tabular}{lcc}
+\hline
+          	        & GDP & Inflation  \\
+\midrule
+Constant          & 0.005*** & 0.004***  \\
+                        & (0.001)   & (0.000) \\
+Lag GDP         & 0.372*** & 0.079**  \\
+            	       & (0.080)   & (0.027) \\
+Lag Inflation    & -0.164    & 0.612*** \\
+          	       & (0.192)   & (0.065) \\
+\hline
+%Standard errors in parentheses. \\
+* $p<.1$, ** $p<.05$, \\
+*** $p<.01$
+\end{tabular}
+\end{center}
+\label{var1-res}
+\end{table}
+
+The eigenvalues of $\Phi_1$ are 0.53 and 0.45, a strong indication of stability.
+\par 
+Table \ref{means} shows the sample mean and mean implied by the model, which are nearly the same. 
+\begin{table}[!h]
+\caption{Means.}
+\begin{center}
+\begin{tabular}{lcc}
+\hline
+          	 & Sample & Model  \\
+\midrule
+
+GDP         & 0.006 & 0.006 \\
+Inflation    & 0.005    & 0.005 \\
+\hline
+\end{tabular}
+\end{center}
+\label{means}
+\end{table}
+
+The sample covariance matrix is
+\[
+	\bordermatrix{~ & \text{GDP} & \text{Inflation} \cr
+                 \text{GDP} & 0.000032 & 0.000001 \cr
+                  \text{Inflation} & 0.000001 & 0.000006 \cr}.
+\]
+and the covariance matrix implied by the model is
+\[
+	\bordermatrix{~ & \text{GDP} & \text{Inflation} \cr
+                 \text{GDP} & 0.000032 & 0.000001 \cr
+                  \text{Inflation} & 0.000001 & 0.000006 \cr}.
+\]
+Since the model implied estimates are computed using coefficients, which from (i) we know are equivalent to equitation-by-equation least squares estimates, these similarities noted above are not surprising. 
+\end{proof}
+
+\item
+Write a program that generates draws from the posterior $(\Phi, \Sigma) \mid Y$ using direct sampling from the MNIW distribution. For each coefficient compute the posterior mean and a 90\% credible interval. Tabulate your posterior estimates along with the OLS estimates.
+
+\begin{proof}
+The following code conducts the desired posterior analysis with an improper prior.
+
+\begin{python3code}
+from numpy.random import multivariate_normal
+
+# Function to generate inverse wishart deviates
+def inv_wishart(df, S):
+    n = S.shape[0]
+    Z = multivariate_normal(np.zeros(n), np.linalg.inv(S), df)
+    ZTZ = Z.T @ Z
+    return np.linalg.inv(ZTZ)
+
+# Data    
+ts = sm.add_constant(ts)
+X = ts.values
+XTX_inv = np.linalg.inv(X.T @ X)
+
+# Vectorize coefficient vector 
+Phi_00 = res.intercept[0]
+Phi_01 = res.coefs.flatten()[0]
+Phi_02 = res.coefs.flatten()[1]
+Phi_10 = res.intercept[1]
+Phi_11 = res.coefs.flatten()[2]
+Phi_12 = res.coefs.flatten()[3]
+vec_Phi = [Phi_00, Phi_01, Phi_02, Phi_10, Phi_11, Phi_12]
+
+# Direct sampling from MNIW
+N = 100
+post = []
+for i in range(N):
+    S_iw = inv_wishart(df=137, S=S_hat)
+    S_mn = np.kron(S_iw, XTX_inv)
+    post.append(multivariate_normal(vec_Phi, S_mn).tolist())
+
+# Save posterior sample    
+post_df = pd.DataFrame(np.array(post))
+post_df = post_df.rename(columns={0:'Phi_00', 1:'Phi_01', 2:'Phi_02', 
+                                  3:'Phi_10', 4:'Phi_11', 5:'Phi_12'})
+                                  
+ # Generate posterior mean and 90\% interval
+from scipy.stats import bayes_mvs
+
+for i in post_df.columns:
+    print(bayes_mvs(post_df[i])[0])                          
+\end{python3code}
+
+The results of the above computations are summarized in Table \ref{post-res}. The ``closeness'' of the estimated posterior means to the OLS estimates is a consequence fact that the true posterior mean is the OLS estimator.
+
+\begin{table}[!h]
+\caption{Posterior Results}
+\begin{center}
+\begin{tabular}{lcccc}
+\hline
+          	           & Mean & Lower & Upper & OLS \\
+\midrule
+	$\Phi_{00}$ & 0.005 & 0.005  & 0.005 & 0.005  \\
+	$\Phi_{01}$ & 0.372 & 0.370  & 0.373 & 0.372 \\
+	$\Phi_{02}$ & -0.165 & -0.168 & -0.162 & -0.164 \\
+	$\Phi_{10}$ & 0.002 & 0.002 & 0.002 & 0.004 \\
+	$\Phi_{11}$  &  0.079 & 0.079 & 0.080 & 0.079 \\
+	$\Phi_{12}$  & 0.612 & 0.612 & 0.613 & 0.612 \\
+\hline
+\end{tabular}
+\end{center}
+\label{post-res}
+\end{table}
+\end{proof}
+
+\end{enumerate}
+
+
+
+
+\end{document}

@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{numpy.fft} \PYG{k+kn}{import} \PYG{n}{fft}
+
+\PYG{k}{def} \PYG{n+nf}{sample\PYGZus{}sdf}\PYG{p}{(}\PYG{n}{y}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}y is an array of time domain data}
+\PYG{l+s+sd}{    Returns w, the frequencies and f\PYGZus{}y, the sample spectral density\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{T} \PYG{o}{=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{y}\PYG{p}{)}
+    \PYG{n}{f\PYGZus{}y} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{abs}\PYG{p}{(}\PYG{n}{fft}\PYG{p}{(}\PYG{n}{y}\PYG{p}{))}\PYG{o}{**}\PYG{l+m+mi}{2}\PYG{o}{/}\PYG{n}{T}
+    \PYG{n}{w} \PYG{o}{=} \PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n}{np}\PYG{o}{.}\PYG{n}{pi}\PYG{o}{*}\PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{n}{T}\PYG{p}{)}\PYG{o}{/}\PYG{n}{T}
+    \PYG{n}{w}\PYG{p}{,} \PYG{n}{f\PYGZus{}y} \PYG{o}{=} \PYG{n}{w}\PYG{p}{[:}\PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{T}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{],} \PYG{n}{f\PYGZus{}y}\PYG{p}{[:}\PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{T}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{]}
+    \PYG{k}{return} \PYG{n}{w}\PYG{p}{,} \PYG{n}{f\PYGZus{}y}\PYG{o}{/}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{o}{*}\PYG{n}{np}\PYG{o}{.}\PYG{n}{pi}\PYG{p}{)}
+\end{Verbatim}

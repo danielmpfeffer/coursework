@@ -1,0 +1,25 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{random} \PYG{k+kn}{import} \PYG{n}{uniform}
+
+\PYG{k}{def} \PYG{n+nf}{sample}\PYG{p}{(}\PYG{n}{pi}\PYG{p}{):}
+    \PYG{n}{a} \PYG{o}{=} \PYG{l+m+mf}{0.0}
+    \PYG{n}{U} \PYG{o}{=} \PYG{n}{uniform}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{pi}\PYG{p}{)):}
+        \PYG{k}{if} \PYG{n}{a} \PYG{o}{\PYGZlt{}} \PYG{n}{U} \PYG{o}{\PYGZlt{}=} \PYG{n}{a} \PYG{o}{+} \PYG{n}{pi}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]:}
+            \PYG{k}{return} \PYG{n}{i}
+        \PYG{n}{a} \PYG{o}{+=} \PYG{n}{pi}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
+
+\PYG{k}{class} \PYG{n+nc}{MarkovChain}\PYG{p}{:}
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{p}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{,} \PYG{n}{X}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{):}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{p}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{X} \PYG{o}{=} \PYG{n}{p}\PYG{p}{,} \PYG{n}{X}
+
+    \PYG{k}{def} \PYG{n+nf}{update}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{):}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{X} \PYG{o}{=} \PYG{n}{sample}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{p}\PYG{p}{[}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{X}\PYG{p}{])}
+
+    \PYG{k}{def} \PYG{n+nf}{sample\PYGZus{}path}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{n}\PYG{p}{):}
+        \PYG{n}{path} \PYG{o}{=} \PYG{p}{[]}
+        \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{n}\PYG{p}{):}
+            \PYG{n}{path}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{X}\PYG{p}{)}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{update}\PYG{p}{()}
+        \PYG{k}{return} \PYG{n}{path}
+\end{Verbatim}

@@ -1,0 +1,29 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} VECM and VAR forecasts}
+\PYG{n}{rvecm\PYGZus{}forecast} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{vstack}\PYG{p}{([}\PYG{n}{x}\PYG{o}{.}\PYG{n}{values}\PYG{p}{,} \PYG{n}{rvecm\PYGZus{}res}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{l+m+mi}{40}\PYG{p}{)])}
+\PYG{n}{rvar\PYGZus{}forecast} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{vstack}\PYG{p}{([}\PYG{n}{x}\PYG{o}{.}\PYG{n}{values}\PYG{p}{,} \PYG{n}{rvar\PYGZus{}res}\PYG{o}{.}\PYG{n}{forecast}\PYG{p}{(}\PYG{n}{x}\PYG{o}{.}\PYG{n}{values}\PYG{p}{,} \PYG{n}{steps}\PYG{o}{=}\PYG{l+m+mi}{40}\PYG{p}{)])}
+
+\PYG{c+c1}{\PYGZsh{} Plot results}
+\PYG{n}{rx} \PYG{o}{=} \PYG{p}{[}\PYG{n}{i} \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{rvecm\PYGZus{}forecast}\PYG{p}{))]}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{10}\PYG{p}{,}\PYG{l+m+mi}{4}\PYG{p}{))}
+
+\PYG{c+c1}{\PYGZsh{} Historical data}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{rx}\PYG{p}{[:}\PYG{l+m+mi}{141}\PYG{p}{],} \PYG{n}{rvar\PYGZus{}forecast}\PYG{p}{[:}\PYG{l+m+mi}{141}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{],}  \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}GDP\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{rx}\PYG{p}{[:}\PYG{l+m+mi}{141}\PYG{p}{],} \PYG{n}{rvecm\PYGZus{}forecast}\PYG{p}{[:}\PYG{l+m+mi}{141}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Inv\PYGZsq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Investment forecasts}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{rx}\PYG{p}{[}\PYG{l+m+mi}{141}\PYG{p}{:],} \PYG{n}{rvar\PYGZus{}forecast}\PYG{p}{[}\PYG{l+m+mi}{141}\PYG{p}{:,}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{l+s+s1}{\PYGZsq{}g\PYGZhy{}\PYGZhy{}\PYGZsq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}VAR\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{rx}\PYG{p}{[}\PYG{l+m+mi}{141}\PYG{p}{:],} \PYG{n}{rvecm\PYGZus{}forecast}\PYG{p}{[}\PYG{l+m+mi}{141}\PYG{p}{:,}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{l+s+s1}{\PYGZsq{}r\PYGZhy{}\PYGZhy{}\PYGZsq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}VECM\PYGZsq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} GDP forecasts}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{rx}\PYG{p}{[}\PYG{l+m+mi}{141}\PYG{p}{:],} \PYG{n}{rvar\PYGZus{}forecast}\PYG{p}{[}\PYG{l+m+mi}{141}\PYG{p}{:,}\PYG{l+m+mi}{1}\PYG{p}{],} \PYG{l+s+s1}{\PYGZsq{}r\PYGZhy{}\PYGZhy{}\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{rx}\PYG{p}{[}\PYG{l+m+mi}{141}\PYG{p}{:],} \PYG{n}{rvecm\PYGZus{}forecast}\PYG{p}{[}\PYG{l+m+mi}{141}\PYG{p}{:,}\PYG{l+m+mi}{1}\PYG{p}{],} \PYG{l+s+s1}{\PYGZsq{}g\PYGZhy{}\PYGZhy{}\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{()}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Real GDP and Investment\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}q2\PYGZhy{}real\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

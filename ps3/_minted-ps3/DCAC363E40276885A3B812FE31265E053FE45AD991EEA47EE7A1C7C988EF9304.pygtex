@@ -1,0 +1,21 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Sample SDFs}
+\PYG{n}{w\PYGZus{}xt}\PYG{p}{,} \PYG{n}{f\PYGZus{}xt} \PYG{o}{=} \PYG{n}{sample\PYGZus{}sdf}\PYG{p}{(}\PYG{n}{xt}\PYG{p}{)}
+\PYG{n}{w\PYGZus{}zt}\PYG{p}{,} \PYG{n}{f\PYGZus{}zt} \PYG{o}{=} \PYG{n}{sample\PYGZus{}sdf}\PYG{p}{(}\PYG{n}{zt}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Uniform lag window SDFs}
+\PYG{n}{w\PYGZus{}xt\PYGZus{}unif}\PYG{p}{,} \PYG{n}{f\PYGZus{}xt\PYGZus{}unif} \PYG{o}{=} \PYG{n}{unif\PYGZus{}window}\PYG{p}{(}\PYG{n}{xt}\PYG{p}{)}
+\PYG{n}{w\PYGZus{}zt\PYGZus{}unif}\PYG{p}{,} \PYG{n}{f\PYGZus{}zt\PYGZus{}unif} \PYG{o}{=} \PYG{n}{unif\PYGZus{}window}\PYG{p}{(}\PYG{n}{zt}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Sample SDFs}
+\PYG{n}{w\PYGZus{}xt}\PYG{p}{,} \PYG{n}{f\PYGZus{}xt} \PYG{o}{=} \PYG{n}{sample\PYGZus{}sdf}\PYG{p}{(}\PYG{n}{xt}\PYG{p}{)}
+\PYG{n}{w\PYGZus{}zt}\PYG{p}{,} \PYG{n}{f\PYGZus{}zt} \PYG{o}{=} \PYG{n}{sample\PYGZus{}sdf}\PYG{p}{(}\PYG{n}{zt}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Uniform lag window SDFs}
+\PYG{n}{f\PYGZus{}xt\PYGZus{}unif} \PYG{o}{=} \PYG{n}{unif\PYGZus{}window}\PYG{p}{(}\PYG{n}{f\PYGZus{}xt}\PYG{p}{)}
+\PYG{n}{f\PYGZus{}zt\PYGZus{}unif} \PYG{o}{=} \PYG{n}{unif\PYGZus{}window}\PYG{p}{(}\PYG{n}{f\PYGZus{}zt}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Autoregressive SDF estimation}
+\PYG{n}{xt\PYGZus{}freq}\PYG{p}{,} \PYG{n}{ar\PYGZus{}sdf\PYGZus{}xt} \PYG{o}{=} \PYG{n}{ar\PYGZus{}sdf}\PYG{p}{(}\PYG{n}{xt}\PYG{p}{)}
+\PYG{n}{zt\PYGZus{}freq}\PYG{p}{,} \PYG{n}{ar\PYGZus{}sdf\PYGZus{}zt} \PYG{o}{=} \PYG{n}{ar\PYGZus{}sdf}\PYG{p}{(}\PYG{n}{zt}\PYG{p}{)}
+\end{Verbatim}

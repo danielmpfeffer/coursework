@@ -1,0 +1,22 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{statsmodels.api} \PYG{k}{as} \PYG{n+nn}{sm}
+
+\PYG{c+c1}{\PYGZsh{} Add constant}
+\PYG{n}{ts} \PYG{o}{=} \PYG{n}{sm}\PYG{o}{.}\PYG{n}{add\PYGZus{}constant}\PYG{p}{(}\PYG{n}{ts}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Add trend variable}
+\PYG{n}{ts}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}trend\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{ts}\PYG{o}{.}\PYG{n}{const}\PYG{o}{.}\PYG{n}{cumsum}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{} Log transformation}
+\PYG{n}{ts}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}y\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{log}\PYG{p}{(}\PYG{n}{ts}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}GDPC1\PYGZsq{}}\PYG{p}{])}
+
+\PYG{c+c1}{\PYGZsh{} Add lag term}
+\PYG{n}{ts}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}y\PYGZus{}lag1\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{ts}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}y\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{shift}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{} Drop first observation}
+\PYG{n}{ts} \PYG{o}{=} \PYG{n}{ts}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{:]}
+
+\PYG{c+c1}{\PYGZsh{} Fit model by OLS}
+\PYG{n}{mod} \PYG{o}{=} \PYG{n}{sm}\PYG{o}{.}\PYG{n}{OLS}\PYG{p}{(}\PYG{n}{ts}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}y\PYGZsq{}}\PYG{p}{],} \PYG{n}{ts}\PYG{p}{[[}\PYG{l+s+s1}{\PYGZsq{}const\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}trend\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}y\PYGZus{}lag1\PYGZsq{}}\PYG{p}{]])}
+\PYG{n}{res} \PYG{o}{=} \PYG{n}{mod}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{()}
+\end{Verbatim}

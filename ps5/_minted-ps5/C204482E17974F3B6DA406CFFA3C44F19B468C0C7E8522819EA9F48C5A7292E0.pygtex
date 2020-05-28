@@ -1,0 +1,43 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{numpy.random} \PYG{k+kn}{import} \PYG{n}{multivariate\PYGZus{}normal}
+
+\PYG{c+c1}{\PYGZsh{} Function to generate inverse wishart deviates}
+\PYG{k}{def} \PYG{n+nf}{inv\PYGZus{}wishart}\PYG{p}{(}\PYG{n}{df}\PYG{p}{,} \PYG{n}{S}\PYG{p}{):}
+    \PYG{n}{n} \PYG{o}{=} \PYG{n}{S}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+    \PYG{n}{Z} \PYG{o}{=} \PYG{n}{multivariate\PYGZus{}normal}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n}{n}\PYG{p}{),} \PYG{n}{np}\PYG{o}{.}\PYG{n}{linalg}\PYG{o}{.}\PYG{n}{inv}\PYG{p}{(}\PYG{n}{S}\PYG{p}{),} \PYG{n}{df}\PYG{p}{)}
+    \PYG{n}{ZTZ} \PYG{o}{=} \PYG{n}{Z}\PYG{o}{.}\PYG{n}{T} \PYG{o}{@} \PYG{n}{Z}
+    \PYG{k}{return} \PYG{n}{np}\PYG{o}{.}\PYG{n}{linalg}\PYG{o}{.}\PYG{n}{inv}\PYG{p}{(}\PYG{n}{ZTZ}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Data}
+\PYG{n}{ts} \PYG{o}{=} \PYG{n}{sm}\PYG{o}{.}\PYG{n}{add\PYGZus{}constant}\PYG{p}{(}\PYG{n}{ts}\PYG{p}{)}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{ts}\PYG{o}{.}\PYG{n}{values}
+\PYG{n}{XTX\PYGZus{}inv} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{linalg}\PYG{o}{.}\PYG{n}{inv}\PYG{p}{(}\PYG{n}{X}\PYG{o}{.}\PYG{n}{T} \PYG{o}{@} \PYG{n}{X}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Vectorize coefficient vector}
+\PYG{n}{Phi\PYGZus{}00} \PYG{o}{=} \PYG{n}{res}\PYG{o}{.}\PYG{n}{intercept}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+\PYG{n}{Phi\PYGZus{}01} \PYG{o}{=} \PYG{n}{res}\PYG{o}{.}\PYG{n}{coefs}\PYG{o}{.}\PYG{n}{flatten}\PYG{p}{()[}\PYG{l+m+mi}{0}\PYG{p}{]}
+\PYG{n}{Phi\PYGZus{}02} \PYG{o}{=} \PYG{n}{res}\PYG{o}{.}\PYG{n}{coefs}\PYG{o}{.}\PYG{n}{flatten}\PYG{p}{()[}\PYG{l+m+mi}{1}\PYG{p}{]}
+\PYG{n}{Phi\PYGZus{}10} \PYG{o}{=} \PYG{n}{res}\PYG{o}{.}\PYG{n}{intercept}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}
+\PYG{n}{Phi\PYGZus{}11} \PYG{o}{=} \PYG{n}{res}\PYG{o}{.}\PYG{n}{coefs}\PYG{o}{.}\PYG{n}{flatten}\PYG{p}{()[}\PYG{l+m+mi}{2}\PYG{p}{]}
+\PYG{n}{Phi\PYGZus{}12} \PYG{o}{=} \PYG{n}{res}\PYG{o}{.}\PYG{n}{coefs}\PYG{o}{.}\PYG{n}{flatten}\PYG{p}{()[}\PYG{l+m+mi}{3}\PYG{p}{]}
+\PYG{n}{vec\PYGZus{}Phi} \PYG{o}{=} \PYG{p}{[}\PYG{n}{Phi\PYGZus{}00}\PYG{p}{,} \PYG{n}{Phi\PYGZus{}01}\PYG{p}{,} \PYG{n}{Phi\PYGZus{}02}\PYG{p}{,} \PYG{n}{Phi\PYGZus{}10}\PYG{p}{,} \PYG{n}{Phi\PYGZus{}11}\PYG{p}{,} \PYG{n}{Phi\PYGZus{}12}\PYG{p}{]}
+
+\PYG{c+c1}{\PYGZsh{} Direct sampling from MNIW}
+\PYG{n}{N} \PYG{o}{=} \PYG{l+m+mi}{100}
+\PYG{n}{post} \PYG{o}{=} \PYG{p}{[]}
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{N}\PYG{p}{):}
+    \PYG{n}{S\PYGZus{}iw} \PYG{o}{=} \PYG{n}{inv\PYGZus{}wishart}\PYG{p}{(}\PYG{n}{df}\PYG{o}{=}\PYG{l+m+mi}{137}\PYG{p}{,} \PYG{n}{S}\PYG{o}{=}\PYG{n}{S\PYGZus{}hat}\PYG{p}{)}
+    \PYG{n}{S\PYGZus{}mn} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{kron}\PYG{p}{(}\PYG{n}{S\PYGZus{}iw}\PYG{p}{,} \PYG{n}{XTX\PYGZus{}inv}\PYG{p}{)}
+    \PYG{n}{post}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{multivariate\PYGZus{}normal}\PYG{p}{(}\PYG{n}{vec\PYGZus{}Phi}\PYG{p}{,} \PYG{n}{S\PYGZus{}mn}\PYG{p}{)}\PYG{o}{.}\PYG{n}{tolist}\PYG{p}{())}
+
+\PYG{c+c1}{\PYGZsh{} Save posterior sample}
+\PYG{n}{post\PYGZus{}df} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n}{post}\PYG{p}{))}
+\PYG{n}{post\PYGZus{}df} \PYG{o}{=} \PYG{n}{post\PYGZus{}df}\PYG{o}{.}\PYG{n}{rename}\PYG{p}{(}\PYG{n}{columns}\PYG{o}{=}\PYG{p}{\PYGZob{}}\PYG{l+m+mi}{0}\PYG{p}{:}\PYG{l+s+s1}{\PYGZsq{}Phi\PYGZus{}00\PYGZsq{}}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{:}\PYG{l+s+s1}{\PYGZsq{}Phi\PYGZus{}01\PYGZsq{}}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{:}\PYG{l+s+s1}{\PYGZsq{}Phi\PYGZus{}02\PYGZsq{}}\PYG{p}{,}
+                                  \PYG{l+m+mi}{3}\PYG{p}{:}\PYG{l+s+s1}{\PYGZsq{}Phi\PYGZus{}10\PYGZsq{}}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{:}\PYG{l+s+s1}{\PYGZsq{}Phi\PYGZus{}11\PYGZsq{}}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{:}\PYG{l+s+s1}{\PYGZsq{}Phi\PYGZus{}12\PYGZsq{}}\PYG{p}{\PYGZcb{})}
+
+ \PYG{c+c1}{\PYGZsh{} Generate posterior mean and 90\PYGZbs{}\PYGZpc{} interval}
+\PYG{k+kn}{from} \PYG{n+nn}{scipy.stats} \PYG{k+kn}{import} \PYG{n}{bayes\PYGZus{}mvs}
+
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n}{post\PYGZus{}df}\PYG{o}{.}\PYG{n}{columns}\PYG{p}{:}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{bayes\PYGZus{}mvs}\PYG{p}{(}\PYG{n}{post\PYGZus{}df}\PYG{p}{[}\PYG{n}{i}\PYG{p}{])[}\PYG{l+m+mi}{0}\PYG{p}{])}
+\end{Verbatim}

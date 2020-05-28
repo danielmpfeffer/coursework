@@ -1,0 +1,19 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{import} \PYG{n+nn}{pandas} \PYG{k}{as} \PYG{n+nn}{pd}
+\PYG{k+kn}{import} \PYG{n+nn}{statsmodels.api} \PYG{k}{as} \PYG{n+nn}{sm}
+\PYG{k+kn}{from} \PYG{n+nn}{statsmodels.tsa.api} \PYG{k+kn}{import} \PYG{n}{VAR}
+
+\PYG{n}{gdp} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}GDPC1.csv\PYGZsq{}}\PYG{p}{,} \PYG{n}{index\PYGZus{}col}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}DATE\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{infl} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}GDPDEF.csv\PYGZsq{}}\PYG{p}{,} \PYG{n}{index\PYGZus{}col}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}DATE\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n}{ts} \PYG{o}{=} \PYG{n}{gdp}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{infl}\PYG{p}{,} \PYG{n}{how}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}outer\PYGZsq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Convert to growth rates}
+\PYG{n}{ts} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{log}\PYG{p}{(}\PYG{n}{ts}\PYG{p}{)}\PYG{o}{.}\PYG{n}{diff}\PYG{p}{(}\PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+\PYG{n}{ts} \PYG{o}{=} \PYG{n}{ts}\PYG{o}{.}\PYG{n}{rename}\PYG{p}{(}\PYG{n}{columns}\PYG{o}{=}\PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}GDPC1\PYGZsq{}}\PYG{p}{:}\PYG{l+s+s1}{\PYGZsq{}gdp\PYGZus{}growth\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}GDPDEF\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}infl\PYGZus{}growth\PYGZsq{}}\PYG{p}{\PYGZcb{})}
+\PYG{n}{ts} \PYG{o}{=} \PYG{n}{ts}\PYG{o}{.}\PYG{n}{dropna}\PYG{p}{()}
+
+\PYG{n}{mod} \PYG{o}{=} \PYG{n}{VAR}\PYG{p}{(}\PYG{n}{ts}\PYG{p}{)}
+\PYG{n}{res} \PYG{o}{=} \PYG{n}{mod}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{maxlags}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+\end{Verbatim}

@@ -1,0 +1,19 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Quarterly U.S. real GDP and real investment from the FRED}
+\PYG{n}{ts} \PYG{o}{=} \PYG{n}{web}\PYG{o}{.}\PYG{n}{DataReader}\PYG{p}{([}\PYG{l+s+s1}{\PYGZsq{}GPDIC1\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}GDPC1\PYGZsq{}}\PYG{p}{],} \PYG{l+s+s1}{\PYGZsq{}fred\PYGZsq{}}\PYG{p}{,} \PYG{n}{start}\PYG{p}{,} \PYG{n}{end}\PYG{p}{)}
+
+\PYG{n}{x} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}log\PYGZus{}inv\PYGZsq{}}\PYG{p}{:} \PYG{n}{np}\PYG{o}{.}\PYG{n}{log}\PYG{p}{(}\PYG{n}{ts}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}GPDIC1\PYGZsq{}}\PYG{p}{]),}
+                  \PYG{l+s+s1}{\PYGZsq{}log\PYGZus{}gdp\PYGZsq{}}\PYG{p}{:}\PYG{n}{np}\PYG{o}{.}\PYG{n}{log}\PYG{p}{(}\PYG{n}{ts}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}GDPC1\PYGZsq{}}\PYG{p}{])\PYGZcb{})}
+
+\PYG{c+c1}{\PYGZsh{} Plot data}
+\PYG{n}{fig}\PYG{p}{,} \PYG{p}{(}\PYG{n}{ax1}\PYG{p}{,} \PYG{n}{ax2}\PYG{p}{)} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplots}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{10}\PYG{p}{,}\PYG{l+m+mi}{4}\PYG{p}{))}
+
+\PYG{n}{ax1}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}log\PYGZus{}gdp\PYGZsq{}}\PYG{p}{],} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Log GDP\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{ax1}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}log\PYGZus{}inv\PYGZsq{}}\PYG{p}{],} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Log Investment\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{ax1}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{()}
+
+\PYG{n}{ax2}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}log\PYGZus{}inv\PYGZsq{}}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{n}{x}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}log\PYGZus{}gdp\PYGZsq{}}\PYG{p}{],} \PYG{l+s+s1}{\PYGZsq{}k\PYGZsq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Log Investment\PYGZhy{}GDP Ratio\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{ax2}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{()}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

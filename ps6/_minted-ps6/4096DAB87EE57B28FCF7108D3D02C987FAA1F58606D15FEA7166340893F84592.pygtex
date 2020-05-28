@@ -1,0 +1,19 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k}{as} \PYG{n+nn}{plt}
+\PYG{k+kn}{import} \PYG{n+nn}{pandas\PYGZus{}datareader.data} \PYG{k}{as} \PYG{n+nn}{web}
+\PYG{k+kn}{import} \PYG{n+nn}{datetime}
+
+\PYG{c+c1}{\PYGZsh{} Query data}
+\PYG{n}{start} \PYG{o}{=} \PYG{n}{datetime}\PYG{o}{.}\PYG{n}{datetime}\PYG{p}{(}\PYG{l+m+mi}{1984}\PYG{p}{,} \PYG{l+m+mi}{10}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n}{end} \PYG{o}{=} \PYG{n}{datetime}\PYG{o}{.}\PYG{n}{datetime}\PYG{p}{(}\PYG{l+m+mi}{2015}\PYG{p}{,} \PYG{l+m+mi}{12}\PYG{p}{,} \PYG{l+m+mi}{31}\PYG{p}{)}
+\PYG{n}{ts} \PYG{o}{=} \PYG{n}{web}\PYG{o}{.}\PYG{n}{DataReader}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}GDPC1\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}fred\PYGZsq{}}\PYG{p}{,} \PYG{n}{start}\PYG{p}{,} \PYG{n}{end}\PYG{p}{)}
+\PYG{n}{ts} \PYG{o}{=} \PYG{l+m+mi}{4}\PYG{o}{*}\PYG{n}{np}\PYG{o}{.}\PYG{n}{log}\PYG{p}{(}\PYG{n}{ts}\PYG{p}{)}\PYG{o}{.}\PYG{n}{diff}\PYG{p}{()}\PYG{o}{.}\PYG{n}{dropna}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{} Plot data}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{9}\PYG{p}{,}\PYG{l+m+mi}{6}\PYG{p}{))}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{ts}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}GDP Growth\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Annualized Quarter\PYGZhy{}on\PYGZhy{}Quarter GDP Growth Rates\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

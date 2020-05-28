@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{import} \PYG{n+nn}{pandas} \PYG{k}{as} \PYG{n+nn}{pd}
+\PYG{k+kn}{import} \PYG{n+nn}{pandas\PYGZus{}datareader.data} \PYG{k}{as} \PYG{n+nn}{web}
+\PYG{k+kn}{import} \PYG{n+nn}{datetime}
+
+\PYG{c+c1}{\PYGZsh{} 1985:Q1 to 2019:Q4}
+\PYG{n}{start} \PYG{o}{=} \PYG{n}{datetime}\PYG{o}{.}\PYG{n}{datetime}\PYG{p}{(}\PYG{l+m+mi}{1985}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n}{end} \PYG{o}{=} \PYG{n}{datetime}\PYG{o}{.}\PYG{n}{datetime}\PYG{p}{(}\PYG{l+m+mi}{2019}\PYG{p}{,} \PYG{l+m+mi}{12}\PYG{p}{,} \PYG{l+m+mi}{31}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Quarterly U.S. real GDP from the FRED}
+\PYG{n}{ts} \PYG{o}{=} \PYG{n}{web}\PYG{o}{.}\PYG{n}{DataReader}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}GDPC1\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}fred\PYGZsq{}}\PYG{p}{,} \PYG{n}{start}\PYG{p}{,} \PYG{n}{end}\PYG{p}{)}
+\end{Verbatim}
