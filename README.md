@@ -1,1 +1,1 @@
-# phd-time-series
+Ph.d Time Series Coursework
