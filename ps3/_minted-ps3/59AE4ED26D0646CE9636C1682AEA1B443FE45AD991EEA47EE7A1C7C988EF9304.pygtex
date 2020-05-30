@@ -1,0 +1,56 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{sample\PYGZus{}sdf}\PYG{p}{(}\PYG{n}{y}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}y is an array of time domain data}
+\PYG{l+s+sd}{    Returns w, the frequencies and f\PYGZus{}y, the sample spectral density\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{T} \PYG{o}{=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{y}\PYG{p}{)}
+    \PYG{k+kn}{from} \PYG{n+nn}{numpy.fft} \PYG{k+kn}{import} \PYG{n}{fft}
+    \PYG{n}{f\PYGZus{}y} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{abs}\PYG{p}{(}\PYG{n}{fft}\PYG{p}{(}\PYG{n}{y}\PYG{p}{))}\PYG{o}{**}\PYG{l+m+mi}{2}\PYG{o}{/}\PYG{n}{T}
+    \PYG{n}{w} \PYG{o}{=} \PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n}{np}\PYG{o}{.}\PYG{n}{pi}\PYG{o}{*}\PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{n}{T}\PYG{p}{)}\PYG{o}{/}\PYG{n}{T}
+    \PYG{n}{w}\PYG{p}{,} \PYG{n}{f\PYGZus{}y} \PYG{o}{=} \PYG{n}{w}\PYG{p}{[:}\PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{T}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{],} \PYG{n}{f\PYGZus{}y}\PYG{p}{[:}\PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{T}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{]}
+    \PYG{k}{return} \PYG{n}{w}\PYG{p}{,} \PYG{n}{f\PYGZus{}y}\PYG{o}{/}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{o}{*}\PYG{n}{np}\PYG{o}{.}\PYG{n}{pi}\PYG{p}{)}
+
+\PYG{k}{def} \PYG{n+nf}{unif\PYGZus{}window}\PYG{p}{(}\PYG{n}{f}\PYG{p}{,} \PYG{n}{trunc\PYGZus{}lag}\PYG{o}{=}\PYG{l+m+mi}{10}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}f is the sample spectral density}
+\PYG{l+s+sd}{    Return the uniform lag window sample spectral density\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{j} \PYG{o}{=} \PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{trunc\PYGZus{}lag}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{p}{)}
+    \PYG{n}{fb} \PYG{o}{=} \PYG{n}{f}\PYG{p}{[:}\PYG{n}{j}\PYG{p}{]}
+    \PYG{n}{ft} \PYG{o}{=} \PYG{n}{f}\PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{n}{j}\PYG{p}{:]}
+    \PYG{n}{s} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{concatenate}\PYG{p}{((}\PYG{n}{fb}\PYG{p}{[::}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{],} \PYG{n}{f}\PYG{p}{,} \PYG{n}{ft}\PYG{p}{[::}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]))}
+    \PYG{n}{window} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{ones}\PYG{p}{(}\PYG{n}{trunc\PYGZus{}lag}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{np}\PYG{o}{.}\PYG{n}{convolve}\PYG{p}{(}\PYG{n}{window}\PYG{o}{/}\PYG{n}{window}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{(),} \PYG{n}{s}\PYG{p}{,} \PYG{n}{mode}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}valid\PYGZsq{}}\PYG{p}{)}
+
+\PYG{k}{def} \PYG{n+nf}{ar\PYGZus{}sdf}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{max\PYGZus{}lag}\PYG{o}{=}\PYG{l+m+mi}{15}\PYG{p}{,} \PYG{n}{i\PYGZus{}c}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}bic\PYGZsq{}}\PYG{p}{,} \PYG{n}{cst}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}n\PYGZsq{}}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}y is an array of time domain data}
+\PYG{l+s+sd}{    Returns w, the frequencies and ar\PYGZus{}sdf, the ar sample spectral density\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{k+kn}{from} \PYG{n+nn}{statsmodels.tsa.ar\PYGZus{}model} \PYG{k+kn}{import} \PYG{n}{ar\PYGZus{}select\PYGZus{}order}
+    \PYG{n}{sel} \PYG{o}{=} \PYG{n}{ar\PYGZus{}select\PYGZus{}order}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{maxlag}\PYG{o}{=}\PYG{n}{max\PYGZus{}lag}\PYG{p}{,} \PYG{n}{ic}\PYG{o}{=}\PYG{n}{i\PYGZus{}c}\PYG{p}{,} \PYG{n}{trend}\PYG{o}{=}\PYG{n}{cst}\PYG{p}{)}
+    \PYG{n}{res} \PYG{o}{=} \PYG{n}{sel}\PYG{o}{.}\PYG{n}{model}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{()}
+    \PYG{n}{ar\PYGZus{}poly} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{insert}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{n}{res}\PYG{o}{.}\PYG{n}{params}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{k+kn}{from} \PYG{n+nn}{scipy.signal} \PYG{k+kn}{import} \PYG{n}{freqz}
+    \PYG{n}{w}\PYG{p}{,} \PYG{n}{b\PYGZus{}fft} \PYG{o}{=} \PYG{n}{freqz}\PYG{p}{(}\PYG{n}{b}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{a}\PYG{o}{=}\PYG{n}{ar\PYGZus{}poly}\PYG{p}{,} \PYG{n}{worN}\PYG{o}{=}\PYG{n+nb}{int}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{y}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{n}{ar\PYGZus{}sdf} \PYG{o}{=} \PYG{n}{res}\PYG{o}{.}\PYG{n}{sigma2}\PYG{o}{*}\PYG{n}{np}\PYG{o}{.}\PYG{n}{abs}\PYG{p}{(}\PYG{n}{b\PYGZus{}fft}\PYG{p}{)}\PYG{o}{**}\PYG{l+m+mi}{2}\PYG{o}{/}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{o}{*}\PYG{n}{np}\PYG{o}{.}\PYG{n}{pi}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{w}\PYG{p}{,} \PYG{n}{ar\PYGZus{}sdf}
+
+\PYG{c+c1}{\PYGZsh{} Sample, Uniform lag window, and  autoregressive, SDFs for y1}
+\PYG{n}{w\PYGZus{}y1}\PYG{p}{,} \PYG{n}{f\PYGZus{}y1} \PYG{o}{=} \PYG{n}{sample\PYGZus{}sdf}\PYG{p}{(}\PYG{n}{y1}\PYG{p}{)}
+\PYG{n}{w\PYGZus{}y1\PYGZus{}unif}\PYG{p}{,} \PYG{n}{f\PYGZus{}y1\PYGZus{}unif} \PYG{o}{=} \PYG{n}{unif\PYGZus{}window}\PYG{p}{(}\PYG{n}{f\PYGZus{}y1}\PYG{p}{)}
+\PYG{n}{ar\PYGZus{}freq\PYGZus{}y1}\PYG{p}{,} \PYG{n}{b\PYGZus{}fft\PYGZus{}y1} \PYG{o}{=} \PYG{n}{ar\PYGZus{}sdf}\PYG{p}{(}\PYG{n}{y1}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Plot results}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{12}\PYG{p}{,}\PYG{l+m+mi}{4}\PYG{p}{))}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{131}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{w\PYGZus{}y1}\PYG{p}{,} \PYG{n}{f\PYGZus{}y1}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Sample Spectral Density\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{132}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{w\PYGZus{}y1}\PYG{p}{,} \PYG{n}{f\PYGZus{}y1\PYGZus{}unif}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{:])}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Uniform Window Spectral Density\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{133}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{ar\PYGZus{}freq\PYGZus{}y1}\PYG{p}{,} \PYG{n}{ar\PYGZus{}sdf\PYGZus{}y1}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}AR Spectral Density\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{tight\PYGZus{}layout}\PYG{p}{()}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

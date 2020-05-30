@@ -1,0 +1,47 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} First difference and moving average (lag 3) filter}
+\PYG{n}{xt} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{diff}\PYG{p}{(}\PYG{n}{y1}\PYG{p}{)}
+\PYG{n}{zt} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{convolve}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{ones}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{y1}\PYG{p}{,} \PYG{n}{mode}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}valid\PYGZsq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Sample SDFs}
+\PYG{n}{w\PYGZus{}xt}\PYG{p}{,} \PYG{n}{f\PYGZus{}xt} \PYG{o}{=} \PYG{n}{sample\PYGZus{}sdf}\PYG{p}{(}\PYG{n}{xt}\PYG{p}{)}
+\PYG{n}{w\PYGZus{}zt}\PYG{p}{,} \PYG{n}{f\PYGZus{}zt} \PYG{o}{=} \PYG{n}{sample\PYGZus{}sdf}\PYG{p}{(}\PYG{n}{zt}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Uniform lag window SDFs}
+\PYG{n}{w\PYGZus{}xt\PYGZus{}unif}\PYG{p}{,} \PYG{n}{f\PYGZus{}xt\PYGZus{}unif} \PYG{o}{=} \PYG{n}{unif\PYGZus{}window}\PYG{p}{(}\PYG{n}{xt}\PYG{p}{)}
+\PYG{n}{w\PYGZus{}zt\PYGZus{}unif}\PYG{p}{,} \PYG{n}{f\PYGZus{}zt\PYGZus{}unif} \PYG{o}{=} \PYG{n}{unif\PYGZus{}window}\PYG{p}{(}\PYG{n}{zt}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Sample SDFs}
+\PYG{n}{w\PYGZus{}xt}\PYG{p}{,} \PYG{n}{f\PYGZus{}xt} \PYG{o}{=} \PYG{n}{sample\PYGZus{}sdf}\PYG{p}{(}\PYG{n}{xt}\PYG{p}{)}
+\PYG{n}{w\PYGZus{}zt}\PYG{p}{,} \PYG{n}{f\PYGZus{}zt} \PYG{o}{=} \PYG{n}{sample\PYGZus{}sdf}\PYG{p}{(}\PYG{n}{zt}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Uniform lag window SDFs}
+\PYG{n}{f\PYGZus{}xt\PYGZus{}unif} \PYG{o}{=} \PYG{n}{unif\PYGZus{}window}\PYG{p}{(}\PYG{n}{f\PYGZus{}xt}\PYG{p}{)}
+\PYG{n}{f\PYGZus{}zt\PYGZus{}unif} \PYG{o}{=} \PYG{n}{unif\PYGZus{}window}\PYG{p}{(}\PYG{n}{f\PYGZus{}zt}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Autoregressive SDF estimation}
+\PYG{n}{xt\PYGZus{}freq}\PYG{p}{,} \PYG{n}{ar\PYGZus{}sdf\PYGZus{}xt} \PYG{o}{=} \PYG{n}{ar\PYGZus{}sdf}\PYG{p}{(}\PYG{n}{xt}\PYG{p}{)}
+\PYG{n}{zt\PYGZus{}freq}\PYG{p}{,} \PYG{n}{ar\PYGZus{}sdf\PYGZus{}zt} \PYG{o}{=} \PYG{n}{ar\PYGZus{}sdf}\PYG{p}{(}\PYG{n}{zt}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Plot results}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{12}\PYG{p}{,}\PYG{l+m+mi}{4}\PYG{p}{))}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{131}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{w\PYGZus{}xt}\PYG{p}{,} \PYG{n}{f\PYGZus{}xt}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}\PYGZdl{}x\PYGZus{}t\PYGZdl{}\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{w\PYGZus{}zt}\PYG{p}{,} \PYG{n}{f\PYGZus{}zt}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}\PYGZdl{}z\PYGZus{}t\PYGZdl{}\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{()}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Sample Spectral Densities\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{132}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{w\PYGZus{}xt}\PYG{p}{,} \PYG{n}{f\PYGZus{}xt\PYGZus{}unif}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{:],} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}\PYGZdl{}x\PYGZus{}t\PYGZdl{}\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{w\PYGZus{}zt}\PYG{p}{,} \PYG{n}{f\PYGZus{}zt\PYGZus{}unif}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{:],} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}\PYGZdl{}z\PYGZus{}t\PYGZdl{}\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Uniform Window Spectral Densities\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{133}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{xt\PYGZus{}freq}\PYG{p}{,} \PYG{n}{ar\PYGZus{}sdf\PYGZus{}xt}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}\PYGZdl{}x\PYGZus{}t\PYGZdl{}\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{zt\PYGZus{}freq}\PYG{p}{,} \PYG{n}{ar\PYGZus{}sdf\PYGZus{}zt}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}\PYGZdl{}z\PYGZus{}t\PYGZdl{}\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Implied AR Spectral Densities\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{tight\PYGZus{}layout}\PYG{p}{()}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

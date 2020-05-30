@@ -1,0 +1,112 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k}{as} \PYG{n+nn}{plt}
+\PYG{k+kn}{from} \PYG{n+nn}{statsmodels.tsa.api} \PYG{k+kn}{import} \PYG{n}{VAR}
+\PYG{k+kn}{from} \PYG{n+nn}{numpy.fft} \PYG{k+kn}{import} \PYG{n}{fft}
+\PYG{k+kn}{import} \PYG{n+nn}{pandas\PYGZus{}datareader.data} \PYG{k}{as} \PYG{n+nn}{web}
+\PYG{k+kn}{import} \PYG{n+nn}{datetime}
+
+\PYG{c+c1}{\PYGZsh{} 1984:Q1 to 2015:Q4}
+\PYG{n}{start} \PYG{o}{=} \PYG{n}{datetime}\PYG{o}{.}\PYG{n}{datetime}\PYG{p}{(}\PYG{l+m+mi}{1970}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n}{end} \PYG{o}{=} \PYG{n}{datetime}\PYG{o}{.}\PYG{n}{datetime}\PYG{p}{(}\PYG{l+m+mi}{2020}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Quarterly U.S. real GDP from the FRED}
+\PYG{n}{ts} \PYG{o}{=} \PYG{n}{web}\PYG{o}{.}\PYG{n}{DataReader}\PYG{p}{([}\PYG{l+s+s1}{\PYGZsq{}HOUST\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}COMPUTSA\PYGZsq{}}\PYG{p}{],} \PYG{l+s+s1}{\PYGZsq{}fred\PYGZsq{}}\PYG{p}{,} \PYG{n}{start}\PYG{p}{,} \PYG{n}{end}\PYG{p}{)}
+\PYG{n}{ts} \PYG{o}{=} \PYG{n}{ts}\PYG{o}{.}\PYG{n}{rename}\PYG{p}{(}\PYG{n}{columns}\PYG{o}{=}\PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}HOUST\PYGZsq{}}\PYG{p}{:}\PYG{l+s+s1}{\PYGZsq{}starts\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}COMPUTSA\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}completions\PYGZsq{}}\PYG{p}{\PYGZcb{})}
+
+\PYG{c+c1}{\PYGZsh{} Plot series}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{9}\PYG{p}{,}\PYG{l+m+mi}{6}\PYG{p}{))}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{ts}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}starts\PYGZsq{}}\PYG{p}{],} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Starts\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{ts}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}completions\PYGZsq{}}\PYG{p}{],} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Completions\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Date\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Thousands of Units\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Housing Starts and Completions\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{()}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}plot\PYGZhy{}series\PYGZsq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Estimate VAR(4)}
+\PYG{n}{mod} \PYG{o}{=} \PYG{n}{VAR}\PYG{p}{(}\PYG{n}{ts}\PYG{p}{[:}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{12}\PYG{p}{][[}\PYG{l+s+s1}{\PYGZsq{}starts\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}completions\PYGZsq{}}\PYG{p}{]],} \PYG{n}{freq}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}MS\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{res} \PYG{o}{=} \PYG{n}{mod}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{maxlags}\PYG{o}{=}\PYG{l+m+mi}{4}\PYG{p}{,} \PYG{n}{trend}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}n\PYGZsq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{res}\PYG{o}{.}\PYG{n}{summary}\PYG{p}{())}
+
+\PYG{n}{h} \PYG{o}{=} \PYG{l+m+mi}{40}
+\PYG{n}{starts\PYGZus{}acf}\PYG{p}{,} \PYG{n}{completions\PYGZus{}acf}\PYG{p}{,} \PYG{n}{starts\PYGZus{}ccf}\PYG{p}{,} \PYG{n}{completions\PYGZus{}ccf} \PYG{o}{=} \PYG{p}{[],} \PYG{p}{[],} \PYG{p}{[],} \PYG{p}{[]}
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{h}\PYG{p}{):}
+    \PYG{n}{starts\PYGZus{}acf}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{res}\PYG{o}{.}\PYG{n}{acorr}\PYG{p}{(}\PYG{n}{h}\PYG{p}{)[}\PYG{n}{i}\PYG{p}{][}\PYG{l+m+mi}{0}\PYG{p}{][}\PYG{l+m+mi}{0}\PYG{p}{])}
+    \PYG{n}{completions\PYGZus{}acf}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{res}\PYG{o}{.}\PYG{n}{acorr}\PYG{p}{(}\PYG{n}{h}\PYG{p}{)[}\PYG{n}{i}\PYG{p}{][}\PYG{l+m+mi}{1}\PYG{p}{][}\PYG{l+m+mi}{1}\PYG{p}{])}
+    \PYG{n}{starts\PYGZus{}ccf}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{res}\PYG{o}{.}\PYG{n}{acorr}\PYG{p}{(}\PYG{n}{h}\PYG{p}{)[}\PYG{n}{i}\PYG{p}{][}\PYG{l+m+mi}{0}\PYG{p}{][}\PYG{l+m+mi}{1}\PYG{p}{])}
+    \PYG{n}{completions\PYGZus{}ccf}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{res}\PYG{o}{.}\PYG{n}{acorr}\PYG{p}{(}\PYG{n}{h}\PYG{p}{)[}\PYG{n}{i}\PYG{p}{][}\PYG{l+m+mi}{1}\PYG{p}{][}\PYG{l+m+mi}{0}\PYG{p}{])}
+
+
+\PYG{n}{x} \PYG{o}{=} \PYG{n+nb}{list}\PYG{p}{(}\PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{h}\PYG{p}{))}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{10}\PYG{p}{,}\PYG{l+m+mi}{8}\PYG{p}{))}
+
+\PYG{n}{ax1} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{221}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{starts\PYGZus{}acf}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Starts on Starts\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n}{ax2} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{222}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{starts\PYGZus{}ccf}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Starts on Completions\PYGZsq{}}\PYG{p}{)}
+
+
+\PYG{n}{ax3} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{223}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{completions\PYGZus{}acf}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Completions on Completions\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n}{ax4} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{224}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{completions\PYGZus{}ccf}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Completions on Starts\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}acf\PYGZhy{}plots\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n}{starts} \PYG{o}{=} \PYG{n}{ts}\PYG{p}{[:}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{12}\PYG{p}{][}\PYG{l+s+s1}{\PYGZsq{}starts\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{values}
+\PYG{n}{completions} \PYG{o}{=} \PYG{n}{ts}\PYG{p}{[:}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{12}\PYG{p}{][}\PYG{l+s+s1}{\PYGZsq{}completions\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{values}
+
+\PYG{c+c1}{\PYGZsh{} Plot SDFs}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{12}\PYG{p}{,}\PYG{l+m+mi}{4}\PYG{p}{))}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{131}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{psd}\PYG{p}{(}\PYG{n}{starts}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Starts SDF\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{grid}\PYG{p}{(}\PYG{k+kc}{False}\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{132}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{psd}\PYG{p}{(}\PYG{n}{completions}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Completions SDF\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{grid}\PYG{p}{(}\PYG{k+kc}{False}\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{133}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{cohere}\PYG{p}{(}\PYG{n}{starts}\PYG{p}{,} \PYG{n}{completions}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Coherence\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{grid}\PYG{p}{(}\PYG{k+kc}{False}\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{tight\PYGZus{}layout}\PYG{p}{()}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}sdf\PYGZsq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Granger causality}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{res}\PYG{o}{.}\PYG{n}{test\PYGZus{}causality}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}completions\PYGZsq{}}\PYG{p}{,} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}starts\PYGZsq{}}\PYG{p}{])}\PYG{o}{.}\PYG{n}{summary}\PYG{p}{())}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{res}\PYG{o}{.}\PYG{n}{test\PYGZus{}causality}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}starts\PYGZsq{}}\PYG{p}{,} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}completions\PYGZsq{}}\PYG{p}{])}\PYG{o}{.}\PYG{n}{summary}\PYG{p}{())}
+
+\PYG{c+c1}{\PYGZsh{} IRFs and FEVDs}
+\PYG{n}{irf} \PYG{o}{=} \PYG{n}{res}\PYG{o}{.}\PYG{n}{irf}\PYG{p}{()}
+\PYG{n}{res}\PYG{o}{.}\PYG{n}{fevd}\PYG{p}{()}\PYG{o}{.}\PYG{n}{summary}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{} Plot IRFs}
+\PYG{n}{irf}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{orth}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{tight\PYGZus{}layout}\PYG{p}{()}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}irf\PYGZsq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Plot forecast}
+\PYG{n}{res}\PYG{o}{.}\PYG{n}{plot\PYGZus{}forecast}\PYG{p}{(}\PYG{n}{steps}\PYG{o}{=}\PYG{l+m+mi}{12}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{tight\PYGZus{}layout}\PYG{p}{()}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}forecast\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}
