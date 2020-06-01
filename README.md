@@ -1,10 +1,10 @@
 # Ph.d Time Series Coursework
 
-[Problem Set 1](https://github.com/danielmpfeffer/phd-time-series/blob/master/ps1/ps1.pdf)
-[Problem Set 2](https://github.com/danielmpfeffer/phd-time-series/blob/master/ps2/ps2.pdf)
-[Problem Set 3](https://github.com/danielmpfeffer/phd-time-series/blob/master/ps3/ps3.pdf)
-[Problem Set 4](https://github.com/danielmpfeffer/phd-time-series/blob/master/ps4/ps4.pdf)
-[Problem Set 5](https://github.com/danielmpfeffer/phd-time-series/blob/master/ps5/ps5.pdf)
-[Problem Set 6](https://github.com/danielmpfeffer/phd-time-series/blob/master/ps6/ps6.pdf)
-[Problem Set 7](https://github.com/danielmpfeffer/phd-time-series/blob/master/ps7/ps7.pdf)
-[Problem Set 8](https://github.com/danielmpfeffer/phd-time-series/blob/master/ps8/ps8.pdf)
+* [Problem Set 1](https://github.com/danielmpfeffer/phd-time-series/blob/master/ps1/ps1.pdf)
+* [Problem Set 2](https://github.com/danielmpfeffer/phd-time-series/blob/master/ps2/ps2.pdf)
+* [Problem Set 3](https://github.com/danielmpfeffer/phd-time-series/blob/master/ps3/ps3.pdf)
+* [Problem Set 4](https://github.com/danielmpfeffer/phd-time-series/blob/master/ps4/ps4.pdf)
+* [Problem Set 5](https://github.com/danielmpfeffer/phd-time-series/blob/master/ps5/ps5.pdf)
+* [Problem Set 6](https://github.com/danielmpfeffer/phd-time-series/blob/master/ps6/ps6.pdf)
+* [Problem Set 7](https://github.com/danielmpfeffer/phd-time-series/blob/master/ps7/ps7.pdf)
+* [Problem Set 8](https://github.com/danielmpfeffer/phd-time-series/blob/master/ps8/ps8.pdf)
