@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.15)  27 MAY 2020 15:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.15)  31 MAY 2020 22:11
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -713,13 +713,13 @@ File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
 \openout4 = `ps8.pyg'.
 
 
-(./_minted-ps8/6C0A85E9568FB6E59D0EB89897433A421273D86B014398F45A08171665A89CD5
+(./_minted-ps8/8B3139FB27835C84418DBEA910AB575B1273D86B014398F45A08171665A89CD5
 .pygtex [3])
-<q1-sim.png, id=30, 722.7pt x 578.16pt>
+<q1-sim.png, id=30, 722.7pt x 289.08pt>
 File: q1-sim.png Graphic file (type png)
 <use q1-sim.png>
 Package pdftex.def Info: q1-sim.png  used on input line 254.
-(pdftex.def)             Requested size: 469.755pt x 375.80836pt.
+(pdftex.def)             Requested size: 469.755pt x 187.90417pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -759,8 +759,8 @@ Package pdftex.def Info: q2-nominal.png  used on input line 478.
 
 
 (./_minted-ps8/98D895CC33DF4A470638508FC189034E1273D86B014398F45A08171665A89CD5
-.pygtex [9])
-<real-macro-series.png, id=59, 722.7pt x 289.08pt>
+.pygtex [9 <./q2-nominal.png>])
+<real-macro-series.png, id=60, 722.7pt x 289.08pt>
 File: real-macro-series.png Graphic file (type png)
 <use real-macro-series.png>
 Package pdftex.def Info: real-macro-series.png  used on input line 513.
@@ -769,10 +769,10 @@ Package pdftex.def Info: real-macro-series.png  used on input line 513.
 
 
 (./_minted-ps8/387FCD2C2329290C79D1F3A690ECF6151273D86B014398F45A08171665A89CD5
-.pygtex)
-Underfull \vbox (badness 10000) has occurred while \output is active []
+.pygtex
+Underfull \vbox (badness 1931) has occurred while \output is active []
 
- [10 <./q2-nominal.png>]
+ [10 <./real-macro-series.png>])
 \openout4 = `ps8.pyg'.
 
 
@@ -781,25 +781,25 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 \openout4 = `ps8.pyg'.
 
 
-(./_minted-ps8/588C1F87D8478DF4CB50375FF515A7E61273D86B014398F45A08171665A89CD5
-.pygtex [11 <./real-macro-series.png>])
+(./_minted-ps8/14CB1A4FF7B7DF99AC4C62E3730631751273D86B014398F45A08171665A89CD5
+.pygtex [11])
 <q2-real.png, id=68, 722.7pt x 289.08pt>
 File: q2-real.png Graphic file (type png)
 <use q2-real.png>
-Package pdftex.def Info: q2-real.png  used on input line 630.
+Package pdftex.def Info: q2-real.png  used on input line 628.
 (pdftex.def)             Requested size: 469.755pt x 187.90417pt.
- [12] [13 <./q2-real.png>] (./ps8.aux)
+ [12 <./q2-real.png>] (./ps8.aux)
 runsystem(rm ps8.pyg)...executed.
 
  ) 
 Here is how much of TeX's memory you used:
  16504 strings out of 492609
  326919 string characters out of 6129048
- 422168 words of memory out of 5000000
+ 422167 words of memory out of 5000000
  19894 multiletter control sequences out of 15000+600000
  10562 words of font info for 45 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 55i,14n,48p,947b,591s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,14n,48p,947b,595s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
 ></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
@@ -819,10 +819,10 @@ ive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texliv
 e/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive
 /2019/texmf-dist/fonts/type1/public/doublestroke/dsrom8.pfb></usr/local/texlive
 /2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on ps8.pdf (13 pages, 341236 bytes).
+Output written on ps8.pdf (12 pages, 341697 bytes).
 PDF statistics:
- 137 PDF objects out of 1000 (max. 8388607)
- 92 compressed objects within 1 object stream
+ 133 PDF objects out of 1000 (max. 8388607)
+ 89 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  38 words of extra memory for PDF output out of 10000 (max. 10000000)
 

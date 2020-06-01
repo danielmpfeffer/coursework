@@ -42,5 +42,5 @@
 \PYG{n}{ax4} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{224}\PYG{p}{)}
 \PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{ar1\PYGZus{}acf}\PYG{p}{)}
 
-\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{()}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
 \end{Verbatim}

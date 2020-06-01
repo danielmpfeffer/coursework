@@ -61,10 +61,10 @@ The characteristic polynomial is
 \end{align*}
 and has two eigenvalues given by
 \begin{align*}
-	\lambda_1, \lambda_2 &= \frac{p_{11} + p _{22}}{2} \pm \sqrt{\frac{(p_{11} + p _{22})^2}{4} +1 - \frac{2(p_{11} + p _{22})}{2}} \\
-	&= \frac{p_{11} + p _{22}}{2} \pm \left(1 - \frac{p_{11} + p _{22}}{2} \right) \\
-	&= 1, p_{11}+p_{22}-1.
+	\lambda &= \frac{p_{11} + p _{22}}{2} \pm \sqrt{\frac{(p_{11} + p _{22})^2}{4} +1 - \frac{2(p_{11} + p _{22})}{2}} \\
+	&= \frac{p_{11} + p _{22}}{2} \pm \left(1 - \frac{p_{11} + p _{22}}{2} \right),
 \end{align*}
+with solutions $\lambda_1 = 1$ and $\lambda_2=  p_{11}+p_{22}-1$.
 \end{proof}
 \item
 Derive the equilibrium distribution associated with $P$ as a function of $\theta$.
@@ -247,7 +247,7 @@ plt.plot(tauchen_acf)
 ax4 = plt.subplot(224)
 plt.plot(ar1_acf)
 
-plt.savefig()
+plt.show()
 \end{python3code}
 
 \begin{figure}
@@ -618,8 +618,6 @@ plt.plot(rx[141:], rvecm_forecast[141:,1], 'g--')
 
 plt.legend()
 plt.title('Real GDP and Investment')
-
-plt.savefig('q2-real')
 
 plt.show()
 \end{python3code}
