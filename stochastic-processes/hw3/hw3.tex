@@ -30,11 +30,13 @@
 
 \begin{prob}
 Consider the following transition matrices. Identify the transient and recurrent states, and the irreducible closed sets in the Markov chains.
+\begin{center}
+\includegraphics[scale=0.33]{q1-matrices}
+\end{center}
 \end{prob}
 
-\begin{enumerate}
+\begin{enumerate}[label={(\alph*)}]
 \item 
-???
 \begin{proof}
 The directed graph representation is
 \begin{center}
@@ -68,7 +70,6 @@ Since $1 \to 2$ but $2 \not\to 1$, state 1 is transient. Since $5 \to 4$ but $4 
 \end{proof}
 
 \item
-???
 \begin{proof}
 The directed graph representation is
 \begin{center}
@@ -114,7 +115,6 @@ Since $2 \to 1$ but $1 \not\to 2$, state 2 is transient. Since $3 \to 6$ but $6 
 \end{proof}
 
 \item
-???
 \begin{proof}
 The directed graph representation is
 \begin{center}
@@ -152,7 +152,6 @@ Since $3 \to 1$ but $1 \not\to 3$, state 3 is transient. So state 1, 2, 4, and 5
 \end{proof}
 
 \item
-???
 \begin{proof}
 The directed graph representation is
 \begin{center}
@@ -188,7 +187,6 @@ The directed graph representation is
 \fill [black] (22.76,-29.65) -- (23.2,-30.48) -- (23.7,-29.61);
 \end{tikzpicture}
 \end{center}
-
 Since $3 \to 4$ but $4 \not\to 3$, state 3 is transient, and since $6 \to 1$ but $1 \not\to 6$, state 6 is transient. So state 1, 2, 4, and 5 are recurrent. The closed irreducible sets are $\{1,4\}$ and $\{2,5\}$.
 \end{proof}
 
@@ -394,7 +392,7 @@ Since $0<a<1$ and $0<b<1$, the term $|1-a-b| < 1$. Then, noting that $(1-a-b)^n$
 	&=  \frac{b}{a+b} + \lim_{n \to \infty} (1-a-b)^n  \left[ P(X_0 = 1) - \frac{b}{a+b} \right] \\	
 		&=  \frac{b}{a+b} + O((1-a-b)^{n}). 
 \end{align*}
-That is, convergence to the limiting distribution, $P(X_n=1) \to \pi(1)$ as $n \to \infty$, is exponentially fast
+That is, convergence to the limiting distribution, $P(X_n=1) \to \pi(1)$ as $n \to \infty$, is exponentially fast.
 \end{proof}
 \end{enumerate}
 
