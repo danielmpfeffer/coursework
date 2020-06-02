@@ -1,0 +1,151 @@
+\documentclass[oneside,reqno]{amsart}
+\setlength{\textwidth}{\paperwidth}\addtolength{\textwidth}{-2in}\calclayout
+\usepackage{amsmath,amsthm}
+\usepackage{dsfont} 
+\usepackage{enumitem}
+
+\DeclareMathOperator{\E}{\mathrm{E}}
+\DeclareMathOperator{\var}{\mathrm{var}}
+\DeclareMathOperator{\cov}{\mathrm{cov}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Ncal}{\mathcal{N}}
+\newcommand{\Ucal}{\mathcal{U}}
+\newcommand{\Z}{\mathds{Z}}
+\newcommand{\R}{\mathds{R}P}
+\newcommand{\N}{\mathds{N}}
+
+\theoremstyle{definition}
+\newtheorem{prob}{Problem}
+\renewcommand*{\proofname}{Solution}
+\setlist[enumerate]{label={(\roman*)}}
+
+\title{STAT 433: Homework 1}
+\author{Daniel Pfeffer}
+\date{\today}
+%------------------------------------------------------------------------------
+\begin{document}
+\maketitle
+
+
+\begin{prob}
+A poker hand consists of five cards drawn from a standard 52-card deck. Find the expected number of aces in a poker hand given that the first card drawn is an ace.
+\end{prob}
+
+
+\begin{proof}
+Let $X$ be a random variable denoting the number of aces in a poker hand, and let $1_A$ be an indicator function that equals 1 if the first card drawn is an ace and 0 otherwise. Then, 
+\begin{align*}
+	\E(X \mid 1_A) &= \frac{\E(X 1_A)}{P(A)} \\
+	&= \frac{1}{P(A)} \sum_{x=1}^4 x P(\{X = x\} \cap A) \\
+	&= \sum_{x=1}^4 x P(X = x \mid A) \\
+	&= \frac{\binom{3}{x-1} \binom{48}{5-x}}{\binom{51}{4}}= \frac{21}{17}.
+\end{align*}
+\end{proof}
+
+
+\begin{prob}
+An urn has $n$ balls. Balls are drawn one at a time and then put back in the urn. Let $X$ denote the number of drawings required until some ball is drawn more than once. Find the probability distribution of $X$.
+\end{prob}
+
+\begin{proof}
+On the first draw, a ball cannot be drawn more than once, so
+\[
+	P(X=1) = 0.
+\]
+On the second draw, the probability of drawing the same ball, i.e., the ball from the first trial, is
+\[
+	P(X=2) = \frac{1}{n}.
+\]
+To deduce the probability that $X=3$, note that with probability 1 the same ball is not drawn on the first trial (i.e., $1-P(X=1)$), on the second draw, the same ball is not drawn with probability $1-1/n$ (i.e., $1-P(X=2)$), and on the third drawn, there are 2 balls in the urn containing $n$ ball which can be drawn again. Hence
+\[
+	P(X=3) =\left(1 - \frac{1}{n}\right) \frac{2}{n}.
+\]
+Continuing in this fashion, we obtain a probability distribution given by
+\[
+	P(X=k) = \prod_{i=0}^k \left(1-\frac{i}{n}\right) \frac{k-1}{n}
+\]
+\end{proof}
+
+
+\begin{prob}
+A man with $n$ keys wants to open his door. He tries the keys in a random manner. Let $X$ be the number of trials required to open the door. 
+\end{prob}
+
+
+\begin{enumerate}
+\item
+Find $\E(X)$ and $\var(X)$  if unsuccessful keys are eliminated from further selection.
+\begin{proof}
+Note that, since the number of keys $n$ decreases by 1 each trial, we have
+\begin{align*}
+	P(X=1) &= \frac{1}{n} \\
+	P(X=2) &= \left(1-\frac{1}{n}\right) \frac{1}{n-1} \\
+	&\vdots \\
+	P(X=k) &= \left(1-\frac{1}{n}\right)\left(1-\frac{1}{n-1}\right) \cdots \left(1-\frac{1}{n-(k-2)}\right) \frac{1}{n-(k-1)},
+\end{align*}
+which can be expressed more compactly as 
+\[
+	P(X= k) = \prod_{i=0}^{k-1} \left(1-\frac{1}{n-i}\right).
+\]
+Then, compute   
+\begin{align*}
+	\E (X) &= \frac{1}{n} + \frac{2}{n} + \cdots + \frac{n}{n} = \frac{n(n+1)}{2n} = \frac{n+1}{2} 
+\end{align*}
+and
+\[
+	\E (X^2) = \frac{1}{n} + \frac{4}{n} + \cdots + \frac{n^2}{n} = \frac{n(n+1)(2n+1)}{6n}=\frac{(n+1)(2n+1)}{6}.
+\]
+So, using the fact that $\var(X) = \E X^2 - (\E X)^2$, we get
+\[
+	\var(X) = \frac{(n+1)(2n+1)}{6} - \left(  \frac{n+1}{2}  \right)^2 = \frac{n^2-1}{12}.
+\]
+\end{proof}
+\item
+Find $\E(X)$ and $\var(X)$ if unsuccessful keys are not eliminated from further selection.
+\begin{proof}
+If unsuccessful keys not are eliminated from further selection, then $X \sim \text{Geom}(1/n)$, and hence 
+\begin{align*}
+	\E (X) &= \frac{1}{1/n} = n \\
+	\var(X) &= \frac{1-1/n}{1/n^2} = n (n-1).
+\end{align*}
+\end{proof}
+
+\end{enumerate}
+
+
+\begin{prob}
+Let $X_1,X_2,\dotsc, X_n$ be i.i.d. random variables with $X_i \sim \Ucal([0,t])$, and let $Y_n = \min\{ X_1,\dotsc, X_n\}$.
+\end{prob}
+
+
+\begin{enumerate}
+\item
+Find $P(Y_n > x)$ for $x \in [0,t]$.
+\begin{proof}
+Since $Y_n$ is greater than the minimum of $X_1, X_2,\dotsc, X_n$, we know $Y_n$ must also be greater than every $X_1, X_2,\dotsc, X_n$. So,
+\begin{align*}
+	P(Y_n > x) &= P(X_1 > x, X_2 > x, \dotsc, X_n > x) \\
+					  &= \prod_{i=1}^n \left( 1- \frac{x}{t} \right) \\
+					  &= \left( 1- \frac{x}{t} \right)^n
+\end{align*}
+\end{proof}
+\item
+Let $t$ map $n \mapsto t(n)$ such that $\lim_{n \to \infty} n/t(n)= \lambda$. Show that 
+\[
+	\lim_{n \to \infty} P(Y_n > x) = e^{-\lambda x}.
+\]
+\begin{proof}
+Evaluating the limit gives
+\begin{align*} 
+	\lim_{n \to \infty} P(Y_n > x) &= \lim_{n \to \infty} \left( 1-\frac{x}{t(n)} \right)^n \\
+		&= \lim_{n \to \infty} \left(1-\frac{n}{n} \frac{x}{t(n)}\right)^n \\
+		&= \lim_{n \to \infty} \left(1-\frac{(n/t(n))x}{n}\right)^n \\
+		&= \lim_{n \to \infty} \left(1-\frac{\lambda x}{n}\right)^n \\
+		&= e^{-\lambda x},
+\end{align*}
+since by definition $t$ satisfies $\lim_{n \to \infty} n/t(n) = \lambda$.
+\end{proof}
+\end{enumerate}
+
+
+\end{document}
