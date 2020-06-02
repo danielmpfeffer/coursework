@@ -197,15 +197,16 @@ Let $G$ be a connected graph. Let $X_n$ be a simple random walk on $G$. Show tha
 \end{prob}
 
 \begin{proof}
-Let $x$ and $y$ be any two vertices in $G$, let $T_y = \min\{n \geq 0 : X_n  =y\}$ be the first hitting time of $y$, and let $K$ be the smallest number of steps it takes to get from $x$ to $y$. Since $G$ is connected, $x$ and $y$ are connected by with a path of edges by definition, which implies that $p^K(x,y)>0$. So, for the the chain started in $x$, there exists a sequence $\{y_1, y_2, \dotsc, y_{K-1}\}$ such that 
+Let $x$ and $y$ be any two vertices in $G$. Since $G$ is connected, $x$ and $y$ are connected by with a path of edges formed by
 \[
-	p(x, y_1)>0, p(y_1,y_2)>0,\dotsc, p(y_{K-1},y_K)>0,
+	x = x_0, x_1, x_2, \dotsc, x_n=y,
 \] 
-where $y_i \neq x$ for $i=1,2,\dotsc, K-1$. Then 
-\[
-	P_x(T_y < \infty) = p(x, y_1)p(y_1,y_2) \cdots p(y_{K-1},y_K)p(y_K,y) > 0.
-\]
-By the same logic, for the chain started in $y$, we see that $\{X_n\}$ on $G$ has exactly one communicating class, and hence is irreducible. 
+which implies that 
+\begin{align*}
+	\rho_{xy} & \geq \frac{1}{\deg(x)} \cdot \frac{1}{\deg(x_1)} \cdots \frac{1}{\deg(x_{n-1})} >0 \\
+	\rho_{yy} & \geq \frac{1}{\deg(y)} \frac{1}{\deg(x_{n-1})} \cdots \frac{1}{\deg(x_1)}  >0 .
+\end{align*}
+Therefore $x \leftrightarrow y$.
 \end{proof}
 
 \begin{prob}
@@ -217,13 +218,11 @@ Let $G$ be a graph with two disjoint components $G_1$ and $G_2$. Let $X_n$ be a 
 Prove $\{X_n\}$ is not an irreducible Markov chain. 
 
 \begin{proof}
-Since $G_1 \cap G_2 = \emptyset$, there is no edge between any node in $G_1$ and any node in $G_2$, and hence $G_1$ and $G_2$ are disconnected. Then $\{X_n\}$ on $G$ is not irreducible. 
-\par
-If it were the case that $G_1$ and $G_2$ are connected, then there would exists a path between any two nodes $x_1, y_1 \in G_1$, i.e., $x_1 \leftrightarrow y_1$, and $x_2, y_2 \in G_2$, i.e., $x_2 \leftrightarrow y_2$. However, $G_1$ and $G_2$ are disconnected as previously noted, $x_1,y_1 \not\leftrightarrow x_2,y_2$. But $x_1 \leftrightarrow y_1$ and $x_2 \leftrightarrow y_2$. So, there exists two communicating classes, and hence $\{X_n\}$ on $G$ does not satisfy the definition of an irreducible Markov chain.
+Since $G_1 \cap G_2 = \emptyset$, there does not exist an edge between some node $x \in G_1$ and some other node $y \in G_2$, which shows $G_1$ and $G_2$ are disconnected. So $x \not\to y$ and $X_n$ on $G$ is not irreducible. 
 \end{proof}
 
 \item
-Let $P$ be the transition matrix of $X_n$. Let $P_1$ and $P_2$ be the transition matrices for the SRW on $G_1$ and $G_2$, respectively. Let $V_1 =\{1,\dotsc,k\}$ and $V_2 =\{k+1,\dotsc,k+l\}$ be the set of vertices in $G_1$ and $G_2$. Show that $P$ is of the following block diagonal form 
+Let $P$ be the transition matrix of $X_n$. Let $P_1$ and $P_2$ be the transition matrices for the SRW on $G_1$ and $G_2$, respectively. Let $V_1 =\{1,\dotsc,k\}$ and $V_2 =\{k+1,\dotsc,k+\ell\}$ be the set of vertices in $G_1$ and $G_2$. Show that $P$ is of the following block diagonal form 
 \begin{equation}\label{eq:block-diag}
 	P = \begin{pmatrix}
 		P_1 & 0 \\
@@ -233,7 +232,7 @@ Let $P$ be the transition matrix of $X_n$. Let $P_1$ and $P_2$ be the transition
 Note a block diagonal matrix is a \emph{reducible} matrix.
 
 \begin{proof}
-We have $p(i,j) = 0$ for all $[i] \neq [j]$ since $V_1 \cap V_2 = \emptyset$. If $[i] = [j]$ and $i \in V_1$, then $X_n$ has transition matrix $P_1$, and if $i \in V_2$, $X_n$ has transition matrix $P_2$. Hence, $P$ is of the block diagonal form \eqref{eq:block-diag}.
+We have $p(x,y) = 0$ if $1 \leq x \leq k$ and $k+1 \leq y\leq k + \ell$, or if $k +1 \leq x \leq k + \ell$ and $1 \leq y \leq k$, which shoes that $P$ is diagonal. We also have $p(x,y) = p_1(x,y)$ if $1 \leq x,y, \leq k$ and $p(x,y) = p_2(x,y)$ if $k+1 \leq x,y, \leq k+\ell$, which establishes the fact that $P = \textrm{diag}(P_1, P_2)$.
 \end{proof}
 
 
@@ -241,14 +240,14 @@ We have $p(i,j) = 0$ for all $[i] \neq [j]$ since $V_1 \cap V_2 = \emptyset$. If
 Show the the SRW $\{X_n\}$ on $G$ has infinitely many stationary distributions. 
 
 \begin{proof}
-Since the disjoint graphs $G_1$ and $G_2$ are finite, $P_1$ has a stationary distribution, call it $\pi_1$, and $P_2$ has stationarity distribution, call it $\pi_2$. Note that $\pi_1$ has dimension $1\times k$, $\pi_2$ has dimension $1 \times l$. Let 
+Since the disjoint graphs $G_1$ and $G_2$ are finite, $P_1$ has a stationary distribution, call it $\pi_1$, and $P_2$ has stationarity distribution, call it $\pi_2$. Note that $\pi_1$ has dimension $1\times k$, $\pi_2$ has dimension $1 \times \ell$. Let 
 \[
 	\pi = \begin{cases}
 		(\pi_1, 0) & \text{if } X_0  \in G_1 \\
 		(0, \pi_2) & \text{if } X_0  \in G_2 \\ 
 	\end{cases}
 \] 
-be the stationary distribution for the operator $P$ on $G$, and note that $\pi$ has dimension $1 \times k+l$. Note also that $P$ has dimension $(k+l) \times (k+l)$. Now, for the chain started on any vertex in $G_1$, let $\pi = (\pi_1, 0)$ where $0$ is a $1 \times l$ dimensional vector. Then 
+be the stationary distribution for the operator $P$ on $G$, and note that $\pi$ has dimension $1 \times k+\ell$. Note also that $P$ has dimension $(k+\ell) \times (k+\ell)$. Now, for the chain started on any vertex in $G_1$, let $\pi = (\pi_1, 0)$ where $0$ is a $1 \times \ell$ dimensional vector. Then 
 \[
 	(\pi_1, 0)
 	\begin{pmatrix}
@@ -268,11 +267,11 @@ where the last equality follows since $\pi_1$ was defined to be the stationary d
 	= (0, \pi_2 P_2)
 	=(0, \pi_2).
 \]
-For $0 \leq \lambda \leq 1$,
+For $0 \leq \lambda \leq 1$, linear combinations of the form
 \[
 	( \lambda \pi_1 + (1-\lambda) \pi_2 ) = ( \lambda \pi_1 P + (1-\lambda) \pi_2 P)
 \]
-is also stationary distribution for $P$ since of the block diagonal form \eqref{eq:block-diag}. Hence, there exists infinitely stationary for $X_n$ on $G$. 
+are also stationary distribution for $P$. Hence, there exists infinitely stationary for $X_n$ on $G$.
 \end{proof}
 \end{enumerate}
 
@@ -303,11 +302,12 @@ Let $\pi = (x,y)$. Then
 	\begin{cases}
 		ax = by \\
 		x+y = 1
-	\end{cases},
-\]
-which gives the unique stationary distribution 
-\[
-	\pi = \left(\frac{b}{a+b},\frac{a}{a+b}\right).
+	\end{cases}
+	\implies 
+	\begin{cases}
+		x = b/(a+b) \\
+		y = a/(a+b).
+	\end{cases}
 \]
 \end{proof}
 
@@ -344,21 +344,21 @@ Use mathematical induction to show that
 \]
 
 \begin{proof}[Proof (by induction on $n$)]
-The base case $n=0$ holds since 
+The first base case $n=0$ holds since 
 \begin{align*}
 	P(X_0 = 1) &= \frac{b}{a+b} + (1-a-b)^0 \left( P(X_0 = 1)- \frac{b}{a+b}\right) \\
 					 &= \frac{b}{a+b} + P(X_0 = 1)- \frac{b}{a+b} = P(X_0 = 1),
 \end{align*} 
-and the base case $n=1$ holds since
+and the second base case $n=1$ holds since
 \begin{align*}
 	P(X_1 = 1) &= \sum_i P(X_{1} = 1 \mid X_0 = i) P(X_0 = i) \\
 					&= P(X_{1} = 1 \mid X_0 = 1) P(X_0 = 1) +  P(X_{1} = 1 \mid X_0 = 2) P(X_0 = 2) \\
 					&= (1-a) P(X_0 = 1) +  b (1- P(X_0 = 1) )\\
 					&=\frac{b}{a+b} + (1-a-b) \left(P(X_0 = 1)- \frac{b}{a+b}\right)
 \end{align*}
-where the last equality uses the same logic as in $(ii)$.
+where the last equality uses the same logic as in (ii).
 \par
-Assume the claim is true for any $n$. We want to show that the result is also true for $n+1$. From (i), we know that 
+Assume the claim is true for any $n$. We want to show that the result is also true for $n+1$. From part (i), we know that 
 \[
 	P(X_{n+1} = 1) = \frac{b}{a+b} + (1-a-b)\left( P(X_n = 1)- \frac{b}{a+b}\right).
 \]
@@ -380,10 +380,9 @@ Show that $P(X_n=1)$ converges exponentially fast to $\pi(1)$ for the $\pi$ you 
 Since $0<a<1$ and $0<b<1$, the term $|1-a-b| < 1$. Then, noting that $(1-a-b)^n$ is the only term depending on $n$, we have
 \begin{align*}
 	\lim_{n \to \infty} P(X_n = 1) &= \lim_{n \to \infty}\left( \frac{b}{a+b} + (1-a-b)^n \left(P(X_0 = 1)- \frac{b}{a+b}\right)\right) \\
-	&=  \frac{b}{a+b} + \lim_{n \to \infty} (1-a-b)^n  \left( P(X_0 = 1) - \frac{b}{a+b} \right) \\	
-		&=  \frac{b}{a+b} + O((1-a-b)^{n}). 
+	&=  \frac{b}{a+b} + \lim_{n \to \infty} (1-a-b)^n  \left( P(X_0 = 1) - \frac{b}{a+b} \right),
 \end{align*}
-which shows that convergence to the limiting distribution, $P(X_n=1) \to \pi(1)$ as $n \to \infty$, is exponentially fast.
+which shows that convergence to the limiting distribution, $P(X_n=1) \to \pi(1)$ as $n \to \infty$, is exponential at rate $(1-a-b)^n$.
 \end{proof}
 \end{enumerate}
 
