@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.15)  2 JUN 2020 14:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.15)  2 JUN 2020 17:26
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -147,11 +147,11 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 Here is how much of TeX's memory you used:
  1730 strings out of 492609
  21149 string characters out of 6129048
- 95187 words of memory out of 5000000
+ 94187 words of memory out of 5000000
  5525 multiletter control sequences out of 15000+600000
  9445 words of font info for 37 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 34i,16n,29p,350b,358s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,16n,29p,400b,358s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfon
 ts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts
@@ -165,7 +165,7 @@ b></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb
 ></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb><
 /usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.p
 fb>
-Output written on hw2.pdf (3 pages, 135140 bytes).
+Output written on hw2.pdf (3 pages, 135268 bytes).
 PDF statistics:
  62 PDF objects out of 1000 (max. 8388607)
  44 compressed objects within 1 object stream
