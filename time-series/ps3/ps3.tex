@@ -76,14 +76,14 @@ which implies that
 			2 & 8
 	\end{pmatrix},
 \] 
-Then generate two $U([0,1])$ random variables of size $T=1000$ and call \mintinline{python3}{box_muller} to simulate $x = (x_1, x_2)' \sim N(0,I)$.  Recall that since every covariance matrix $\Sigma$ is positive semidefinite, there exists a Cholesky factorization $\Sigma = PP'$, where $P$ is a lower triangular matrix. So $\eps_t = P x \sim N(0, \Sigma)$. Note that this also gives the initial draw for $y_0$ from the unconditional distribution of $y_t$. Finally, applying the autoregressive operator $\Phi$ to innovations $\eps_t$ along with the initial condition given by $y_0$ generates samples from the desired system. The following code implements this VAR(1) simulation.
+Then generate two $\mathcal U([0,1])$ random variables of size $T=1000$ and call \mintinline{python3}{box_muller} to simulate $x = (x_1, x_2)' \sim N(0,I)$.  Recall that since every covariance matrix $\Sigma$ is positive semidefinite, there exists a Cholesky factorization $\Sigma = PP'$, where $P$ is a lower triangular matrix. So $\eps_t = P x \sim N(0, \Sigma)$. Note that this also gives the initial draw for $y_0$ from the unconditional distribution of $y_t$. Finally, applying the autoregressive coefficient matrix $\Phi$ to innovations $\eps_t$ along with the initial condition given by $y_0$ generates samples from the desired system. The following code implements this VAR(1) simulation.
 
 \begin{python3code}
 # Initialize VAR(1) system parameters
 Phi = [[.6, 0], [.3, .9]]
 Sigma= [[2, 2], [2, 8]]
 
-# Generate two U([0,1]) random varialbes 
+# Generate two U([0,1]) random variables 
 np.random.seed(42)
 T = 1000
 u1, u2 = np.random.rand(T), np.random.rand(T)
@@ -216,11 +216,19 @@ Repeat exercise 3 for $x_t$ and $z_t$. Compare the spectral densities of $x_t$, 
 \end{prob}
 
 \begin{proof}
-The following code applies the first difference filter $b(L) = 1-L$ to $y_{1t}$ to generate $x_t$ and applies the moving average filter $h(L)=(L + 1 + L^{-1})/3$ to $y_{1t}$ to generate $z_t$. Then the function calls to \mintinline{python3}{sample_sdf},  \mintinline{python3}{unif_window}, and \mintinline{python3}{ar_sdf} used to generate estimates of the spectral densities of the $x_t$ and $z_t$ processes. 
+The following code applies the first difference filter 
+\[
+	b(L) = 1-L
+\]
+to $y_{1t}$ to generate $x_t$ and applies the lag-3 moving average filter 
+\[
+	h(L) = \frac{1}{3}(L + 1 + L^{-1})
+\] 
+to $y_{1t}$ to generate $z_t$. Then the function calls to \mintinline{python3}{sample_sdf},  \mintinline{python3}{unif_window}, and \mintinline{python3}{ar_sdf} used to generate estimates of the spectral densities of the $x_t$ and $z_t$ processes. 
 
 
 \begin{python3code}
-# First difference and moving average (lag 3) filter 
+# First difference and moving average (lag-3) filter 
 xt = np.diff(y1)
 zt = np.convolve(np.ones(3)/3, y1, mode='valid')
 

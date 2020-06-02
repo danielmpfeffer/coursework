@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.15)  29 MAY 2020 22:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.15)  2 JUN 2020 18:09
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -715,7 +715,7 @@ LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
 \openout4 = `ps3.pyg'.
 
 
-(./_minted-ps3/3A246C7D7B38781435F6E6B22EB6EF2F3FE45AD991EEA47EE7A1C7C988EF9304
+(./_minted-ps3/FCAB1F600D5B1FC212B266E8C52017893FE45AD991EEA47EE7A1C7C988EF9304
 .pygtex [1{/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map
 }])
 \openout5 = `ps3.pyg'.
@@ -764,21 +764,28 @@ Underfull \vbox (badness 4403) has occurred while \output is active []
 .pygtex)
 \openout4 = `ps3.pyg'.
 
+runsystem(pygmentize -l python3 -f latex -P commandprefix=PYG -F tokenmerge -o 
+_minted-ps3/18622F3C75FFD1A5576D1B37261ABFEB3FE45AD991EEA47EE7A1C7C988EF9304.py
+gtex ps3.pyg)...executed.
 
-(./_minted-ps3/934A2F4B0ED75BA2515B828E1BF1F1613FE45AD991EEA47EE7A1C7C988EF9304
+
+(./_minted-ps3/18622F3C75FFD1A5576D1B37261ABFEB3FE45AD991EEA47EE7A1C7C988EF9304
 .pygtex [5])
 <q4-fig.png, id=39, 867.24pt x 289.08pt>
 File: q4-fig.png Graphic file (type png)
 <use q4-fig.png>
-Package pdftex.def Info: q4-fig.png  used on input line 287.
+Package pdftex.def Info: q4-fig.png  used on input line 295.
 (pdftex.def)             Requested size: 469.755pt x 156.58607pt.
+runsystem(rm _minted-ps3/934A2F4B0ED75BA2515B828E1BF1F1613FE45AD991EEA47EE7A1C7
+C988EF9304.pygtex)...executed.
+
  [6] [7 <./q4-fig.png>] (./ps3.aux)
 runsystem(rm ps3.pyg)...executed.
 
  ) 
 Here is how much of TeX's memory you used:
- 16464 strings out of 492609
- 326218 string characters out of 6129048
+ 16465 strings out of 492609
+ 326282 string characters out of 6129048
  417232 words of memory out of 5000000
  19861 multiletter control sequences out of 15000+600000
  10082 words of font info for 40 fonts, out of 8000000 for 9000
@@ -799,7 +806,7 @@ xlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/tex
 live/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texli
 ve/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texliv
 e/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on ps3.pdf (7 pages, 254731 bytes).
+Output written on ps3.pdf (7 pages, 254563 bytes).
 PDF statistics:
  96 PDF objects out of 1000 (max. 8388607)
  67 compressed objects within 1 object stream

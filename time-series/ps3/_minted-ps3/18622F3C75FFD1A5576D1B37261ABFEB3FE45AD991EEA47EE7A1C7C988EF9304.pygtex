@@ -1,5 +1,5 @@
 \begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c+c1}{\PYGZsh{} First difference and moving average (lag 3) filter}
+\PYG{c+c1}{\PYGZsh{} First difference and moving average (lag\PYGZhy{}3) filter}
 \PYG{n}{xt} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{diff}\PYG{p}{(}\PYG{n}{y1}\PYG{p}{)}
 \PYG{n}{zt} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{convolve}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{ones}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{y1}\PYG{p}{,} \PYG{n}{mode}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}valid\PYGZsq{}}\PYG{p}{)}
 
