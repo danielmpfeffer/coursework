@@ -1,0 +1,197 @@
+\documentclass[oneside,reqno]{amsart}
+\setlength{\textwidth}{\paperwidth}\addtolength{\textwidth}{-2in}\calclayout
+\usepackage{amsmath,amsthm}
+\usepackage{dsfont} 
+\usepackage{enumitem}
+
+\DeclareMathOperator{\E}{\mathrm{E}}
+\DeclareMathOperator{\var}{\mathrm{var}}
+\DeclareMathOperator{\cov}{\mathrm{cov}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Ncal}{\mathcal{N}}
+\newcommand{\Geom}{\text{Geometric}}
+\newcommand{\Ucal}{\mathcal{U}}
+\newcommand{\Z}{\mathds{Z}}
+\newcommand{\R}{\mathds{R}}
+\newcommand{\N}{\mathds{N}}
+
+\theoremstyle{definition}
+\newtheorem{prob}{Problem}
+\renewcommand*{\proofname}{Solution}
+\setlist[enumerate]{label={(\roman*)}}
+
+\title{STAT 433: Homework 2}
+\author{Daniel Pfeffer}
+\date{\today}
+%------------------------------------------------------------------------------
+\begin{document}
+\maketitle
+
+
+\begin{prob}
+Suppose that the probability it rains today is 0.3 if neither of the last two days was rainy, and is 0.6 if at least one of the last two days was rainy. Let $\Omega = \{(S,S), (S,R), (R,S), (R,R)\}$, where $S$ denotes sunny and $R$ denotes rainy. Let $X_n = (W_n, W_{n-1})$, where $W_n$ denotes the weather on the $n$th day.
+\end{prob}
+
+
+\begin{enumerate}
+\item
+Prove that $X_n$ is a Markov chain on $\Omega$, and find its transition matrix $P$.
+\begin{proof}
+That $X_n$ is a Markov chain on $\Omega$ follows from the fact that is satisfies the Markov property:
+\begin{align*}
+	P(X_n = x_n & \mid X_{n-1} = x_{n-1}, X_{n-2} = x_{n-2}, \dotsc, X_0 = x_0) 
+	= \begin{cases}
+		0.3 & \text{if } x_n = (R,S), x_{n-1}= (S,S) \\
+		0.7 & \text{if } x_n = (S,S), x_{n-1}= (S,S) \\
+		0.6 & \text{if } x_n = (R,S), x_{n-1}= (S,R) \\
+		0.6 & \text{if } x_n = (R,R), x_{n-1}= (R,S) \text{ or } (R,R) \\
+		0.4 & \text{if } x_n = (S,S), x_{n-1}= (S,R) \\
+		0.4 & \text{if } x_n = (S,R), x_{n-1}= (R,S) \text{ or } (R,R). \\
+	\end{cases}
+\end{align*}
+Evidently, these probabilities depend only on $x_n$ and $x_{n-1}$, and the Markov property is satisfied: 
+\[
+	 P(X_n = x_n  \mid X_{n-1} = x_{n-1}, \dotsc, X_0 = x_0) = P(X_n = x_n \mid X_{n-1} = x_{n-1}).
+\]
+It follows from this results that the transition matrix is 
+\[
+	P = \bordermatrix{~ & (S,S) & (S,R) & (R,S) &(R,R) \cr 
+		(S,S) & 0.7 & 0 & 0.3 & 0 \cr
+		(S,R) & 0.4 & 0 & 0.6 & 0 \cr
+		(R,S) & 0 & 0.4 & 0 & 0.6 \cr
+		(R,R) & 0 & 0.4 & 0 & 0.6 \cr}
+\]
+\end{proof}
+\item
+Calculate the 2-step transition matrix $P^2$. Use it to find what is the probability that it will rain on Wednesday if it didn't rain on Sunday and Monday.
+\begin{proof}
+The 2-step transition matrix is 
+\[
+	P^2 = \begin{pmatrix}
+		0.49 & 0.12 & 0.21 & 0.18 \\
+		0.28 & 0.24 & 0.12 & 0.36 \\
+		0.16 & 0.24 & 0.24 & 0.36 \\
+		0.16 & 0.24 & 0.24 & 0.36 
+	\end{pmatrix}.
+\]
+Let $X_0 = (W_\text{Mon}, W_\text{Sun})$, $X_1 = (W_\text{Tue}, W_\text{Mon})$, and $X_2 = (W_\text{Wed}, W_\text{Tue})$ and note that the initial distribution of $X_0$ is $\mu = (1, 0, 0, 0)$. So
+\[
+	\mu P^2 = \begin{pmatrix}
+		0.49 & 0.12 & 0.21 & 0.18 
+	\end{pmatrix},
+\]
+where each element corresponds to the probability of the states $(S,S)$, $(S,R)$, $(R,S)$, and $(R,R)$, respectively. Therefore 
+\[
+	P(W_\text{Wed} = R) = 0.21 + 0.18  = 0.39.
+\]
+\end{proof}
+\end{enumerate}
+
+
+\begin{prob}
+Four white balls and four black balls are distributed in two urns in such a way that each urn contains four balls. At each step, we draw one ball from each urn and exchange them. Let $X_n$ be the number of white balls in the left urn at time $n$. Compute the transition probability for $X_n$. 
+\end{prob}
+
+\begin{proof}
+Suppose there are $i$ white balls in the left urn and $(4-i)$ black balls in the right urn. Then, for $1 \leq i,j \leq 4$, 
+\[
+	P(X_n = j \mid  X_{n-1} = i) = 
+	\begin{cases}
+		i(4-i) / 8 & \text{if } j = i \\
+		(4-i)^2 / 16 & \text{if } j = i + 1 \\
+		i^2 / 16 & \text{if } j = i -1 \\
+		0 & \text{otherwise}
+	\end{cases}.
+\]
+\end{proof}
+
+
+\begin{prob}
+Find the stationary distributions for the Markov chains with transition matrices:
+\end{prob}
+
+\begin{enumerate}
+\item
+\[
+	\begin{pmatrix}
+		0.5 & 0.4 & 0.1 \\
+		0.3 & 0.4 & 0.3 \\
+		0.2 & 0.2 & 0.6
+	\end{pmatrix}.
+\]
+\begin{proof}
+Since each column sums to one, the matrix is doubly stochastic, and therefore the stationary distribution $\pi = (1/3, 1/3, 1/3)$.
+\end{proof}
+\item
+\[
+	\begin{pmatrix}
+		0.6 & 0.4 & 0 \\
+		0.2 & 0.4 & 0.4 \\
+		0 & 0.2 & 0.8
+	\end{pmatrix}.
+\]
+\begin{proof}
+Let $\pi = (x,y,z)$ and solve the linear system $\pi P = \pi$ to obtain $y = 2x$ and $z = 4x$. Then, since we require that $x + y + z =1$, the stationary distribution is $\pi = (1/7, 2/7, 4/7)$.
+\end{proof}
+\end{enumerate}
+
+
+\begin{prob}
+Let $X_n$ be a Markov chain with state space $E = \{r, w, b, g\}$ and transition matrix 
+\[
+	P = \bordermatrix{~ \cr
+		r & 0 & 0 & 1 & 0 \cr
+		w & 0 & 0.4 & 0.6 & 0 \cr
+		b & 0.8 & 0 & 0.2 & 0 \cr
+		y & 0.2 & 0.3 & 0 & 0.5 \cr}.
+\]
+\end{prob}
+
+\begin{enumerate}
+\item
+Compute $P(X_5 = b, X_6 = r, X_7 = b, X_8 = b \mid X_4 = w)$.
+\begin{proof}
+We have 
+\begin{align*}
+	P(X_5 = b, X_6 = r, X_7 = b, X_8 = b \mid X_4 = w) &= p(w,b)p(b,r)p(r,b) p(b,b) \\
+	&= 0.6 \cdot 0.8 \cdot 1 \cdot 0.2 = 0.096.
+\end{align*}
+\end{proof}
+\item
+Compute $\E(f(X_5), f(X_6) \mid X_4 = y)$ for the function with 
+\[
+	f(r) = 2, \quad f(w) = 4, \quad f(b) = 7, \quad f(y) =3.
+\]
+\begin{proof}
+First note that
+\begin{align*}
+	P(X_5 = r, X_6 = b \mid X_4 = y) &= 0.2 \cdot 1.0  =  0.20 \\
+	P(X_5 = w, X_6 = w \mid X_4 = y) &= 0.3 \cdot 0.4 = 0.12 \\
+	P(X_5 = w, X_6 = b \mid X_4 = y) &= 0.3 \cdot 0.6 = 0.18 \\	
+	P(X_5 = y, X_6 = r \mid X_4 = y) &= 0.5 \cdot 0.2 = 0.10 \\
+	P(X_5 = y, X_6 = w \mid X_4 = y) &= 0.5 \cdot 0.3 = 0.15 \\
+	P(X_5 = y, X_6 = y \mid X_4 = y) &= 0.5 \cdot 0.5 = 0.25.
+\end{align*}
+Then
+\[
+	\E(f(X_5), f(X_6) \mid X_4 = y) = 0.2 \cdot 14 + 0.12 \cdot 16 + 0.18 \cdot 28 + 0.1 \cdot 6 _ 0.15 \cdot 12 + 0.25 \cdot 9 = 14.41.
+\]
+\end{proof}
+\item
+Let $T_{(w,b)}$ be the first time $n$ that $X_n = b$ given $X_0 = w$. Let $T_{(b,b)}$ be the first time $n$ that $X_n = b$ given $X_0 = b$. Find the distribution of $T_{(w,b)}$ and $T_{(b,b)}$, respectively. (You can find them by inspection without doing much calculation.)
+\begin{proof}
+For the chain started in $w$, it either stays at $w$ with probability 0.4 or jump to $b$ with probability 0.6, implying that $T_{(w,b)} \sim \Geom(0.6)$ and, for $n=1,2,\dotsc$, has distribution 
+\[
+	P(T_{(w,b)} = n) = 0.6 \cdot 0.4^{n-1}.
+\]
+For the chain started in $b$, it stays in $b$ with probability 0.2 and jumps to $r$ with probability 0.8 from which it returns to $b$ with probability one. Hence 
+\begin{align*}
+	P(T_{(b,b)} = 1) &= 0.2 \\
+	P(T_{(b,b)} = 2) &= 0.8. \\
+\end{align*}
+\end{proof}
+\end{enumerate}
+
+
+
+\end{document}

@@ -33,13 +33,16 @@ A poker hand consists of five cards drawn from a standard 52-card deck. Find the
 
 
 \begin{proof}
-Let $X$ be a random variable denoting the number of aces in a poker hand, and let $1_A$ be an indicator function that equals 1 if the first card drawn is an ace and 0 otherwise. Then, 
-\begin{align*}
-	\E(X \mid 1_A) &= \frac{\E(X 1_A)}{P(A)} \\
-	&= \frac{1}{P(A)} \sum_{x=1}^4 x P(\{X = x\} \cap A) \\
-	&= \sum_{x=1}^4 x P(X = x \mid A) \\
-	&= \frac{\binom{3}{x-1} \binom{48}{5-x}}{\binom{51}{4}}= \frac{21}{17}.
-\end{align*}
+Let $X$ be the number of aces in a poker hand, let $A_i$, for $i=1,2,\dotsc,5$, be the event that the $i$th card drawn is an ace, and let $1_{A_i}$ be an indicator function that equals one if the $A_i$ occurs and zero otherwise. Then we may write
+\[
+	X = 1_{A_1} + 1_{A_2} + \cdots + 1_{A_5}.
+\]
+Since we are conditioning on the event that the first card drawn is an ace, $1_{A_1} = 1$. It follows that the probability that one of the next four cars is an ace is $3/51 = 1/17$. By linearity of expectations, we obtain
+\[
+	\E X = \E 1_{A_1}  + \frac{1}{17} (\E 1_{A_2} + \cdots + \E 1_{A_5})   
+	= 1 + \frac{4}{17} 
+	= \frac{21}{17}.
+\]
 \end{proof}
 
 
@@ -48,21 +51,13 @@ An urn has $n$ balls. Balls are drawn one at a time and then put back in the urn
 \end{prob}
 
 \begin{proof}
-On the first draw, a ball cannot be drawn more than once, so
+Since it is impossible for a ball to be drawn twice if only one ball has been drawn, $P(X=1) = 0$. Note also that $P(X=2) = 1/n$ because there is only one ball (out of $n$) that can be drawn again. To deduce the probability that $X=3$, notice that the same ball is not drawn on the first trial with probability $1-P(X=1) = 1$ and on the second draw, the same ball is not drawn with probability $1-P(X=2) = 1-1/n$. Then, for the event $\{X=3\}$ to occur, the repeat draw must occur on the third trial, which happens with probability $2/n$ since there are 2 balls in the urn containing $n$ balls which can be drawn again:
 \[
-	P(X=1) = 0.
+	P(X=3) =\left(1 - \frac{1}{n}\right)\left( \frac{2}{n}\right).
 \]
-On the second draw, the probability of drawing the same ball, i.e., the ball from the first trial, is
+Continuing with this reasoning, we obtain a probability distribution, for $1 \leq x \leq n+1$, given by
 \[
-	P(X=2) = \frac{1}{n}.
-\]
-To deduce the probability that $X=3$, note that with probability 1 the same ball is not drawn on the first trial (i.e., $1-P(X=1)$), on the second draw, the same ball is not drawn with probability $1-1/n$ (i.e., $1-P(X=2)$), and on the third drawn, there are 2 balls in the urn containing $n$ ball which can be drawn again. Hence
-\[
-	P(X=3) =\left(1 - \frac{1}{n}\right) \frac{2}{n}.
-\]
-Continuing in this fashion, we obtain a probability distribution given by
-\[
-	P(X=k) = \prod_{i=0}^k \left(1-\frac{i}{n}\right) \frac{k-1}{n}
+	P(X=x) =\left(1-\frac{1}{n}\right)\left(1-\frac{2}{n}\right) \cdots\left(1-\frac{x-2}{n}\right) \left(\frac{x-1}{n}\right)
 \]
 \end{proof}
 
@@ -83,19 +78,15 @@ Note that, since the number of keys $n$ decreases by 1 each trial, we have
 	&\vdots \\
 	P(X=k) &= \left(1-\frac{1}{n}\right)\left(1-\frac{1}{n-1}\right) \cdots \left(1-\frac{1}{n-(k-2)}\right) \frac{1}{n-(k-1)},
 \end{align*}
-which can be expressed more compactly as 
-\[
-	P(X= k) = \prod_{i=0}^{k-1} \left(1-\frac{1}{n-i}\right).
-\]
-Then, compute   
+Then, the expectation of $X$ is
 \begin{align*}
-	\E (X) &= \frac{1}{n} + \frac{2}{n} + \cdots + \frac{n}{n} = \frac{n(n+1)}{2n} = \frac{n+1}{2} 
+	\E (X) &= \frac{1}{n} + \frac{2}{n} + \cdots + \frac{n}{n} = \frac{n(n+1)}{2n} = \frac{n+1}{2}.
 \end{align*}
-and
+To find the variance of $X$, compute the second moment:
 \[
 	\E (X^2) = \frac{1}{n} + \frac{4}{n} + \cdots + \frac{n^2}{n} = \frac{n(n+1)(2n+1)}{6n}=\frac{(n+1)(2n+1)}{6}.
 \]
-So, using the fact that $\var(X) = \E X^2 - (\E X)^2$, we get
+Using the fact that $\var(X) = \E (X^2) - (\E X)^2$ gives 
 \[
 	\var(X) = \frac{(n+1)(2n+1)}{6} - \left(  \frac{n+1}{2}  \right)^2 = \frac{n^2-1}{12}.
 \]
@@ -103,7 +94,7 @@ So, using the fact that $\var(X) = \E X^2 - (\E X)^2$, we get
 \item
 Find $\E(X)$ and $\var(X)$ if unsuccessful keys are not eliminated from further selection.
 \begin{proof}
-If unsuccessful keys not are eliminated from further selection, then $X \sim \text{Geom}(1/n)$, and hence 
+If unsuccessful keys not are eliminated from further selection, then $X \sim \text{Geometric}(1/n)$, and hence 
 \begin{align*}
 	\E (X) &= \frac{1}{1/n} = n \\
 	\var(X) &= \frac{1-1/n}{1/n^2} = n (n-1).
@@ -130,20 +121,19 @@ Since $Y_n$ is greater than the minimum of $X_1, X_2,\dotsc, X_n$, we know $Y_n$
 \end{align*}
 \end{proof}
 \item
-Let $t$ map $n \mapsto t(n)$ such that $\lim_{n \to \infty} n/t(n)= \lambda$. Show that 
+Let $t$ be a function of $n$ such that $\lim_{n \to \infty} n/t= \lambda$. Show that 
 \[
 	\lim_{n \to \infty} P(Y_n > x) = e^{-\lambda x}.
 \]
 \begin{proof}
 Evaluating the limit gives
 \begin{align*} 
-	\lim_{n \to \infty} P(Y_n > x) &= \lim_{n \to \infty} \left( 1-\frac{x}{t(n)} \right)^n \\
-		&= \lim_{n \to \infty} \left(1-\frac{n}{n} \frac{x}{t(n)}\right)^n \\
-		&= \lim_{n \to \infty} \left(1-\frac{(n/t(n))x}{n}\right)^n \\
-		&= \lim_{n \to \infty} \left(1-\frac{\lambda x}{n}\right)^n \\
+	\lim_{n \to \infty} P(Y_n > x) &= \lim_{n \to \infty} e^{n \log( 1- x/t)^n }\\
+		&= \lim_{n \to \infty} e^{n(-x/t + o(1/t))} \\
+		&= \lim_{n \to \infty} e^{n(-x\lambda / n + o(1/n))} \\
 		&= e^{-\lambda x},
 \end{align*}
-since by definition $t$ satisfies $\lim_{n \to \infty} n/t(n) = \lambda$.
+since by definition $t$ satisfies $\lim_{n \to \infty} n/t = \lambda$.
 \end{proof}
 \end{enumerate}
 
