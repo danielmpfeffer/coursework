@@ -1,0 +1,188 @@
+\documentclass[oneside, a4paper]{amsart}
+\setlength{\textwidth}{\paperwidth}\addtolength{\textwidth}{-2in}\calclayout
+\usepackage{dsfont} 
+\DeclareMathOperator{\var}{\mathrm{var}}
+\DeclareMathOperator{\cov}{\mathrm{cov}}
+\newcommand{\eps}{\epsilon}
+\newcommand{\Ncal}{\mathcal{N}}
+\newcommand{\Ucal}{\mathcal{U}}
+\newcommand{\Pois}{\mathrm{Poisson}}
+\newcommand{\Exp}{\mathrm{Exponential}}
+\newcommand{\Bin}{\mathrm{Binomial}}
+\newcommand{\Ber}{\mathrm{Bernoulli}}
+\newcommand{\Geom}{\mathrm{Geometric}}
+\newcommand{\Z}{\mathds{Z}}
+\newcommand{\R}{\mathds{R}}
+\newcommand{\N}{\mathds{N}}
+
+\title{STAT 433: Homework 5}
+\author{Daniel Pfeffer}
+\date{\today}
+%------------------------------------------------------------------------------
+\begin{document}
+\maketitle
+
+\subsection*{Problem 1}
+
+Let $X$ and $Y$ be two independent Poisson random variables with $X \sim \Pois(\lambda)$ and $X \sim \Pois(\mu)$. Use probability generating functions to find the distribution of $X+Y$. 
+
+\subsubsection*{Solution}
+
+The PGF of $X$ is
+\[
+	G_X(s) = \sum_{k=0}^\infty s^k e^{-\lambda} \frac{\lambda^k}{k!} = e^{-\lambda} \sum_{k=0}^\infty \frac{(s\lambda^k)}{k!} = e^{-\lambda} e^{s\lambda} = e^{\lambda(s-1)},
+\]
+and by the same logic, the PGF of $Y$ is $G_Y(s) =  e^{\mu(s-1)}$. By independence of $X$ and $Y$,
+\[
+	G_{X+Y}(s) = G_X(s)G_Y(s) = e^{\lambda(s-1)}e^{\mu(s-1)} = e^{(\lambda + \mu)(s-1)}.
+\]
+which, by uniqueness of the PGFs, $X+Y\sim \Pois(\lambda + \mu)$.
+
+\subsection*{Problem 2}
+
+Let $X_1, X_2, \dotsc$ be a sequence of i.i.d.\ Bernoulli random variables with parameter $p$. Let $N$ be a Poisson random variables with $N \sim \Pois(\lambda)$, which is independent of the $X_i$'s. 
+\begin{enumerate}
+\item
+Find the probability generating function of $Z=\sum_{i=1}^N X_i$.
+\item
+Use (1) to identify the probability distribution of $Z$.  
+\end{enumerate}
+
+\subsubsection*{Solution}
+\begin{enumerate}
+\item
+From Problem (1) we know that the PGF of $N$ is 
+\[
+	G_N(s) = e^{\lambda(s-1)}, 
+\]
+and since $X_i \sim \Ber(p)$ for all $i$, we also have that
+\[
+	G_{X_i}(s) = 1-p + ps.
+\]
+So
+\[
+	G_Z(s) = G_N \circ G_{X_i}(s) = e^{\lambda p(s-1)},
+\]
+\item
+By the uniqueness property of PGFs,   $Z \sim \Pois(\lambda p)$.
+\end{enumerate}
+
+\subsection*{Problem 3}
+
+Consider a branching process with off-spring distribution 
+\[
+	p = \left(t^2, 2t(1-t), (1-t)^2\right), \quad 0 < t < 1,
+\]	
+i.e., it is binomial with parameters $2$ and $1-t$. Find the extinction probability. 
+\subsubsection*{Solution}
+
+Since the offspring distribution is $\Bin(2,1-t)$, we know its PGF is given by
+\[
+	G(s)  = (1 - (1-t) + (1-t)s)^2 = (t+s - ts)^2
+\]
+The mean is 
+\[
+	\mu = G'(1) = 2- 2t.
+\]
+When $t  \geq 1/2$, the mean $\mu \leq 1$, which corresponds to the subcritical and critical cases, the population goes extinct with probability 1.
+\par
+For $t < 1/2$, the mean is $\mu > 1$ and the process is supercritical, in which case the extinction probability is determined by the equation
+\[
+	G(s)=s \iff (t+s - ts)^2 =s.
+\] 
+Solving for $s$ gives the extinction probability in the subcritical case: 
+\[
+	s = \frac{t^2}{(1-t)^2}.
+\]
+
+
+\subsection*{Problem 4}
+
+\begin{enumerate}
+\item
+A discrete random variable $X$ taking values in $\{0, 1, 2, \dotsc \}$ is said to be memoryless, if for any $m, n \geq 0$
+\[	
+	P(X > m + n \mid X > m) = P(X > n).
+\]
+Prove that $X$ is memoryless iff it is a geometric random variable.
+\item
+A continuous random variable $X$ taking values in $[0, \infty)$ is said to be memoryless, if for any $t,s\geq 0$ 
+\[
+	P(X > t + s \mid X > s) = P(X > t).
+\]
+Prove that $X$ is memoryless if it is an exponential random variable. 
+\item
+Suppose a continuous random variable $X$ taking values in $[0, \infty)$ is memoryless. Define the function $f(t) = P(X > t)$. Then $f(0)=1$, and by the memoryless property we have 
+\[
+	f(s+t) = f(s)f(t) \implies \frac{f(s+t) - f(t)}{s} = \frac{f(s) - f(0)}{s} f(t).
+\] 
+Show that by taking $s \to 0$, we obtain a differential equation 
+\[
+	f'(t) = f'(0)f(t).
+\]
+Solve the equation to show that form $e^{-\lambda t}$, which means that $X$ is an exponential random variable. 
+\end{enumerate}
+
+\begin{proof}
+\leavevmode
+\begin{enumerate}
+\item
+Let $X$ be discrete nonnegative integer valued random variable satisfying the memoryless property. Then, by the definition of conditional probability,
+\[
+	P(X > m + n \mid X \geq m) = \frac{P(X>m + n)}{P(X \geq m)}
+\]
+together with the memoryless property implies that we have the functional equation
+\[
+	P(X > m + n) = P(X \geq m)P(X > n)
+\] 
+holds for any nonnegative integers $m$ and $n$. Now the functional equation remains to be solved. If we let $m=1$ and let $1-p = P(X \geq 1)$ and observe that 
+\[
+	P(X = 1+n \mid X > 1) =  \frac{P(X  =  n + 1, X > 1)}{P(X > 1)}  = \frac{P(X =n+1)}{1-p}  = P(X = n).
+\]
+we deduce the probabilities 
+\begin{align*}
+	P(X=2) &= (1-p) P(X=1) \\
+	P(X=3) &= (1-p)P(X=2) = (1-p)^2 P(X=1) \\
+	& \vdots \\ 
+	P(X=k) &= (1-p)^k P(X=1) \\
+	& \vdots 
+\end{align*}	
+for $k=0,1,2,\dotsc$, which is the PMF of a geometric random variable, and hence $X \sim \Geom(p)$. 
+\par
+Now let $X \sim \Geom(p)$ for $0 \leq p \leq 1$, which has tail probabilities given by
+\[
+	P(X > n) = \sum_{k=n}^\infty P(X = k) = \sum_{k=n}^\infty (1 - p)^{k-1} p.
+\]
+Letting $i=k-n$ gives
+\[
+	P(X > n) = \sum_{i=0}^\infty (1 - p)^{i+n-1} p = p(1-p)^{n-1} \sum_{i=0}^\infty (1 - p)^i = (1-p)^{n-1}.
+\]
+Now 
+\[
+	P(X > m + n \mid X > m)= \frac{P(X>m + n)}{P(X > m)} = \frac{(1-p)^{m+n-1}}{(1-p)^{m}} = (1-p)^{n-1}
+\]
+and hence $X$ satisfies the memoryless property. 
+\item
+Let $X \sim \Exp(\lambda)$. Then, by the definition of conditional probabilities (as in part (1)) and the fact that $P(X>t) = e^{-\lambda t}$, 
+\[
+	P(X> t+s \mid X > s) =  \frac{P(X > t+s)}{P(X > s)} = \frac{e^{-\lambda(t+s)}}{e^{-\lambda s}} = e^{-\lambda t}.
+\]
+\item
+Let $X$ be continuous nonnegative integer valued random variable satisfying the memoryless property, and let $f(t) = P(X > t)$. Let $s \to 0$: 
+\[
+	\lim_{s \to 0} \frac{f(s) - f(0)}{s} f(t).
+\]
+The fact that $X$ is continuous on $[0, \infty)$ implies that $f$ is almost everywhere differentiable, and the above limit exists and equals 
+\[
+	f'(t) = f'(0) f(t).
+\]
+This ordinary differential equation, together with the condition that $f(0)=1$, has solution
+\[
+	f(t) = e^{-\lambda t}.
+\]
+\end{enumerate}
+\end{proof}
+
+
+
+\end{document}
