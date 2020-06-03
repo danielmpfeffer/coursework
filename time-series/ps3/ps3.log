@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.15)  2 JUN 2020 18:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.15)  3 JUN 2020 13:32
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -638,23 +638,23 @@ runsystem(rm ps3.aex)...executed.
  (./ps3.aux)
 \openout1 = `ps3.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Try loading font information for U+msa on input line 29.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Try loading font information for U+msa on input line 28.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 29.
+LaTeX Font Info:    Try loading font information for U+msb on input line 28.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -738,10 +738,10 @@ LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
 
 (./_minted-ps3/59AE4ED26D0646CE9636C1682AEA1B443FE45AD991EEA47EE7A1C7C988EF9304
 .pygtex [3])
-<q3-fig.png, id=29, 867.24pt x 289.08pt>
+<q3-fig.png, id=28, 867.24pt x 289.08pt>
 File: q3-fig.png Graphic file (type png)
 <use q3-fig.png>
-Package pdftex.def Info: q3-fig.png  used on input line 202.
+Package pdftex.def Info: q3-fig.png  used on input line 201.
 (pdftex.def)             Requested size: 469.755pt x 156.58607pt.
 
 Underfull \vbox (badness 4403) has occurred while \output is active []
@@ -764,31 +764,24 @@ Underfull \vbox (badness 4403) has occurred while \output is active []
 .pygtex)
 \openout4 = `ps3.pyg'.
 
-runsystem(pygmentize -l python3 -f latex -P commandprefix=PYG -F tokenmerge -o 
-_minted-ps3/18622F3C75FFD1A5576D1B37261ABFEB3FE45AD991EEA47EE7A1C7C988EF9304.py
-gtex ps3.pyg)...executed.
-
 
 (./_minted-ps3/18622F3C75FFD1A5576D1B37261ABFEB3FE45AD991EEA47EE7A1C7C988EF9304
 .pygtex [5])
-<q4-fig.png, id=39, 867.24pt x 289.08pt>
+<q4-fig.png, id=38, 867.24pt x 289.08pt>
 File: q4-fig.png Graphic file (type png)
 <use q4-fig.png>
-Package pdftex.def Info: q4-fig.png  used on input line 295.
+Package pdftex.def Info: q4-fig.png  used on input line 294.
 (pdftex.def)             Requested size: 469.755pt x 156.58607pt.
-runsystem(rm _minted-ps3/934A2F4B0ED75BA2515B828E1BF1F1613FE45AD991EEA47EE7A1C7
-C988EF9304.pygtex)...executed.
-
  [6] [7 <./q4-fig.png>] (./ps3.aux)
 runsystem(rm ps3.pyg)...executed.
 
  ) 
 Here is how much of TeX's memory you used:
- 16465 strings out of 492609
- 326282 string characters out of 6129048
- 417232 words of memory out of 5000000
- 19861 multiletter control sequences out of 15000+600000
- 10082 words of font info for 40 fonts, out of 8000000 for 9000
+ 16462 strings out of 492609
+ 326199 string characters out of 6129048
+ 417229 words of memory out of 5000000
+ 19860 multiletter control sequences out of 15000+600000
+ 9730 words of font info for 39 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  55i,8n,48p,1176b,469s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
@@ -803,13 +796,12 @@ cal/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local
 /texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
 texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/te
 xlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/tex
-live/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texli
-ve/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texliv
-e/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on ps3.pdf (7 pages, 254563 bytes).
+live/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texl
+ive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
+Output written on ps3.pdf (7 pages, 245141 bytes).
 PDF statistics:
- 96 PDF objects out of 1000 (max. 8388607)
- 67 compressed objects within 1 object stream
+ 92 PDF objects out of 1000 (max. 8388607)
+ 64 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  23 words of extra memory for PDF output out of 10000 (max. 10000000)
 

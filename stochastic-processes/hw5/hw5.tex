@@ -26,7 +26,6 @@
 
 \title{STAT 433: Homework 5}
 \author{Daniel Pfeffer}
-\date{\today}
 %------------------------------------------------------------------------------
 \begin{document}
 \maketitle
@@ -134,10 +133,9 @@ we deduce the probabilities
 	P(X=2) &= (1-p) P(X=1) \\
 	P(X=3) &= (1-p)P(X=2) = (1-p)^2 P(X=1) \\
 	& \vdots \\ 
-	P(X=k) &= (1-p)^k P(X=1) \\
-	& \vdots 
+	P(X=k) &= (1-p)^k P(X=1),
 \end{align*}	
-for $k=0,1,2,\dotsc$, which is the PMF of a geometric random variable, and hence $X \sim \Geom(p)$. 
+and so on, for $k=0,1,2,\dotsc$, which is the PMF of a geometric random variable, and hence $X \sim \Geom(p)$. 
 \par
 Now let $X \sim \Geom(p)$ for $0 \leq p \leq 1$, which has tail probabilities given by
 \[

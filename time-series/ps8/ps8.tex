@@ -25,10 +25,8 @@
 \renewcommand*{\proofname}{Solution}
 \setlist[enumerate]{label={(\roman*)}}
 
-
 \title{ECON 706: Problem Set 8}
 \author{Daniel Pfeffer}
-\date{\today}
 %------------------------------------------------------------------------------
 \begin{document}
 \maketitle
@@ -69,18 +67,14 @@ with solutions $\lambda_1 = 1$ and $\lambda_2=  p_{11}+p_{22}-1$.
 \item
 Derive the equilibrium distribution associated with $P$ as a function of $\theta$.
 \begin{proof}
-Let $\pi = \begin{pmatrix} \pi_1 & \pi_2\end{pmatrix}$ denote the invariant distribution of $P$, i.e., the (left) eigenvector corresponding to the eigenvalue $\lambda_1 = 1$. Then we know that $\pi$ must satisfy $\pi P = \pi$. i.e.,
+Let $\pi = (\pi_1, \pi_2)$ denote the invariant distribution of $P$, i.e., the (left) eigenvector corresponding to the eigenvalue $\lambda_1 = 1$. Then we know that $\pi$ must satisfy $\pi P = \pi$. i.e.,
 \[
-	\begin{pmatrix}
-		\pi_1 & \pi_2
-	\end{pmatrix}
+		(\pi_1,  \pi_1)
 	 \begin{pmatrix}
 		p_{11} & 1-p_{11} \\
 		1- p_{22} & p_{22}
 	\end{pmatrix}
-	=\begin{pmatrix}
-		\pi_1 & \pi_2
-	\end{pmatrix},
+	=(\pi_1,  \pi_1),
 \]
 which is an underdetermined system. Imposing a normalization restriction on $\pi$ (i.e., the probabilities sum to one) yields
 \[
@@ -152,7 +146,7 @@ The first moment condition implies that
 \]
 and the second moment condition, together which the previous implication, yields 
 \[
-	s_2 = -s_2 = \sqrt{\frac{\sigma^2}{1-\rho^2}}.
+	s_2 = -s_2 = \frac{\sigma}{\sqrt{1-\rho^2}}.
 \]
 This implies $\pi_1 = \pi_2 = 1/2$. To show that this method makes our discrepancy measure is zero, begin by inducting on $\tau$ to show that
 \[
@@ -163,9 +157,7 @@ This implies $\pi_1 = \pi_2 = 1/2$. To show that this method makes our discrepan
 \] 
 The claim holds for the one-step ahead transition since
 \[
-	\begin{pmatrix}
-		\frac{1}{2} & \frac{1}{2}
-	\end{pmatrix}
+	(1/2, 1/2)
 	\begin{pmatrix}
 		\frac{1+\rho}{2} & \frac{1- \rho}{2} \\
 		\frac{1-\rho}{2} & \frac{1+ \rho}{2}
@@ -177,9 +169,7 @@ The claim holds for the one-step ahead transition since
 \]
 Assume the discrepancy measure is zero for $\tau$. Then for $\tau+1$,
 \[
-	\begin{pmatrix}
-		\frac{1}{2} & \frac{1}{2}
-	\end{pmatrix}
+	(1/2, 1/2)
 	\begin{pmatrix}
 		\frac{1+\rho^\tau}{2} & \frac{1- \rho^\tau}{2} \\
 		\frac{1-\rho^\tau}{2} & \frac{1+ \rho^\tau}{2}
