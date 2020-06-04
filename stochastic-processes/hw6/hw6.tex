@@ -1,0 +1,205 @@
+\documentclass[oneside]{amsart}
+\setlength{\textwidth}{\paperwidth}\addtolength{\textwidth}{-2in}\calclayout
+\usepackage{dsfont} 
+\usepackage{enumitem}
+
+\DeclareMathOperator{\E}{\mathrm{E}}
+\DeclareMathOperator{\var}{\mathrm{var}}
+\DeclareMathOperator{\cov}{\mathrm{cov}}
+\newcommand{\eps}{\epsilon}
+\newcommand{\Ucal}{\mathcal{U}}
+\newcommand{\Pois}{\mathrm{Poisson}}
+\newcommand{\Exp}{\mathrm{Exponential}}
+\newcommand{\Bin}{\mathrm{Binomial}}
+\newcommand{\Ber}{\mathrm{Bernoulli}}
+\newcommand{\Gam}{\mathrm{Gamma}}
+\newcommand{\Geom}{\mathrm{Geometric}}
+\newcommand{\Z}{\mathds{Z}}
+\newcommand{\R}{\mathds{R}}
+\newcommand{\N}{\mathds{N}}
+
+\theoremstyle{definition}
+\newtheorem{prob}{Problem}
+\renewcommand*{\proofname}{Solution}
+\setlist[enumerate]{label={(\roman*)}}
+
+\title{STAT 433: Homework 6}
+\author{Daniel Pfeffer}
+%------------------------------------------------------------------------------
+\begin{document}
+\maketitle
+
+\begin{prob}
+Suppose $N_t$ Poisson process with rate 3. Let $T_n$ denote the time of the $n$-th arrival.
+\end{prob}
+
+\begin{enumerate}
+\item
+Find $\E (T_{12})$, 
+\begin{proof}
+The integral of $T_{12}$ is
+\begin{align*}
+	\E (T_{12}) = \int t f_{T_{12}}(t) dt = \int 3te^{-3 t} \frac{(3t)^{11}}{11!} dt = 4.
+\end{align*}
+\end{proof}
+\item
+Find $\E(T_{12} \mid N_2 = 5)$.
+\begin{proof}
+Since iterarrival times $\tau_i$ are i.i.d.\ $\Exp(3)$ random variables,
+\[
+	\E(T_{12} \mid N_2 = 5) 
+	= \E (T_7) + 2 
+	= 7 \E\left(\sum_{i=1}^{12} \tau_i\right) + 2= \frac{7}{3} + 2 = \frac{13}{3}.
+\]
+\end{proof}
+\item
+Find $\E(N_5 \mid N_2 = 5)$. 
+\begin{proof}
+First note that $N_5 = N_2 + (N_5 - N_2)$. Then 
+\[
+	\E(N_2 \mid N_2 = 5) + \E(N_5 - N_2 \mid N_2 = 5) = 5 + \E (N_3) = 5 + 3 \cdot 3 = 14.
+\]
+\end{proof}
+\end{enumerate}
+
+
+\begin{prob}
+Starting at 9 a.m., patients arrive at a doctor's office according to a Poisson process. On average, three patients arrive every hour.
+\end{prob}
+
+
+
+\begin{enumerate}[label=(\roman*)]
+\item
+Find the probability that at least two patients arrive by 9:30 a.m.
+\begin{proof}
+We have $N_t \sim \Pois(3t/2)$. Note first that in 30 minutes, $\lambda 30 = (3/60)30 = 3/2$, and so $N_{3/2} \sim \Pois(3/2)$. Since the probability that at least 2 patients arrive by 9:30 a.m.\ is equivalent to the complement of the event that no patients arrive by 9:30 a.m.\ or one patient arrives by 9:30 a.m., we have
+\begin{align*}
+	P(N_{3/2} \geq 2) &= 1 - P(N_{3/2} = 0) - P(N_{3/2} = 1) 
+	= 1 - e^{-3/2} - \frac{3}{2} e^{-3/2}  \\
+				    &= 1 - \frac{5}{2} e^{-3/2} = 0.442.
+\end{align*}
+\end{proof}
+
+\item
+Find the probability that 10 patients arrive by noon and eight of them come to the office before 11 a.m.
+\begin{proof}
+We have, by stationary increments and independent increments, 
+\begin{align*}
+	P(N_2 = 8, N_3 = 10) &= P(N_2 = 8, N_3 - N_2 = 2) \\
+					  &= P(N_2 = 8) P(N_1= 2)  \\
+					  &=e^{-6}\frac{6^8}{8!} \cdot e^{-3} \frac{3^2}{2!} 
+					  = 0.023.
+\end{align*}
+\end{proof}
+\item
+If six patients arrive by 10 a.m., find the probability that only one patient arrives by 9:15 a.m.
+\begin{proof}
+Again by stationary increments and independent increments, we have
+\begin{align*}
+	P(N_{1/4} = 1 \mid N_1 = 6) &= \frac{P(N_{1/4} = 1, N_1 = 6)}{P(N_1 = 6)} \\
+	&= \frac{P(N_{1/4} = 1, N_1- N_{1/4} = 5)}{P(N_1 = 6)} \\ 
+	&= \frac{P(N_{1/4} = 1)P(N_{3/4} = 5)}{P(N_1 = 6)}  \\
+	&= \frac{(3/4)e^{-3/4}e^{-9/4} (9/4)^5/ 5!}{e^{-3} (3^6/6!)} 
+	= 0.356.
+\end{align*}
+\end{proof}
+
+\end{enumerate}
+
+
+\begin{prob}
+Starting at 6 a.m., cars, buses, and motorcycles arrive at a highway toll booth according to independent Poisson processes. Cars arrive about once every 5 minutes. Buses arrive about once every 10 minutes. Motorcycles arrive about once every 30 minutes.
+\end{prob}
+
+\begin{enumerate}[label=(\roman*)]
+\item
+Find the probability that in the first 20 minutes, exactly three vehicles -- two cars and one motorcycle -- arrive at the booth.
+\begin{proof}
+Let $(C_t)_{t \geq 0}$, $(M_t)_{t \geq 0}$, and $(B_t)_{t \geq 0}$ denote the three independent Poisson processes corresponding to cars, buses, and motorcycles, respectively. Note that $C_t \sim \Pois(t/5)$, $M_t \sim \Pois(t/10)$, and $B_t \sim \Pois(t/30)$. By independent increments, we have 
+\begin{align*}
+	P(C_{20} = 2, M_{20} = 1, B_{20}= 0) &=  P(C_{20}= 2) P(M_{20} = 1) P(B_{20}= 0)  \\
+	&= e^{-20/5}\frac{(20/5)^2}{2!} e^{-20/30}\frac{(20/30)^1}{1!}   e^{-20/10}\frac{(20/10)^0}{0!}  \\
+	&= 0.006787.
+\end{align*}
+\end{proof}
+\item
+At the toll booth, the chance that a driver has exact change is 1/4, independent of vehicle. Find the probability that no vehicle has exact change in the first 10 minutes.
+\begin{proof}
+The superposition of each process is $C_t+M_t+B_t= N_t \sim \Pois(1/5+1/10+1/30=1/3)$. This arrival process is then thinned according to the random variable indicating whether a car has exact change. The resulting Poisson process has parameter $1/4 \cdot 1/3 = 1/12$. Hence
+\[
+	P(\text{car has exact change}) = e^{-10(1/12)} = e^{-5/6}.
+\]
+\end{proof}
+\item
+Find the probability that the 6th motorcycle arrives within 45 minutes of the third motorcycle.
+\begin{proof}
+Let $S(t)$ be the sum of motorcycles that arrive at the toll booth. Then 
+\begin{align*}
+	P(S(7) - S(3) < 45) &= P(M_4  + M_5 + M_6  + M_7 < 45) \\
+	&= \int_0^{45} \frac{1}{30} e^{-45/30} \frac{(45/30)^{3}}{3!} dt = 0.19,
+\end{align*}
+which follows since the sum of exponential random variables follows a gamma distribution. 
+\end{proof}
+\item
+Find the probability that at least one other vehicle arrives at the toll booth between the third and fourth car arrival.
+\begin{proof}
+Observe that $M_t+B_t \sim \Pois(1/10 + 1/30 = 2/15)$. Let $\tau \Exp(1/5)$ be the interarrival time between the 3rd and 4th car arrival. Then 
+\begin{align*}
+	P(M_t+B_t > 0) =& \int_0^\infty P(M_t+B_t > 0 \mid \tau = t) \frac{1}{5}e^{-t/5} dt \\
+	&= \frac{1}{5} \int_0^\infty \left( 1 - e^{-2t/15} \right)e^{-t/5} dt = \frac{2}{5}.
+\end{align*}
+\end{proof}
+\end{enumerate}
+
+\begin{prob}
+Let $S_t$ be the price of a stock at time $t$ and suppose that at times of a Poisson process with rate $\lambda$ the price is multiplied by a random variable $X_i >0$ with mean $\mu$ and variance $\sigma^2$. That is 
+\[
+	S_t = \prod_{i=1}^{N_t} X_i,
+\]
+where the product is 1 if $N_t = 0$. Find $\E S_t$ and $\var S_t$.
+\end{prob}
+
+\begin{proof}
+By the law of total expectation, we may write $\E S_t = \E\E(S_t \mid N_t)$ and $\E S_t^2 = \E\E(S_t^2 \mid N_t)$ Then condition on $N_t = n$ and use linearity of the expectation operator to obtain,
+\[
+	\E (S_t \mid N_t = n) = \E \left( \prod_{i=1}^n X_i \mid N_t = n \right)
+	= \E \left( \prod_{i=1}^n X_i \right)
+	=  \prod_{i=1}^n \E X_i 
+	= \mu^n,
+\]
+and, for the conditional second moment, 
+\[
+	\E(S_t^2 \mid N_t = n) = \E \left( \prod_{i=1}^n X_i^2 \mid N_t = n \right)
+	= \E \left( \prod_{i=1}^n X_i^2 \right)
+	=  \prod_{i=1}^n \E X_i^2  
+	= (\mu^2 + \sigma^2 )^n
+\]
+We now have 
+\[
+	\E S_t = \E \E (S_t \mid N_t) = \mu^{N_t}, 
+\]
+and 
+\[
+	\E S_t^2 = \E \E (S_t^2 \mid N_t) = (\mu^2 + \sigma^2)^{N_t}, 
+\]
+The mean is 
+\[
+	\E S_t = \E \mu^{N_t} 
+	= \sum_{n=0}^\infty e^{-\lambda t} \frac{(\lambda t)^n}{n!} 
+	=e^{-\lambda t}e^{-\mu \lambda t}
+	= e^{(\mu - 1)\lambda t}.
+\]
+For the second moment, we have 
+\[
+	\E S^2 = \E  (\mu^2 + \sigma^2)^{N_t} 
+	= e^{-\lambda t} e^{(\mu^2+ \sigma^2)\lambda t} 
+	= e^{(\mu^2 + \sigma^2 -1)\lambda t},
+\]
+and so the variance is
+\[
+	\var S_t = \E S_t^2 - (\E S_t)^2 = e^{(\mu^2 + \sigma^2 -1)\lambda t} - e^{2(\mu - 1)\lambda t}.
+\]
+\end{proof}
+
+\end{document}

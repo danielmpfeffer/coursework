@@ -1,0 +1,202 @@
+\documentclass[oneside]{amsart}
+\setlength{\textwidth}{\paperwidth}\addtolength{\textwidth}{-2in}\calclayout
+\usepackage{dsfont} 
+\usepackage{enumitem}
+
+\DeclareMathOperator{\E}{\mathrm{E}}
+\DeclareMathOperator{\var}{\mathrm{var}}
+\DeclareMathOperator{\cov}{\mathrm{cov}}
+\newcommand{\eps}{\epsilon}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\Pois}{\mathrm{Poisson}}
+\newcommand{\Exp}{\mathrm{Exponential}}
+\newcommand{\Bin}{\mathrm{Binomial}}
+\newcommand{\Ber}{\mathrm{Bernoulli}}
+\newcommand{\Gam}{\mathrm{Gamma}}
+\newcommand{\Geom}{\mathrm{Geometric}}
+\newcommand{\Z}{\mathds{Z}}
+\newcommand{\R}{\mathds{R}}
+\newcommand{\N}{\mathds{N}}
+\newcommand{\indep}{\perp \!\!\! \perp}
+
+\theoremstyle{definition}
+\newtheorem{prob}{Problem}
+\renewcommand*{\proofname}{Solution}
+\setlist[enumerate]{label={(\roman*)}}
+
+\title{STAT 433: Homework 7}
+\author{Daniel Pfeffer}
+\date{\today}
+%------------------------------------------------------------------------------
+\begin{document}
+\maketitle
+
+\begin{prob}
+The planets of the Galactic Empire are distributed in space according to a spatial Poisson process at an approximate density of one planet per cubic parsec. From the Death Star, let $X$ be the distance to the nearest planet.
+\end{prob}
+
+\begin{enumerate}[label=(\alph*)]
+\item
+Find the probability density function of $X$.
+\begin{proof}
+The event $\{X > r\}$ occurs iff there are no objects in a ball $B_r$ with radius $r$ around the Death State. Note that $B_r$ has Lebesgue measure (volume) $|B_r| = -4 \pi r^3/3$ and 
+\[
+	P(X > r) = P(N_{B_r} = 0) = P(\Pois(4 \pi r^3/3) = 0) = e^{-4 \pi r^3/3}
+\]
+Then notice that the cdf is given by
+\[
+	P(X < r) = 1- e^{-4 \pi r^3/3}.
+\]
+Differentiating the cdf, we obtain the pdf 
+\[
+	f(r) = 4 \pi r^2 e^{-4 \pi r^3/3},
+\]	
+for all $r \geq 0$.
+\end{proof}
+\item
+Find the mean distance from the Death Star to the nearest planet. You can calculate the integral numerically. 
+\begin{proof}
+The integral of $X$ is
+\[
+	\E X=\int_0^\infty 4 \pi r^3 e^{-4 \pi r^3/3} dr = \frac{1}{36 \sqrt[3]{6 \pi}}\Gamma(1/3) \approx 0.55.
+\]
+\end{proof}
+\end{enumerate}
+
+
+\begin{prob}
+Customers arrive at a bank according to a Poisson process with rate 10 per hour. Given that 5 customers arrived in the first 30 minutes, answer the following questions.
+\end{prob}
+
+\begin{enumerate}[label=(\roman*)]
+\item
+What is the probability that at least 3 arrived in the first 10 minutes?
+\begin{proof}
+Let $N_{1/2} = 5$ denote the number of arrivals after 30 minutes, let $T_i$ denote the $i$th arrival time, note that 
+\[
+	(T_1, T_2, T_3, T_4, T_5) \mid N_{1/2} = 5 \sim \U([0, 1/2]).
+\]
+Then the number of arrivals in the first 10 minutes is $\Bin(5, 1/3)$, and so the event that the at least 3 customers arrived in the first 10 minutes is 
+\[
+	\binom{5}{3} \frac{1}{3^3} \cdot \frac{2^2}{3^2}
+	+ \binom{5}{4} \frac{1}{3^4}  \cdot  \frac{2}{3}
+	+  \frac{1}{3^5} 
+\]
+\end{proof}
+\item
+What is the probability that 2 arrived in the first 10 minutes and 1 arrived in the next 5 minutes?
+\begin{proof}
+For a random variable $U_i \sim \U([0,1/2])$, the probability that it lies in the interval $[0,1/6]$ is 1/3, the probability that it lies in the interval $(1/6, 1/4]$ is 1/6, and the probability that it lies in the interval $(1/4, 1/2]$ is 1/2. Then for the 5 i.i.d. random variables $U_1,\dotsc, U_5$, the probability that two of them lie in $[0,1/6]$, 1 lies in $(1/6, 1/4]$, and 2 lie in $(1/4, 1/2]$ is 
+\[
+	\frac{5!}{2!1!2!} \cdot \frac{1}{3^2}\cdot \frac{1}{6}\cdot\frac{1}{2^2} = \frac{5}{36},
+\]
+which follows directly from the multinomial distribution. 
+\end{proof}
+\item
+What is the mean of the arriving time for the first customer?
+\begin{proof}
+Let $T_1$ be the arriving time for the first customer. Then,
+\[
+	P(T_1 \geq t) = P\left(\min_{1 \leq i \leq 5} U_i\geq t \right) = (1-2t)^5.
+\]
+for $0 \leq t \leq 1/2$, and the integral of $T_1$ is 
+\[
+	\E T_1 = \int_0^{1/2} P(T_1 \geq t) dt 
+		= \int_0^{1/2} (1-2t)^2 dt
+		= \frac{1}{2} \int_0^1 x^5 dx = \frac{1}{12} \text{ hours}.
+\]
+\end{proof}
+
+\end{enumerate}
+
+\begin{prob}
+Recall the long run car costs problem. Suppose that the lifetime of a car is a random variable with density function $f(t)$. Our methodical Mr. Brown buys a new car as soon as the old one breaks down or reaches $T$ years. Suppose that a new car costs A dollars and that an additional cost of $B$ dollars to repair the vehicle is incurred if it breaks down before time $T$. If $f(t) = \lambda e^{-\lambda t}$, show that for any $A$ and $B$ the optimal time is $T=\infty$. Can you give a simple explanation in words.
+\end{prob}
+
+
+\begin{proof}
+The cost of the $i$th cycle is 
+\begin{align*}
+	\E r_i &= A + B  \int_0^T \lambda e^{-\lambda t} dt = A + B e^{-\lambda T}.
+\end{align*}
+For the the duration of the $i$th cycle, we have
+\begin{align*}
+	\E \tau_i &= \int_0^T t \lambda e^{-\lambda t}dt  + T \int_T^\infty \lambda e^{-\lambda t}dt \\
+	&= \lambda \int_0^T t  e^{-\lambda t}dt +  T e^{-\lambda T}. 
+\end{align*}
+Integrate by parts, $\int  u  dv = uv- \int vdu$, with $u=t$ and $dv=e^{-\lambda t}dt$, where $du = dt$ and $v = e^{-\lambda t}/t$,
+\begin{align*}
+\int_0^T t e^{-\lambda t}dt  &= \left.-\frac{t e^{-\lambda t}}{\lambda} \right|_0^T + \frac{1}{\lambda} \int_0^Te^{-\lambda t}dt  \\ 
+	&=-\frac{T e^{-\lambda T}}{\lambda} + \frac{1-e^{-\lambda T}}{\lambda} \\
+	&= \frac{1-\lambda  e^{-\lambda T}(\lambda T + 1)}{\lambda}.
+\end{align*}
+Combining terms gives the duration of the $i$th cycle as
+\[
+	\E \tau_i =  \frac{1-\lambda  e^{-\lambda T}(\lambda T + 1)}{\lambda} +  T e^{-\lambda T} =\frac{e^{-\lambda T}(-\lambda  + \lambda T + \lambda T - 1)}{\lambda}
+\]
+The elementary renewal theorem tells us the long run reward per unit time is 
+\[
+	\frac{\E r_i}{\E \tau_i} = \frac{A + B e^{-\lambda T}}{[e^{-\lambda T}(-\lambda  + \lambda T + \lambda T - 1)]/\lambda} = -\frac{A + B e^{-\lambda T}}{\lambda^2  + \lambda - 2 \lambda T}.
+\]
+Differentiating with respect to $T$ gives 
+\begin{align*}
+	\frac{\partial}{\partial T}\frac{A - B e^{-\lambda T}}{\lambda^2  + \lambda - 2 \lambda T} 
+	= \frac{2 \lambda(A - B e^{-\lambda T})}{(\lambda^2  + \lambda - 2 \lambda T)^2} + \frac{B \lambda e^{-\lambda T}}{\lambda^2  + \lambda - 2 \lambda T}
+\end{align*}
+The optimal policy is to set $T = \infty$, since the exponential the numerator beats the quadratic in the denominator. 
+\par
+Since the lifetime of the car satisfies the memoryless property, given that a breakdown occurred, the probability that another one will occur is the same as if the original breakdown never happened. That is, after a breakdown, the car ``forgets'' that it broke is effectively becomes a new car.
+\end{proof}
+
+\begin{prob}
+A young doctor is working at night in an emergency room. Emergencies come in at times of a Poisson process with rate $\lambda=0.5$ per hour. The doctor can only get to sleep when it has been $c = 36$ minutes (0.6 hours) since the last emergency. For example, if there is an emergency at 1:00 and a second one at 1:17 then she will not be able to get to sleep until at least 1:53, and it will be even later if there is another emergency before that time. We want to compute the long-run fraction of time the doctor spends sleeping with the following strategy.
+\end{prob}
+
+\begin{enumerate}[label=(\alph*)]
+\item
+If $T\sim \Exp(\lambda)$, find $\E(T\mid T<c)$.
+\begin{proof}
+Note first that by definition 
+\[
+	\E T = P(T<c) \E(T\mid T<c)  + P(T>c) \E(T\mid T>c).
+\]
+Then 
+\[
+	\E(T\mid T<c) = \frac{\E T - P(T>c) \E(T\mid T>c)}{P(T<c)} = \frac{2 + e^{-0.5\cdot 36}}{1-0.5e^{-0.5\cdot 36}}
+\]
+\end{proof}
+\item
+Let $J_n= \min\{j:\tau_j > c\}$, where $\tau_1,\tau_2,\dotsc,\tau_n$ are the interarrival times of the Poisson process with rate $\lambda$. Use (a) to show that 
+\[
+	\E(T_{J-1} + c) = \frac{e^{\lambda c} -1}{\lambda} 
+\]
+\begin{proof}
+\[	
+	\E(T_{J-1} + c) = \frac{ce^{-\lambda c} -ce^{-\lambda} + (1-e^{-\lambda c})/\lambda}{P(\tau_1 > c)} 
+	= \frac{(1-e^{-\lambda c)}/\lambda}{e^{-\lambda c}} 
+	= \frac{e^{\lambda c}-1}{\lambda}
+\]
+\end{proof}
+\item
+The doctor alternates between sleeping for an amount of time $s_i$ and being awake for an amount of time $u_i$. Use the result from (b) to compute $\E u_i$.
+\begin{proof}
+By the memoryless property, $\E u_i = \E(T\mid T+c)$
+\end{proof}
+\item
+Compute the long-run fraction of time the doctor spends sleeping.
+\begin{proof}
+
+\end{proof}
+\item
+Model the process using a counter model, and compute (d) in another way using the formula on class.
+\begin{proof}
+
+\end{proof}
+\end{enumerate}
+
+
+
+
+
+
+\end{document}
