@@ -363,7 +363,7 @@ Assume the claim is true for any $n$. We want to show that the result is also tr
 \]
 Substituting in for $P(X_n=1)$ gives 
 \begin{align*}
-	P(X_{n+1} = 1) &= \frac{b}{a+b} + (1-a-b)\left( \left((1-a-b)^n \left(P(X_0 = 1)- \frac{b}{a+b}\right)\right) - \frac{b}{a+b}\right) \\
+	P(X_{n+1} = 1) &= \frac{b}{a+b} + (1-a-b)\left\{ \left((1-a-b)^n \left(P(X_0 = 1)- \frac{b}{a+b}\right)\right) - \frac{b}{a+b}\right\} \\
 	&= \frac{b}{a+b} + (1-a-b)^{n+1}\left( P(X_0 = 1)- \frac{b}{a+b}\right).
 \end{align*}	
 Shifting the indices back one period gives
@@ -378,7 +378,7 @@ Show that $P(X_n=1)$ converges exponentially fast to $\pi(1)$ for the $\pi$ you 
 \begin{proof}
 Since $0<a<1$ and $0<b<1$, the term $|1-a-b| < 1$. Then, noting that $(1-a-b)^n$ is the only term depending on $n$, we have
 \begin{align*}
-	\lim_{n \to \infty} P(X_n = 1) &= \lim_{n \to \infty}\left( \frac{b}{a+b} + (1-a-b)^n \left(P(X_0 = 1)- \frac{b}{a+b}\right)\right) \\
+	\lim_{n \to \infty} P(X_n = 1) &= \lim_{n \to \infty}\left\{ \frac{b}{a+b} + (1-a-b)^n \left(P(X_0 = 1)- \frac{b}{a+b}\right)\right\} \\
 	&=  \frac{b}{a+b} + \lim_{n \to \infty} (1-a-b)^n  \left( P(X_0 = 1) - \frac{b}{a+b} \right),
 \end{align*}
 which shows that convergence to the limiting distribution, $P(X_n=1) \to \pi(1)$ as $n \to \infty$, is exponential at rate $(1-a-b)^n$.

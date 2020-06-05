@@ -26,7 +26,6 @@
 
 \title{STAT 433: Homework 7}
 \author{Daniel Pfeffer}
-\date{\today}
 %------------------------------------------------------------------------------
 \begin{document}
 \maketitle
@@ -99,12 +98,13 @@ Let $T_1$ be the arriving time for the first customer. Then,
 \[
 	P(T_1 \geq t) = P\left(\min_{1 \leq i \leq 5} U_i\geq t \right) = (1-2t)^5.
 \]
-for $0 \leq t \leq 1/2$, and the integral of $T_1$ is 
+for $0 \leq t \leq 1/2$, and the integral of $T_1$ is
 \[
 	\E T_1 = \int_0^{1/2} P(T_1 \geq t) dt 
 		= \int_0^{1/2} (1-2t)^2 dt
 		= \frac{1}{2} \int_0^1 x^5 dx = \frac{1}{12} \text{ hours}.
 \]
+So the mean of the arriving time of the first customer is 5 minutes.
 \end{proof}
 
 \end{enumerate}
@@ -117,35 +117,19 @@ Recall the long run car costs problem. Suppose that the lifetime of a car is a r
 \begin{proof}
 The cost of the $i$th cycle is 
 \begin{align*}
-	\E r_i &= A + B  \int_0^T \lambda e^{-\lambda t} dt = A + B e^{-\lambda T}.
+	\E r_i &= A + B  \int_0^T \lambda e^{-\lambda t} dt = A + B (1 - e^{-\lambda T}).
 \end{align*}
 For the the duration of the $i$th cycle, we have
-\begin{align*}
-	\E \tau_i &= \int_0^T t \lambda e^{-\lambda t}dt  + T \int_T^\infty \lambda e^{-\lambda t}dt \\
-	&= \lambda \int_0^T t  e^{-\lambda t}dt +  T e^{-\lambda T}. 
-\end{align*}
-Integrate by parts, $\int  u  dv = uv- \int vdu$, with $u=t$ and $dv=e^{-\lambda t}dt$, where $du = dt$ and $v = e^{-\lambda t}/t$,
-\begin{align*}
-\int_0^T t e^{-\lambda t}dt  &= \left.-\frac{t e^{-\lambda t}}{\lambda} \right|_0^T + \frac{1}{\lambda} \int_0^Te^{-\lambda t}dt  \\ 
-	&=-\frac{T e^{-\lambda T}}{\lambda} + \frac{1-e^{-\lambda T}}{\lambda} \\
-	&= \frac{1-\lambda  e^{-\lambda T}(\lambda T + 1)}{\lambda}.
-\end{align*}
-Combining terms gives the duration of the $i$th cycle as
 \[
-	\E \tau_i =  \frac{1-\lambda  e^{-\lambda T}(\lambda T + 1)}{\lambda} +  T e^{-\lambda T} =\frac{e^{-\lambda T}(-\lambda  + \lambda T + \lambda T - 1)}{\lambda}
+	\E \tau_i = \int_0^T t \lambda e^{-\lambda t}dt  + T \int_T^\infty \lambda e^{-\lambda t}dt 
+	= - t e^{-\lambda t} \Big|_0^T + \int_0^T  e^{-\lambda t}dt +  T e^{-\lambda T}
+	= \frac{1}{\lambda} (1 - e^{-\lambda T}).
 \]
-The elementary renewal theorem tells us the long run reward per unit time is 
+By the elementary renewal theorem tells, the long run reward per unit time is 
 \[
-	\frac{\E r_i}{\E \tau_i} = \frac{A + B e^{-\lambda T}}{[e^{-\lambda T}(-\lambda  + \lambda T + \lambda T - 1)]/\lambda} = -\frac{A + B e^{-\lambda T}}{\lambda^2  + \lambda - 2 \lambda T}.
+	\frac{\E r_i}{\E \tau_i} = \frac{A \lambda}{1 - e^{-\lambda T}}  + B\lambda.
 \]
-Differentiating with respect to $T$ gives 
-\begin{align*}
-	\frac{\partial}{\partial T}\frac{A - B e^{-\lambda T}}{\lambda^2  + \lambda - 2 \lambda T} 
-	= \frac{2 \lambda(A - B e^{-\lambda T})}{(\lambda^2  + \lambda - 2 \lambda T)^2} + \frac{B \lambda e^{-\lambda T}}{\lambda^2  + \lambda - 2 \lambda T}
-\end{align*}
-The optimal policy is to set $T = \infty$, since the exponential the numerator beats the quadratic in the denominator. 
-\par
-Since the lifetime of the car satisfies the memoryless property, given that a breakdown occurred, the probability that another one will occur is the same as if the original breakdown never happened. That is, after a breakdown, the car ``forgets'' that it broke is effectively becomes a new car.
+Since the function is strictly decreasing in $T$, the optimal policy is to set $T = \infty$. This result can be understood intuitively through the memoryless property of exponential random variables: if Mr. Brown used the car for $t$ years, then the probability that it can be used for another $s$ years is the same as the probability for a new car to work for $s$ years. 
 \end{proof}
 
 \begin{prob}
@@ -156,14 +140,12 @@ A young doctor is working at night in an emergency room. Emergencies come in at 
 \item
 If $T\sim \Exp(\lambda)$, find $\E(T\mid T<c)$.
 \begin{proof}
-Note first that by definition 
-\[
-	\E T = P(T<c) \E(T\mid T<c)  + P(T>c) \E(T\mid T>c).
-\]
-Then 
-\[
-	\E(T\mid T<c) = \frac{\E T - P(T>c) \E(T\mid T>c)}{P(T<c)} = \frac{2 + e^{-0.5\cdot 36}}{1-0.5e^{-0.5\cdot 36}}
-\]
+The desired conditional expectation is  
+\begin{align*}
+	\E(T\mid T<c) &= \frac{1}{P(T<c)} \int_0^c t \lambda e^{-\lambda t}dt \\
+	&= \frac{1}{1-e^{-\lambda t}}\left( \frac{1}{\lambda} - \frac{1}{\lambda}e^{-\lambda c} - c e^{-\lambda c} \right) \\
+	&= \frac{1}{\lambda} - \frac{ce^{-\lambda c}}{1 - e^{-\lambda c}}.
+\end{align*}
 \end{proof}
 \item
 Let $J_n= \min\{j:\tau_j > c\}$, where $\tau_1,\tau_2,\dotsc,\tau_n$ are the interarrival times of the Poisson process with rate $\lambda$. Use (a) to show that 
@@ -171,26 +153,60 @@ Let $J_n= \min\{j:\tau_j > c\}$, where $\tau_1,\tau_2,\dotsc,\tau_n$ are the int
 	\E(T_{J-1} + c) = \frac{e^{\lambda c} -1}{\lambda} 
 \]
 \begin{proof}
-\[	
-	\E(T_{J-1} + c) = \frac{ce^{-\lambda c} -ce^{-\lambda} + (1-e^{-\lambda c})/\lambda}{P(\tau_1 > c)} 
-	= \frac{(1-e^{-\lambda c)}/\lambda}{e^{-\lambda c}} 
-	= \frac{e^{\lambda c}-1}{\lambda}
+Use the law of total expectation to write $\E T_{J-1} = \E \E (T_{J-1} \mid J)$. For $J = j$,
+\begin{align*}
+	\E (T_{J-1} \mid J = j) &= \E (T_{j-1} \mid J = j) \\
+	&= \E (\tau_1 + \cdots + \tau_{j-1} \mid \tau_1 < c, \cdots, \tau_{j-1} < c, \tau_j \geq c) \\
+	&= \sum_{k=1}^{j-1} \E(\tau_k \mid \tau_k < c) \\
+	&= (j-1) \left( \frac{1}{\lambda} - \frac{ce^{-\lambda c}}{1 - e^{-\lambda c}} \right)
+\end{align*}
+So 
+\[
+	\E(T_{J-1} \mid J) = (J-1)  \left( \frac{1}{\lambda} - \frac{ce^{-\lambda c}}{1 - e^{-\lambda c}} \right)
+\]
+Note that since $J \sim \Geom(e^{-\lambda c})$, $\E J = 1/e^{-\lambda c}$. Then 
+\begin{align*}
+	\E T_{J-1} &=  \E (J-1)  \left( \frac{1}{\lambda} - \frac{ce^{-\lambda c}}{1 - e^{-\lambda c}} \right) \\
+	&= (e^{\lambda c} -1) \left( \frac{1}{\lambda} - \frac{ce^{-\lambda c}}{1 - e^{-\lambda c}} \right) \\
+	&= \frac{e^{\lambda c} -1}{\lambda} - c.
+\end{align*}
+Therefore,  
+\[
+	\E(T_{J-1} + c) = \frac{e^{\lambda c} -1}{\lambda}.
 \]
 \end{proof}
 \item
 The doctor alternates between sleeping for an amount of time $s_i$ and being awake for an amount of time $u_i$. Use the result from (b) to compute $\E u_i$.
 \begin{proof}
-By the memoryless property, $\E u_i = \E(T\mid T+c)$
+We have 
+\[
+	\E u_i = \frac{e^{\lambda c} -1}{\lambda} 
+	=\frac{e^{0.5 \cdot 0.6} -1}{0.6} 
+	= 2(e^{0.3} - 1).
+\]
 \end{proof}
 \item
 Compute the long-run fraction of time the doctor spends sleeping.
 \begin{proof}
-
+Since $s_i \sim \Exp(\lambda)$, $\E s_i = 1 / \lambda$ and the long-run fraction of time the doctor spends sleeping is 
+\[
+	\frac{\E s_i }{\E s_i + \E u_i} = \frac{\lambda^{-1}}{\lambda^{-1} + \lambda^{-1} (e^{\lambda c} - 1)}
+	= e^{-\lambda c} 
+	= e^{-0.3}.
+\]
 \end{proof}
 \item
 Model the process using a counter model, and compute (d) in another way using the formula on class.
 \begin{proof}
-
+This process can be modeled using a Type II counter model with sleeping corresponding to the alive period and being awake corresponding to the locked period. Then, using the result that the long-run fraction of alive time is 
+\[
+	\lim_{t\to \infty} p_a(t) = e^{-\lambda Y_i},
+\]
+and setting $Y_i = c$ for our problem, gives
+\[
+	\lim_{t\to \infty} p_a(t) = e^{-\lambda c},
+\]
+the desired result.
 \end{proof}
 \end{enumerate}
 
