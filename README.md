@@ -1,11 +1,14 @@
 # Relevant Coursework 
 
+This repository contains problem sets I completed for the time series analysis and stochastic processes courses taken in Spring 2020. I would like to thank for Professors and TAs for though provoking questions and highly engaging lectures. 
+
 ## Time Series 
 
 **Course Description** (from the syllabus):  This course provided an introduction to modern time series econometrics. The first part of the course dealt with properties of dependent processes. This includes laws of large numbers and central limit theorems as well as the Wold Representation, and the properties of autoregressive (AR), moving average (MA), and ARMA processes. The course also included a brief excursion into the frequency domain where we studied the spectrum and its approximation. The second part focuses on statistical inference. We begin with the Bayesian estimation of AR models. Then we considered the analysis of linear state-space models, which encompass ARMA models, time-varying coefficient models, and factor models. Finally, we considered models with time-varying heteroskedasticity and extensions to vector processes.
 
-**References:**
-* Brockwell, P.J. and R.A. Davis (1991): “Time Series: Theory and Models,” SpringerVerlag.
+**References:** The primary reference was my professor's course notes. 
+* Brockwell, P.J. and R.A. Davis (1991): “Time Series: Theory and Models,” Springer-Verlag.
+* Hamilton, James D. (1994): “Time Series Analysis,” Princeton University Press.
  
 **Problem Sets:**
 * [Problem Set 1](https://github.com/danielmpfeffer/coursework/blob/master/time-series/ps1/ps1.pdf)
@@ -26,7 +29,7 @@
 *  Introduction to Stochastic Processes with R (Wiley, First Edition) by Robert P. Dobrow. 
 
 
-**Problem Sets**
+**Problem Sets:**
 * [Problem Set 1](https://github.com/danielmpfeffer/coursework/blob/master/stochastic-processes/hw1/hw1.pdf)
 * [Problem Set 2](https://github.com/danielmpfeffer/coursework/blob/master/stochastic-processes/hw2/hw2.pdf)
 * [Problem Set 3](https://github.com/danielmpfeffer/coursework/blob/master/stochastic-processes/hw3/hw3.pdf)
