@@ -12,7 +12,6 @@
 \makeatother
 \allowdisplaybreaks[1]
 
-\DeclareMathOperator{\E}{E}
 \DeclareMathOperator{\var}{var}
 \DeclareMathOperator{\cov}{cov}
 \DeclareMathOperator{\corr}{corr}
@@ -23,7 +22,6 @@
 \let\vech\relax\DeclareMathOperator{\vech}{vech}
 \newcommand{\eps}{\varepsilon}
 \newcommand{\ups}{\upsilon}
-\newcommand{\N}{\mathrm N}
 
 \theoremstyle{definition}
 \newtheorem{prob}{Problem}
@@ -67,11 +65,11 @@ The dynamic factor models form the class of state-space models considered by Aru
 		\eps_{Et} \\ \eps_{It}
 	\end{pmatrix}  \label{eq:meas}.
 \end{align}
-where \eqref{eq:meas} is the measurement equation and \eqref{eq:state} is the state-transition equation. The measurement errors are orthogonal to each other at all leads and lags and to the shocks with joint distribution $(\eps_{Gt}, \eps_{Et}, \eps_{It})' \sim \text{iid } \N(0, \Omega)$, where $\Omega = \diag(\sigma_{GG}^2, \sigma_E^2, \sigma_{II}^2)$. The intercepts in the measurement equation identify $\rho$ and $\mu$. Orthogonality of innovations at all leads and lags ensure the columns of of the covariance matrix are linearly independent with $\rank(\Omega) = 3$, and hence nonsingular (rank condition).
+where \eqref{eq:meas} is the measurement equation and \eqref{eq:state} is the state-transition equation. The measurement errors are orthogonal to each other at all leads and lags and to the shocks with joint distribution $(\eps_{Gt}, \eps_{Et}, \eps_{It})' \sim \text{iid } N(0, \Omega)$, where $\Omega = \diag(\sigma_{GG}^2, \sigma_E^2, \sigma_{II}^2)$. The intercepts in the measurement equation identify $\rho$ and $\mu$. Orthogonality of innovations at all leads and lags ensure the columns of of the covariance matrix are linearly independent with $\rank(\Omega) = 3$, and hence nonsingular (rank condition).
 \item
-(Identified) 2-equation model: $\Omega$ block-diagonal. The measurement equation and the state-transition equation are as in \eqref{eq:meas} and \eqref{eq:state}, respectively. Measurement errors $\eps_{Et}, \eps_{It}$ may exhibit spatial correlation, but $\eps_{Gt} \perp (\eps_{Et}, \eps_{It})$ for all $t$. Here $(\eps_{Gt}, \eps_{Et}, \eps_{It})' \sim \text{iid } \N(0, \Omega)$, where $\Omega = \diag(\sigma_{GG}^2, \cov(\eps_{EE}, \eps_{II}))$. The intercepts in the measurement equation again identify $\rho$ and $\mu$ (exclusion restriction). Although the covariance matrix need not have full rank, symmetry of the $\cov(\eps_{EE}, \eps_{II})$ block in $\Omega$ guarantees its identification.
+(Identified) 2-equation model: $\Omega$ block-diagonal. The measurement equation and the state-transition equation are as in \eqref{eq:meas} and \eqref{eq:state}, respectively. Measurement errors $\eps_{Et}, \eps_{It}$ may exhibit spatial correlation, but $\eps_{Gt} \perp (\eps_{Et}, \eps_{It})$ for all $t$. Here $(\eps_{Gt}, \eps_{Et}, \eps_{It})' \sim \text{iid } N(0, \Omega)$, where $\Omega = \diag(\sigma_{GG}^2, \cov(\eps_{EE}, \eps_{II}))$. The intercepts in the measurement equation again identify $\rho$ and $\mu$ (exclusion restriction). Although the covariance matrix need not have full rank, symmetry of the $\cov(\eps_{EE}, \eps_{II})$ block in $\Omega$ guarantees its identification.
 \item
-(Unidentified) 2-equation model: $\Omega$ unrestricted. The measurement equation and the state-transition equation are again as in \eqref{eq:meas} and \eqref{eq:state}, respectively. Now $(\eps_{Gt}, \eps_{Et}, \eps_{It})' \sim \text{iid } \N(0, \Omega)$, where
+(Unidentified) 2-equation model: $\Omega$ unrestricted. The measurement equation and the state-transition equation are again as in \eqref{eq:meas} and \eqref{eq:state}, respectively. Now $(\eps_{Gt}, \eps_{Et}, \eps_{It})' \sim \text{iid } N(0, \Omega)$, where
 \begin{equation}\label{eq:unres-sigma}
 	\Omega = \begin{pmatrix}
 		\sigma_{GG}^2 & \sigma_{GE}^2 & \sigma_{GI}^2 \\
@@ -79,7 +77,7 @@ where \eqref{eq:meas} is the measurement equation and \eqref{eq:state} is the st
 		\sigma_{IG}^2 & \sigma_{IE}^2 &  \sigma_{II}^2
 	\end{pmatrix}.
 \end{equation}
-Notice that $\Omega$ has six free parameters to be determined. Recall that we can estimate $\rho$ and $\mu$ from the intercepts in \eqref{eq:meas} and \eqref{eq:state}, and we have that $\E(\eps_{Gt}, \eps_{Et}, \eps_{It}) = (0, 0, 0)$. But that is only identifies five the parameters. Hence $\Sigma$ is not uniquely identified. Lack of identifiability is a direct consequence of the assumption that $\corr(\eps_{Gt}, (\eps_{Et}, \eps_{It})) \neq 0$.
+Notice that $\Omega$ has six free parameters to be determined. Recall that we can estimate $\rho$ and $\mu$ from the intercepts in \eqref{eq:meas} and \eqref{eq:state}, and we have that $E(\eps_{Gt}, \eps_{Et}, \eps_{It}) = (0, 0, 0)$. But that is only identifies five the parameters. Hence $\Sigma$ is not uniquely identified. Lack of identifiability is a direct consequence of the assumption that $\corr(\eps_{Gt}, (\eps_{Et}, \eps_{It})) \neq 0$.
 \item
 (Identified) 2-equation model: $\Omega$ restricted. Aruoba et al.\ achieve identification by arguing the following reparameterizarion leads an intuitive restriction. They consider the relative variance of $GDP_t$ to $GDP_E$ by letting
 \[
@@ -103,7 +101,7 @@ and fix $\zeta \in (0,1)$ by imposing the restriction on $\sigma_{GE}^2$ to be a
 		\eps_{Et} \\ \eps_{It} \\ \eps_{Ut}
 	\end{pmatrix}  \label{eq:meas-2}.
 \end{align}
-where $(\eps_{Gt}, \eps_{Et}, \eps_{It}, \eps_{Ut})' \sim \text{iid } \N(0, \Omega)$, with 
+where $(\eps_{Gt}, \eps_{Et}, \eps_{It}, \eps_{Ut})' \sim \text{iid } N(0, \Omega)$, with 
 \begin{equation}
 	\Omega = \begin{pmatrix}
 		\sigma_{GG}^2&\sigma_{GE}^2 &\sigma_{GI}^2&\sigma_{GU}^2 \\
@@ -112,7 +110,7 @@ where $(\eps_{Gt}, \eps_{Et}, \eps_{It}, \eps_{Ut})' \sim \text{iid } \N(0, \Ome
 		\sigma_{UG}^2 & 0 & 0 & \sigma_{UU}^2
 	\end{pmatrix}.
 \end{equation}
-The intercepts and loading factor in \eqref{eq:meas-2}  identify $\rho$ and $\mu$. The moments $\E(\eps_{Gt}, \eps_{Et}, \eps_{It}, \eps_{Ut})' = (0,0,0,0)'$  together the restriction that $\sigma_{UE}^2 = \sigma_{UI}^2 = 0$ identify the 8 free parameters in $\Omega$. Moreover, this implicitly identifies the parameters in the previously unidentified 2-equation model with an unrestricted covariance matrix.
+The intercepts and loading factor in \eqref{eq:meas-2}  identify $\rho$ and $\mu$. The moments $E(\eps_{Gt}, \eps_{Et}, \eps_{It}, \eps_{Ut})' = (0,0,0,0)'$  together the restriction that $\sigma_{UE}^2 = \sigma_{UI}^2 = 0$ identify the 8 free parameters in $\Omega$. Moreover, this implicitly identifies the parameters in the previously unidentified 2-equation model with an unrestricted covariance matrix.
 \end{enumerate}
 \end{proof}
 \item
@@ -139,16 +137,16 @@ Assume that the series has been detrended, define the state as $s_t = GDP_t$ and
 		\eps_{Et} \\ \eps_{It}
 	\end{pmatrix},
 \end{align}
-where the errors have joint distribution $(\eps_{Gt}, \eps_{Et}, \eps_{It})' \sim \N(0, \Omega)$, with $\Omega = \diag(\sigma_{GG}^2, \sigma_{EE}^2, \sigma_{II}^2)$. Now use the Kalman filter to derive the innovation representation. Initialize the Kalman filter by assuming that the state has unconditional distribution $s_0 \sim \N(\bar s_0, p_0)$, where
+where the errors have joint distribution $(\eps_{Gt}, \eps_{Et}, \eps_{It})' \sim N(0, \Omega)$, with $\Omega = \diag(\sigma_{GG}^2, \sigma_{EE}^2, \sigma_{II}^2)$. Now use the Kalman filter to derive the innovation representation. Initialize the Kalman filter by assuming that the state has unconditional distribution $s_0 \sim N(\bar s_0, p_0)$, where
 \begin{align*}
-	\bar s_0 &= \E s_0 = 0 \\
+	\bar s_0 &= E s_0 = 0 \\
 	p_0 &= \var(s_0) = \frac{\sigma^2_{GG}}{1-\rho^2}.
 \end{align*}
 \begin{enumerate}[label=(\arabic*)]
 \item
 Prediction: The state equation gives
 \[
-	s_{t|t-1} \sim \N(\bar s_{t|t-1}, p_{t|t-1}),
+	s_{t|t-1} \sim N(\bar s_{t|t-1}, p_{t|t-1}),
 \]
 where
 \begin{align*}
@@ -157,7 +155,7 @@ where
 \end{align*}
 The measurement equation gives
 \[
-	y_{t|t-1} \sim \N \begin{pmatrix}
+	y_{t|t-1} \sim N \begin{pmatrix}
 		\begin{pmatrix}
 			\bar s_{t|t-1} \\
 			\bar s_{t|t-1} 
@@ -174,13 +172,13 @@ The one-step ahead prediction error has distribution
 		GDP_{Et|t-1} - \bar s_{t|t-1}\\
 		GDP_{It|t-1} -\bar s_{t|t-1}
 	\end{pmatrix} 
-	\sim \N(0, \Sigma_t)
+	\sim N(0, \Sigma_t)
 \]
 where $\Sigma_t$ is the covariance matrix of $y_t$ from the measurement equation. 
 \item
 Update: By Bayes' theorem,
 \[
-	s_{t|t} \sim \N(\bar s_{t|t}, p_{t|t}),
+	s_{t|t} \sim N(\bar s_{t|t}, p_{t|t}),
 \]
 where 
 \begin{align*}

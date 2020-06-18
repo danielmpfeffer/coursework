@@ -9,7 +9,6 @@
 \usepackage{booktabs}
 \usepackage{enumitem}
 
-\DeclareMathOperator{\E}{E}
 \DeclareMathOperator{\var}{var}
 \DeclareMathOperator{\cov}{cov}
 \DeclareMathOperator{\corr}{corr}
@@ -18,7 +17,6 @@
 \newcommand{\eps}{\varepsilon}
 \newcommand{\ups}{\upsilon}
 \newcommand{\M}{\mathcal{M}}
-\newcommand{\N}{\mathrm N}
 
 \theoremstyle{definition}
 \newtheorem{prob}{Problem}
@@ -37,11 +35,11 @@ Consider the class of AR($p$) models with intercept:
 \begin{equation}\label{eq:arp}
 	y_t =  c +\phi_1 y_{t-1} + \cdots + \phi_p y_{t-p} + \eps_t, 
 	\qquad 
-	\eps_t \sim \N(0, \sigma^2)
+	\eps_t \sim N(0, \sigma^2)
 \end{equation}
 with prior distribution 
 \begin{equation}\label{eq:arp-prior}
-	\phi \mid \sigma^2 \sim \N(\phi_0, \sigma^2 V_0),
+	\phi \mid \sigma^2 \sim N(\phi_0, \sigma^2 V_0),
 	\qquad 
 	p(\sigma^2) \propto \frac{1}{\sigma^2}. 
 \end{equation}
@@ -72,13 +70,13 @@ then,
 \end{align*}
 Hence the posterior is Gaussian:
 \[
-	\phi \mid (y, \sigma^2) \sim \N(\phi_1, V_1)
+	\phi \mid (y, \sigma^2) \sim N(\phi_1, V_1)
 \]
 \par
 To derive the marginal likelihood, note that
 \begin{align*}
-	p(\phi\mid \sigma^2)  &\overset{d}{=} \N(\phi_0, \sigma^2  V_0) \\
-	p(\phi\mid y, \sigma^2) &\overset{d}{=} \N(\phi_1, \sigma^2  V_1),
+	p(\phi\mid \sigma^2)  &\overset{d}{=} N(\phi_0, \sigma^2  V_0) \\
+	p(\phi\mid y, \sigma^2) &\overset{d}{=} N(\phi_1, \sigma^2  V_1),
 \end{align*}
 and ``invert'' Bayes' theorem to obtain
 \begin{align*}
@@ -195,7 +193,7 @@ The posterior model probabilities are $0.65$, $0.31$, $0.05$, and $0.002$, for m
 Now suppose that you condition on the model with the preferred lag
 order $\hat p$. Suppose that you introduce a hyperparameter $\tau$ and change your prior to
 \begin{equation}
-	\phi \mid \sigma^2 \sim \N(\phi_0, \sigma^2\tau V_0).
+	\phi \mid \sigma^2 \sim N(\phi_0, \sigma^2\tau V_0).
 \end{equation}
 Now compute $p(y \mid \tau, \hat \sigma^2, \M_{\hat p})$ for values of $\tau$ on the grid 
 \[
@@ -227,7 +225,7 @@ Consider the state-space model:
 	s_t = \phi s_{t-1} + \eps_t.
 \end{split}
 \end{align}
-For now assume that $\ups_t \sim \text{iid }\N(0,1)$, $\eps_t \sim \text{iid }\N(0,1)$, and $\ups_t \perp\eps_t$.
+For now assume that $\ups_t \sim \text{iid }N(0,1)$, $\eps_t \sim \text{iid }N(0,1)$, and $\ups_t \perp\eps_t$.
 \begin{enumerate}
 \item
 Derive the autocovariance function for $y_t$.
@@ -282,7 +280,7 @@ or
 This resembles an ARMA(1,1) process:
 \[
 	y_t = \rho y_{t-1} + \eta_t + \theta \eta_{t-1}, 
-	\qquad \eta_t  \sim \text{iid } \N(0, \sigma_\eta^2),
+	\qquad \eta_t  \sim \text{iid } N(0, \sigma_\eta^2),
 \]
 which has covariance structure 
 \begin{align*}
@@ -340,7 +338,7 @@ which imply that although $\lambda \rho$ is sign-identified, neither $\lambda$ n
 Write the observationally equivalent ARMA(1,1) process as
 \[
 	y_t = \rho y_{t-1} -\eta_1 + \theta \eta_{t-1},
-	\qquad \eta_t \sim \text{iid } \N(0, \eta_t^2).
+	\qquad \eta_t \sim \text{iid } N(0, \eta_t^2).
 \]
 Matching autocovariance functions as in (iii) gives
 \[
@@ -357,24 +355,24 @@ with solution
 We derived the Kalman filter iterations under the assumption that the errors in the measurement equation and the state-transition equation are independent. Generalize the Kalman filter iterations for the above state-space model to allow for a non-zero correlation $\rho$ between $\ups_t$ and $\eps_t$. 
 
 \begin{proof}
-Initialize the recursion by assuming that state vector has the unconditional distribution distribution $s_0 \sim \N(\bar s_0, p_0)$, with 
+Initialize the recursion by assuming that state vector has the unconditional distribution distribution $s_0 \sim N(\bar s_0, p_0)$, with 
 \begin{align*}
-	\bar s_0 &= \E s_0 = 0 \\
+	\bar s_0 &= E s_0 = 0 \\
 	p_0 &= \var(s_0) = \frac{1}{1-\phi^2}. 
 \end{align*}
 Assume that at time $t$ the previous iteration yields 
 \[	
-	s_{t-1} \mid y^{t-1} \sim \N(\bar s_{t-1|t-1}, p_{t-1|t-1}).
+	s_{t-1} \mid y^{t-1} \sim N(\bar s_{t-1|t-1}, p_{t-1|t-1}).
 \]
 \begin{enumerate}[label=(\arabic*)]
 \item
-Forecast: Our assumptions together with $\eps_t \sim \text{iid } \N(0,1)$ imply that 
+Forecast: Our assumptions together with $\eps_t \sim \text{iid } N(0,1)$ imply that 
 \[
-	s_t \mid y^{t-1} \sim \N(\bar s_{t\mid t-1}, p_{t\mid t-1}),
+	s_t \mid y^{t-1} \sim N(\bar s_{t\mid t-1}, p_{t\mid t-1}),
 \] 
 where 
 \begin{align*}
-	\bar s_{t+1 \mid t} &= \E(s_t \mid y^{t-1}) 
+	\bar s_{t+1 \mid t} &= E(s_t \mid y^{t-1}) 
 		= \phi \bar s_{t-1\mid t-1} \\
 	 p_{t \mid t-1} &= \var(s_t \mid y^{t-1}) 
 	 	= \phi^2  p_{t-1 \mid t-1}  + 1.
@@ -382,11 +380,11 @@ where
 \item
 Likelihood: The marginal distribution of $y_t$ conditional on $y^{t-1}$ is of the form 
 \[
-	y_t \mid y^{t-1} \sim \N(\bar y_{t \mid t-1}, f_{t\mid t-1}),
+	y_t \mid y^{t-1} \sim N(\bar y_{t \mid t-1}, f_{t\mid t-1}),
 \] 
 where 
 \begin{align*}
-	\bar y_{t \mid t-1} &= \E(y_t \mid y^{t-1})
+	\bar y_{t \mid t-1} &= E(y_t \mid y^{t-1})
 		 = \lambda \bar s_{t \mid t-1} \\
 	 f_{t \mid t-1} &= \var(y_t \mid y^{t-1}) 
 	 	= \lambda^2 p_{t \mid t-1} +1 + 2 \lambda^2 \rho.
@@ -397,7 +395,7 @@ Update: The joint distribution of the $s_t$ and $y_t$ is
 	\begin{pmatrix}
 		s_t \\ y_t 
 	\end{pmatrix}
-	\mid y^{t-1} \sim \N
+	\mid y^{t-1} \sim N
 	\begin{pmatrix}
 		\begin{pmatrix}
 			\bar s_{t\mid t-1}  \\ 
@@ -417,7 +415,7 @@ where the covariance captures the correlation between $\ups_t$ and $\eps_t$ and 
 \end{align*}
 Applying Bayes' Theorem gives 
 \[
-	s_t \mid (y_t, y^{t-1}) \sim \N(\bar s_{t\mid t}, p_{t\mid t}),
+	s_t \mid (y_t, y^{t-1}) \sim N(\bar s_{t\mid t}, p_{t\mid t}),
 \]
 where 
 \begin{align*}

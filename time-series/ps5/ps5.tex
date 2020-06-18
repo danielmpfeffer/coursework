@@ -9,7 +9,6 @@
 \usepackage{booktabs}
 \usepackage{enumitem}
 
-\DeclareMathOperator{\E}{E}
 \DeclareMathOperator{\var}{var}
 \DeclareMathOperator{\cov}{cov}
 \DeclareMathOperator{\corr}{corr}
@@ -35,7 +34,7 @@ Consider the following VAR
 \[
 	y_t = \Phi_0 + \Phi_1 y_{t-1} + \eps_t,
 	\qquad 
-	\eps_t \sim \text{iid N}(0, \Sigma),
+	\eps_t \sim \text{iid }N(0, \Sigma),
 \]
 where $y_t$ is an $n \times 1$ vector. 
 \end{prob}

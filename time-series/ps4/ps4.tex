@@ -10,7 +10,6 @@
 \usepackage{enumitem}
 \setlist[enumerate]{label={(\roman*)}}
 
-\DeclareMathOperator{\E}{E}
 \DeclareMathOperator{\var}{var}
 \DeclareMathOperator{\cov}{cov}
 \DeclareMathOperator{\corr}{corr}
@@ -67,13 +66,13 @@ Now consider the following model:
 	\qquad 
 	\tilde y_t = \rho  \tilde y_{t-1} + \eta_t,
 	\qquad 
-	\eta_t \sim \text{iid N} (0, \sigma_\eta^2),
+	\eta_t \sim \text{iid } N(0, \sigma_\eta^2),
 \end{equation}
 where $y_t := \log \text{GDP}_t$. Rewrite the model as 
 \begin{equation}\label{eq:2}
 	y_t = \beta_1 + \beta_2 t + \beta_3 y_{t-1} + \eps_t,
 	\qquad 
-	\eps_t \sim \text{iid N}(0, \sigma_\eps^2).
+	\eps_t \sim \text{iid }N(0, \sigma_\eps^2).
 \end{equation}
 What is the relationship between $(\gamma_1, \gamma_2, \rho, \sigma_\eta^2)$ and $(\beta_1, \beta_2, \beta_3, \sigma_\eps^2)$?
 
@@ -206,7 +205,7 @@ The left panel in Figure \ref{q1-fig} shows the fitted values of the model track
 \\ \\
 Consider the AR(1) model 
 \[
-	y_t = \phi y_{t-1} + \eta_t, \qquad \eta_t \sim \text{iid N}(0, \sigma_\eta^2),
+	y_t = \phi y_{t-1} + \eta_t, \qquad \eta_t \sim \text{iid } N(0, \sigma_\eta^2),
 \]
 where $|\phi| <1$.
 \end{prob}
@@ -263,15 +262,15 @@ Show that $\hat \phi$ is a consistent estimator of $\phi$.
 \begin{proof}
 If $\eta_t$ is strictly stationary and ergodic and $|\phi| <1$, then $y_t$, $y_t^2$, $y_ty_{t-1}$, and $y_{t-1} \eta_t$ are all measurable transformations of $\eta_t$. Then by the law of large numbers for strictly stationary and ergodic processes (White, 1984), the limit of the denominator is
 \[
-	\frac{1}{T}\sum_{t=1}^T y_{t-1}^2 \to \E y_{t-1}^2 = \frac{\sigma_\eta^2}{1-\phi^2}.
+	\frac{1}{T}\sum_{t=1}^T y_{t-1}^2 \to E y_{t-1}^2 = \frac{\sigma_\eta^2}{1-\phi^2}.
 \] 
-Now we derive the limit of the numerator. By independence, $y_{t-1} \eta_t$ is a martingale difference sequence, i.e., $\E y_{t-1} \eta_t = 0$ with second moment
+Now we derive the limit of the numerator. By independence, $y_{t-1} \eta_t$ is a martingale difference sequence, i.e., $E y_{t-1} \eta_t = 0$ with second moment
 \[
-	\E y_{t-1}^2\eta_t^2 =\E y_{t-1}^2 \E \eta_t^2 =\frac{\sigma_\eta^2}{1-\phi^2} \sigma_\eta^2.
+	E y_{t-1}^2\eta_t^2 =E y_{t-1}^2 E \eta_t^2 =\frac{\sigma_\eta^2}{1-\phi^2} \sigma_\eta^2.
 \]
 So again by the law of large numbers for strictly stationary and ergodic processes 
 \[
-	\frac{1}{T}\sum_{t=1}^T y_{t-1}\eta_t \to \E y_{t-1}\eta_t = 0.
+	\frac{1}{T}\sum_{t=1}^T y_{t-1}\eta_t \to E y_{t-1}\eta_t = 0.
 \]
 Combining these results implies $\hat \phi - \phi \to 0$.
 \end{proof}
@@ -294,7 +293,7 @@ where $V = \sigma_\eta^4/(1-\phi^2) \cdot (\sigma_\eta^{2}/(1-\phi^2))^{-2} = 1-
 \item
 Suppose data is generated from an AR(2) model 
 \begin{equation}\label{eq:4}
-	y_t = \gamma_1 y_{t-1} + \gamma_2 y_{t-2} + \eps_t, \qquad \eps_t \sim \text{iid N}(0, \sigma_\eps^2),
+	y_t = \gamma_1 y_{t-1} + \gamma_2 y_{t-2} + \eps_t, \qquad \eps_t \sim \text{iid }N(0, \sigma_\eps^2),
 \end{equation}
 but the econometrician estimates the above AR(1) model. What are the probability limits of $\hat \phi$ and $\hat\sigma_\eta^2$ in terms of $(\gamma_1, \gamma_2, \sigma_\eps^2)$?
 
@@ -326,7 +325,7 @@ which gives
 \end{align*}	
 By the law of large numbers,
 \[
-	\frac{1}{T} \sum_{t=1}^T y_t^2 \to \E y_t^2 = \gamma(0)
+	\frac{1}{T} \sum_{t=1}^T y_t^2 \to E y_t^2 = \gamma(0)
 \]
 and
 \[
@@ -334,7 +333,7 @@ and
 \]
 and, by the continuous mapping theorem and law of large numbers,
 \[
-	\left(\frac{1}{T}\sum_{t=1}^T y_t y_{t-1} \right)^2 \to (\E y_ty_{t-1})^2 
+	\left(\frac{1}{T}\sum_{t=1}^T y_t y_{t-1} \right)^2 \to (E y_ty_{t-1})^2 
 	= \gamma(0)^2 \left(\frac{\gamma_1}{1 - \gamma_2}\right)^2.
 \]
 Hence
@@ -358,7 +357,7 @@ since
 \\ \\
 Consider the AR(1) model 
 \[
-	y_t = \phi y_{t-1} + \eta_t, \qquad \eta_t \sim \text{iid N} (0, \sigma_\eta^2).
+	y_t = \phi y_{t-1} + \eta_t, \qquad \eta_t \sim \text{iid } N(0, \sigma_\eta^2).
 \]
 \end{prob}
 
@@ -422,27 +421,27 @@ $T$, given by the sample $y = (y_1,\dotsc,y_T)'$. Show that under the loss funct
 \end{equation}
 where $y_{T+2}$ is the actual value and $\hat y_{T+2 \mid T}$ is the predicted value, the optimal (minimizing posterior expected loss) forecast is given by
 \begin{equation}
-	\hat y_{T+2\mid T}^* = \E(y_{T+2} \mid y) = \E_y y_{T+2}
+	\hat y_{T+2\mid T}^* = E(y_{T+2} \mid y).
 \end{equation}
 
 \begin{proof}
-To verify this claim, consider basing $\hat y_{T+2\mid T}^*$ on any function $g$ not equal to $\E_y y_{T+2}$. Under $g$, adding and subtracting the conditional expectation, the expected posterior loss is
+To verify this claim, consider basing $\hat y_{T+2\mid T}^*$ on any function $g$ not equal to $E_y y_{T+2}$. Under $g$, adding and subtracting the conditional expectation, the expected posterior loss is
 \begin{align*}
-	& \E_y (y_{T+2} - g(y))^2 \\
-	&= \E_y (y_{T+2} - \E_y y_{T+2}  + \E_y y_{T+2} - g(y))^2  \\
-	&= \E_y (y_{T+2} - \E_y y_{T+2})^2 + 2 \E_y ((y_{T+2} - \E_y y_{T+2}) \E_y (y_{T+2}  - g(y)) + \E_y \E_y (y_{T+2} - g(y))^2
+	& E_y (y_{T+2} - g(y))^2 \\
+	&= E_y (y_{T+2} - E_y y_{T+2}  + E_y y_{T+2} - g(y))^2  \\
+	&= E_y (y_{T+2} - E_y y_{T+2})^2 + 2 E_y ((y_{T+2} - E_y y_{T+2}) E_y (y_{T+2}  - g(y)) + E_y E_y (y_{T+2} - g(y))^2
 \end{align*}
 If we condition on $y_{T+2\mid T}$ in the cross product term and take expectations, then
 \begin{align*}
-	& \E_y (y_{T+2} - \E_y (y_{T+2} \mid y_{T+2 | T})) \E_y ((y_{T+2} \mid y_{T+2 | T}) - g(y)) \mid y_{T+2 | T}) \\
-	&= \E_y ((y_{T+2} \mid y_{T+2 \mid T}) - g(y)) \E_y (y_{T+2} - \E_y (y_{T+2} \mid y_{T+2 | T})) \\
-	&=\E_y ((y_{t+2} \mid y_{T+2 | T}) - g(y)) \cdot 0 = 0,
+	& E_y (y_{T+2} - E_y (y_{T+2} \mid y_{T+2 | T})) E_y ((y_{T+2} \mid y_{T+2 | T}) - g(y)) \mid y_{T+2 | T}) \\
+	&= E_y ((y_{T+2} \mid y_{T+2 \mid T}) - g(y)) E_y (y_{T+2} - E_y (y_{T+2} \mid y_{T+2 | T})) \\
+	&=E_y ((y_{t+2} \mid y_{T+2 | T}) - g(y)) \cdot 0 = 0,
 \end{align*}
 where the last equality follows from the law of iterated projections. Our expected quadratic loss is now 
 \[
-	\E_y (y_{T+2} - g(y))^2 = \E_y (y_{T+2} -  \E_y y_{T+2} )^2 + \E_y (y_{T+2} - g(y))^2,
+	E_y (y_{T+2} - g(y))^2 = E_y (y_{T+2} -  E_y y_{T+2} )^2 + E_y (y_{T+2} - g(y))^2,
 \]
-which attains a minimum when $g$ is such that $g(y) = \E_y y_{T+2}$.
+which attains a minimum when $g$ is such that $g(y) = E_y y_{T+2}$.
 \end{proof}
 
 \item
@@ -452,8 +451,8 @@ for the estimated AR(1) model.
 \begin{proof}
 Since $\eta_\tau$ for $\tau >  T$ is independent of $\phi \mid y$, we have 
 \begin{align*}
-	\hat y_{T+2| T}^* &= \E_y (\phi^2y_T + \phi \eta_T + \eta_{T+1}) \\
-	&=y_T \E_y\phi^2  + \E_y \phi \E_y \eta_T + \E_y \eta_{T+1} \\
+	\hat y_{T+2| T}^* &= E_y (\phi^2y_T + \phi \eta_T + \eta_{T+1}) \\
+	&=y_T E_y\phi^2  + E_y \phi E_y \eta_T + E_y \eta_{T+1} \\
 	&= (\overline V + \phi^2) y_T.
 \end{align*}
 \end{proof}

@@ -11,6 +11,13 @@
 * [Problem Set 8](https://github.com/danielmpfeffer/coursework/blob/master/time-series/ps8/ps8.pdf)
 
 ## Stochastic Processes
+
+### Course Description: The goal is to lay the foundation for the mastery of the technology of basic stochastic processes. We will study some essential processes such as Markov chains, Poisson Processes, Branching Processes, Renewal Processes, and some of the methodology of martingales. The focus is on the development of mathematical skills and the understanding of key theoretical concepts, but some simple applications to areas such as finance, statistics, or machine learning will also be discussed.
+
+### References:  
+* Essentials of Stochastic Processes (Springer Texts in Statistics, Third Edition) by Richard Durrett
+* Introduction to Stochastic Processes with R (Wiley, First Edition) by Robert P. Dobrow.
+
 * [Problem Set 1](https://github.com/danielmpfeffer/coursework/blob/master/stochastic-processes/hw1/hw1.pdf)
 * [Problem Set 2](https://github.com/danielmpfeffer/coursework/blob/master/stochastic-processes/hw2/hw2.pdf)
 * [Problem Set 3](https://github.com/danielmpfeffer/coursework/blob/master/stochastic-processes/hw3/hw3.pdf)

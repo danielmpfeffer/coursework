@@ -12,7 +12,6 @@
 \makeatother
 \allowdisplaybreaks[1]
 
-\DeclareMathOperator{\E}{E}
 \DeclareMathOperator{\var}{var}
 \DeclareMathOperator{\cov}{cov}
 \DeclareMathOperator{\corr}{corr}
@@ -23,7 +22,6 @@
 \let\vech\relax\DeclareMathOperator{\vech}{vech}
 \newcommand{\eps}{\varepsilon}
 \newcommand{\ups}{\upsilon}
-\newcommand{\N}{\mathrm N}
 
 \theoremstyle{definition}
 \newtheorem{prob}{Problem}
@@ -44,7 +42,7 @@ Prove that for a weakly stationary process, $|\gamma(\tau)| \leq \gamma(0)$ for 
 \begin{proof}
 Let $\{y_t\}$ be a weakly stationary process, and without loss of generality assume the mean of $y_t$ is zero for all $t$. Then, by the Cauchy-Schwartz inequality, 
 \[
-	| \gamma(\tau) | = \E y_t y_{t-\tau} \leq \sqrt{\E y_t^2 \E y_{t-\tau}^2} \leq \gamma(0).
+	| \gamma(\tau) | = E y_t y_{t-\tau} \leq \sqrt{E y_t^2 E y_{t-\tau}^2} \leq \gamma(0).
 \]
 \end{proof}
 
@@ -161,7 +159,7 @@ Consider
 	y_t &= \theta_1 \eps_1 + \theta_2 \eps_{t-2} + \eps_t \\
 	z_t &= \phi_1 z_{t-1} + \phi_2 z_{t-2} + \phi_3 z_{t-3} + \theta_1 \eps_t + \theta_2 \eps_{t-2} + \eps_t.
 \end{align*}
-Take $(\phi_1, \phi_2, \phi_3, \theta_1, \theta_2) = (0.6, 0.2, 0.1, 0.5, -0.2)$ and assume $\eps_t \sim \N(0,1)$.
+Take $(\phi_1, \phi_2, \phi_3, \theta_1, \theta_2) = (0.6, 0.2, 0.1, 0.5, -0.2)$ and assume $\eps_t \sim N(0,1)$.
 \end{prob}
 
 \begin{enumerate}

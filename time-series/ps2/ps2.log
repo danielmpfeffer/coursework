@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.15)  3 JUN 2020 13:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.15)  18 JUN 2020 14:14
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -648,24 +648,24 @@ runsystem(rm ps2.aex)...executed.
  (./ps2.aux)
 \openout1 = `ps2.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Try loading font information for U+msa on input line 38.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Try loading font information for U+msa on input line 37.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 38.
+LaTeX Font Info:    Try loading font information for U+msb on input line 37.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -707,17 +707,17 @@ e
 <plot-series.png, id=4, 650.43pt x 433.62pt>
 File: plot-series.png Graphic file (type png)
 <use plot-series.png>
-Package pdftex.def Info: plot-series.png  used on input line 48.
+Package pdftex.def Info: plot-series.png  used on input line 47.
 (pdftex.def)             Requested size: 469.755pt x 313.17879pt.
 <acf-plots.png, id=6, 650.43pt x 433.62pt>
 File: acf-plots.png Graphic file (type png)
 <use acf-plots.png>
-Package pdftex.def Info: acf-plots.png  used on input line 101.
+Package pdftex.def Info: acf-plots.png  used on input line 100.
 (pdftex.def)             Requested size: 469.755pt x 313.17879pt.
 <sdf.png, id=7, 867.24pt x 289.08pt>
 File: sdf.png Graphic file (type png)
 <use sdf.png>
-Package pdftex.def Info: sdf.png  used on input line 116.
+Package pdftex.def Info: sdf.png  used on input line 115.
 (pdftex.def)             Requested size: 469.755pt x 156.58607pt.
 
 [1{/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
@@ -727,13 +727,13 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <irf.png, id=20, 722.7pt x 722.7pt>
 File: irf.png Graphic file (type png)
 <use irf.png>
-Package pdftex.def Info: irf.png  used on input line 152.
+Package pdftex.def Info: irf.png  used on input line 151.
 (pdftex.def)             Requested size: 469.755pt x 469.76045pt.
 [2 <./plot-series.png>]
 <forecast.png, id=26, 722.7pt x 722.7pt>
 File: forecast.png Graphic file (type png)
 <use forecast.png>
-Package pdftex.def Info: forecast.png  used on input line 183.
+Package pdftex.def Info: forecast.png  used on input line 182.
 (pdftex.def)             Requested size: 469.755pt x 469.76045pt.
 \openout4 = `ps2.pyg'.
 
@@ -749,10 +749,10 @@ runsystem(rm ps2.pyg)...executed.
 
  ) 
 Here is how much of TeX's memory you used:
- 16523 strings out of 492609
- 324106 string characters out of 6129048
- 422313 words of memory out of 5000000
- 19946 multiletter control sequences out of 15000+600000
+ 16522 strings out of 492609
+ 324104 string characters out of 6129048
+ 422297 words of memory out of 5000000
+ 19945 multiletter control sequences out of 15000+600000
  9836 words of font info for 40 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  55i,10n,48p,1049b,438s stack positions out of 5000i,500n,10000p,200000b,80000s
