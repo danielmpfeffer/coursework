@@ -85,36 +85,10 @@ which is an underdetermined system. Imposing a normalization restriction on $\pi
 		\pi_1 + \pi_2 = 1
 	\end{cases},
 \]
-which has solution (equilibrium distribution)
+which has solution or equilibrium distribution given by
 \[
 	\pi = \left(\frac{1-p_{22}}{2-p_{11}  - p_{22}}, \frac{1-p_{11}}{2-p_{11} - p_{22}} \right).
-\]
-Here is a Python representation of a general chain.
-\begin{python3code}
-from random import uniform
-
-def sample(pi):
-    a = 0.0
-    U = uniform(0,1)
-    for i in range(len(pi)):
-        if a < U <= a + pi[i]:
-            return i
-        a += pi[i]
-        
-class MarkovChain:
-    def __init__(self, p=None, X=None):
-        self.p, self.X = p, X
-        
-    def update(self):
-        self.X = sample(self.p[self.X])
-        
-    def sample_path(self, n):
-        path = []
-        for i in range(n):
-            path.append(self.X)
-            self.update()
-        return path
-\end{python3code}        
+\]     
 \end{proof}
 \item
 For the $s_t$ process to approximate the $y_t$ process well, what properties would you like it to satisfy? Another way of asking the question is: think of a discrepancy measure between the processes $\{s_t\}_{t=-\infty}^\infty$ and $\{y_t\}_{t=-\infty}^\infty$.
@@ -123,7 +97,7 @@ We would like $s_t$ to have the same covariance structure as $y_t$, that is, we 
 \[
 	\sum_{\tau\in \Z} \frac{|\gamma_y(\tau) - \gamma_s(\tau)|}{\gamma_y(0)}
 \] 
-with resect to $\gamma_s$. approximate the AR(1) process \eqref{eq:ar1} by requiring the $s_t$ process to have the same first and second order properties as the $y_t$ process. This provides a reasonable discrepancy measure between the two processes, since the autocovariance functions is a fundemental representation of the $y_t$ process. This method due to Tauchen (1986). 
+with resect to $\gamma_s$. approximate the AR(1) process \eqref{eq:ar1} by requiring the $s_t$ process to have the same first and second order properties as the $y_t$ process. This provides a reasonable discrepancy measure between the two processes, since the autocovariance functions is a fundamental representation of the $y_t$ process. This method due to Tauchen (1986). 
 \end{proof}
 \item
 Based on your notion of discrepancy, explain how you would choose $\theta$  approximate a continuous AR(1) process characterized by the parameters $\rho$, $\sigma^2$.
@@ -191,48 +165,52 @@ Choose values for $\rho$, $\sigma^2$, compute your proposed $\theta$, then simul
 \begin{proof} 
 We set $\rho = 0.5$ and $\sigma^2=1$. The following code generates a two state Markov chain approximation for this AR(1) process. Then the ``true'' AR(1) process is simulated. Figure \ref{markov-ar1-acf-fig} shows the resulting sample autocorrelation functions. Visual inspection suggests that, even with relatively high persistence, we can obtain a reasonable discretized approximation taking values $s_t \in \{s_1, s_2\}$ to the continuous-valued AR(1) process.
 \begin{python3code}
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import norm
+from statsmodels.tsa.stattools import acf
+
 # Simulation parameters 
-T = 100
 sigma = 1
 rho = 0.5
 
 # Tauchen chain
 s = sigma / np.sqrt(1-rho**2)
-p_tauchen = (1 + rho) / 2
-P = [[p_tauchen, 1-p_tauchen], [1-p_tauchen, p_tauchen]]
-pi_tauchen = [p_tauchen, 1-p_tauchen]
+S = [s, -s]
+p = (1 + rho) / 2
+P = [[p, 1-p], [1-p, p]]
 
-tauchen_chain = MarkovChain(p=P, X=sample(pi_tauchen))
-
-# Chain sample path
-tauchen_path = tauchen_chain.sample_path(T)
-
-# Chain acf
-tauchen_acf = acf(tauchen_path)
-
-# AR(1) sample path
-y_path = [s]
+# Simulate the AR(1) process and Tauchen chain
+np.random.seed(42)
+T = 100
+y_path, s_path = [s], [s]
+mu = norm.rvs(loc=0, scale=sigma, size=T)
 for t in range(T):
-    y_path.append(rho*y_path[t] + np.random.normal())
+    y_path.append(rho*y_path[t] + mu[t])
+    
+    tr_pr = (s_path[t] == s)*P[0] + (s_path[t] == -s)*P[1]
+    
+    # Inverse cdf method with corresponding sample
+    cdf_val = 1 - norm.cdf(mu[t])
+    s_path.append((cdf_val < tr_pr[0])*s + (cdf_val > tr_pr[0])*(-s))
 
-# AR(1) acf
-ar1_acf = acf(y_path)
+# Acfs
+tauchen_acf = acf(s_path, fft=False)
+ar1_acf = acf(y_path, fft=False)
 
-# Plot results 
+# Plot sample paths and acfs
 plt.figure(figsize=(10,4))
 
-ax1 = plt.subplot(221)
-plt.scatter(np.linspace(0, T, T), tauchen_path)
-plt.setp(ax1.get_xticklabels(), visible=False)
+ax1 = plt.subplot(121)
+plt.plot(y_path, label='AR(1)')
+plt.plot(s_path,'o', label='Chain')
+plt.legend()
+plt.title('Sample Path')
 
-ax2 = plt.subplot(222, sharex=ax1)
-plt.plot(y_path)
-
-ax3 = plt.subplot(223)
-plt.plot(tauchen_acf)
-
-ax4 = plt.subplot(224)
+ax2 = plt.subplot(122)
 plt.plot(ar1_acf)
+plt.plot(tauchen_acf)
+plt.title('Autocorrelation')
 
 plt.show()
 \end{python3code}
@@ -297,9 +275,6 @@ Figure \eqref{macro-series} shows log GDP and log gross private domestic investm
 \end{figure}
 
 \begin{python3code}
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
 import pandas_datareader.data as web
 import datetime
 
