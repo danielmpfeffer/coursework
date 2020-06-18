@@ -12,7 +12,8 @@
 
 ## Stochastic Processes
 
-### Course Description: The goal is to lay the foundation for the mastery of the technology of basic stochastic processes. We will study some essential processes such as Markov chains, Poisson Processes, Branching Processes, Renewal Processes, and some of the methodology of martingales. The focus is on the development of mathematical skills and the understanding of key theoretical concepts, but some simple applications to areas such as finance, statistics, or machine learning will also be discussed.
+### Course Description: 
+The goal is to lay the foundation for the mastery of the technology of basic stochastic processes. We will study some essential processes such as Markov chains, Poisson Processes, Branching Processes, Renewal Processes, and some of the methodology of martingales. The focus is on the development of mathematical skills and the understanding of key theoretical concepts, but some simple applications to areas such as finance, statistics, or machine learning will also be discussed.
 
 ### References:  
 * Essentials of Stochastic Processes (Springer Texts in Statistics, Third Edition) by Richard Durrett
