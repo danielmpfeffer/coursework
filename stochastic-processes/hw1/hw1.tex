@@ -4,14 +4,12 @@
 \usepackage{dsfont} 
 \usepackage{enumitem}
 
-\DeclareMathOperator{\E}{\mathrm{E}}
 \DeclareMathOperator{\var}{\mathrm{var}}
 \DeclareMathOperator{\cov}{\mathrm{cov}}
 \newcommand{\eps}{\varepsilon}
-\newcommand{\Ncal}{\mathcal{N}}
 \newcommand{\Ucal}{\mathcal{U}}
 \newcommand{\Z}{\mathds{Z}}
-\newcommand{\R}{\mathds{R}P}
+\newcommand{\R}{\mathds{R}}
 \newcommand{\N}{\mathds{N}}
 
 \theoremstyle{definition}
@@ -38,7 +36,7 @@ Let $X$ be the number of aces in a poker hand, let $A_i$, for $i=1,2,\dotsc,5$, 
 \]
 Since we are conditioning on the event that the first card drawn is an ace, $1_{A_1} = 1$. It follows that the probability that one of the next four cars is an ace is $3/51 = 1/17$. By linearity of expectations, we obtain
 \[
-	\E X = \E 1_{A_1}  + \frac{1}{17} (\E 1_{A_1} + \E  1_{A_2} + \cdots + \E 1_{A_5})   
+	E (X\mid A_1) = 1 + \frac{1}{17} (E 1_{A_1} + E  1_{A_2} + \cdots + E 1_{A_5})   
 	= 1 + \frac{4}{17} 
 	= \frac{21}{17}.
 \]
@@ -68,7 +66,7 @@ A man with $n$ keys wants to open his door. He tries the keys in a random manner
 
 \begin{enumerate}
 \item
-Find $\E(X)$ and $\var(X)$  if unsuccessful keys are eliminated from further selection.
+Find $E(X)$ and $\var(X)$  if unsuccessful keys are eliminated from further selection.
 \begin{proof}
 Note that, since the number of keys $n$ decreases by 1 each trial, we have
 \begin{align*}
@@ -79,23 +77,23 @@ Note that, since the number of keys $n$ decreases by 1 each trial, we have
 \end{align*}
 Then, the expectation of $X$ is
 \begin{align*}
-	\E (X) &= \frac{1}{n} + \frac{2}{n} + \cdots + \frac{n}{n} = \frac{n(n+1)}{2n} = \frac{n+1}{2}.
+	E (X) &= \frac{1}{n} + \frac{2}{n} + \cdots + \frac{n}{n} = \frac{n(n+1)}{2n} = \frac{n+1}{2}.
 \end{align*}
 To find the variance of $X$, compute the second moment:
 \[
-	\E (X^2) = \frac{1}{n} + \frac{4}{n} + \cdots + \frac{n^2}{n} = \frac{n(n+1)(2n+1)}{6n}=\frac{(n+1)(2n+1)}{6}.
+	E (X^2) = \frac{1}{n} + \frac{4}{n} + \cdots + \frac{n^2}{n} = \frac{n(n+1)(2n+1)}{6n}=\frac{(n+1)(2n+1)}{6}.
 \]
-Using the fact that $\var(X) = \E (X^2) - (\E X)^2$ gives 
+Using the fact that $\var(X) = E (X^2) - (E X)^2$ gives 
 \[
 	\var(X) = \frac{(n+1)(2n+1)}{6} - \left(  \frac{n+1}{2}  \right)^2 = \frac{n^2-1}{12}.
 \]
 \end{proof}
 \item
-Find $\E(X)$ and $\var(X)$ if unsuccessful keys are not eliminated from further selection.
+Find $E(X)$ and $\var(X)$ if unsuccessful keys are not eliminated from further selection.
 \begin{proof}
 If unsuccessful keys not are eliminated from further selection, then $X \sim \text{Geometric}(1/n)$, and hence 
 \begin{align*}
-	\E (X) &= \frac{1}{1/n} = n \\
+	E (X) &= \frac{1}{1/n} = n \\
 	\var(X) &= \frac{1-1/n}{1/n^2} = n (n-1).
 \end{align*}
 \end{proof}

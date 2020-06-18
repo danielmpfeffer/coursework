@@ -3,7 +3,6 @@
 \usepackage{dsfont} 
 \usepackage{enumitem}
 
-\DeclareMathOperator{\E}{\mathrm{E}}
 \DeclareMathOperator{\var}{\mathrm{var}}
 \DeclareMathOperator{\cov}{\mathrm{cov}}
 \newcommand{\eps}{\epsilon}
@@ -35,29 +34,29 @@ Suppose $N_t$ Poisson process with rate 3. Let $T_n$ denote the time of the $n$-
 
 \begin{enumerate}
 \item
-Find $\E (T_{12})$, 
+Find $E (T_{12})$, 
 \begin{proof}
 The integral of $T_{12}$ is
 \begin{align*}
-	\E (T_{12}) = \int t f_{T_{12}}(t) dt = \int 3te^{-3 t} \frac{(3t)^{11}}{11!} dt = 4.
+	E (T_{12}) = \int t f_{T_{12}}(t) dt = \int 3te^{-3 t} \frac{(3t)^{11}}{11!} dt = 4.
 \end{align*}
 \end{proof}
 \item
-Find $\E(T_{12} \mid N_2 = 5)$.
+Find $E(T_{12} \mid N_2 = 5)$.
 \begin{proof}
 Since iterarrival times $\tau_i$ are i.i.d.\ $\Exp(3)$ random variables,
 \[
-	\E(T_{12} \mid N_2 = 5) 
-	= \E (T_7) + 2 
-	= 7 \E\left(\sum_{i=1}^{12} \tau_i\right) + 2= \frac{7}{3} + 2 = \frac{13}{3}.
+	E(T_{12} \mid N_2 = 5) 
+	= E (T_7) + 2 
+	= 7 E\left(\sum_{i=1}^{12} \tau_i\right) + 2= \frac{7}{3} + 2 = \frac{13}{3}.
 \]
 \end{proof}
 \item
-Find $\E(N_5 \mid N_2 = 5)$. 
+Find $E(N_5 \mid N_2 = 5)$. 
 \begin{proof}
 First note that $N_5 = N_2 + (N_5 - N_2)$. Then 
 \[
-	\E(N_2 \mid N_2 = 5) + \E(N_5 - N_2 \mid N_2 = 5) = 5 + \E (N_3) = 5 + 3 \cdot 3 = 14.
+	E(N_2 \mid N_2 = 5) + E(N_5 - N_2 \mid N_2 = 5) = 5 + E (N_3) = 5 + 3 \cdot 3 = 14.
 \]
 \end{proof}
 \end{enumerate}
@@ -157,48 +156,48 @@ Let $S_t$ be the price of a stock at time $t$ and suppose that at times of a Poi
 \[
 	S_t = \prod_{i=1}^{N_t} X_i,
 \]
-where the product is 1 if $N_t = 0$. Find $\E S_t$ and $\var S_t$.
+where the product is 1 if $N_t = 0$. Find $E S_t$ and $\var S_t$.
 \end{prob}
 
 \begin{proof}
-By the law of total expectation, we may write $\E S_t = \E\E(S_t \mid N_t)$ and $\E S_t^2 = \E\E(S_t^2 \mid N_t)$ Then condition on $N_t = n$ and use linearity of the expectation operator to obtain,
+By the law of total expectation, we may write $E S_t = EE(S_t \mid N_t)$ and $E S_t^2 = EE(S_t^2 \mid N_t)$ Then condition on $N_t = n$ and use linearity of the expectation operator to obtain,
 \[
-	\E (S_t \mid N_t = n) = \E \left( \prod_{i=1}^n X_i \mid N_t = n \right)
-	= \E \left( \prod_{i=1}^n X_i \right)
-	=  \prod_{i=1}^n \E X_i 
+	E (S_t \mid N_t = n) = E \left( \prod_{i=1}^n X_i \mid N_t = n \right)
+	= E \left( \prod_{i=1}^n X_i \right)
+	=  \prod_{i=1}^n E X_i 
 	= \mu^n,
 \]
 and, for the conditional second moment, 
 \[
-	\E(S_t^2 \mid N_t = n) = \E \left( \prod_{i=1}^n X_i^2 \mid N_t = n \right)
-	= \E \left( \prod_{i=1}^n X_i^2 \right)
-	=  \prod_{i=1}^n \E X_i^2  
+	E(S_t^2 \mid N_t = n) = E \left( \prod_{i=1}^n X_i^2 \mid N_t = n \right)
+	= E \left( \prod_{i=1}^n X_i^2 \right)
+	=  \prod_{i=1}^n E X_i^2  
 	= (\mu^2 + \sigma^2 )^n
 \]
 We now have 
 \[
-	\E S_t = \E \E (S_t \mid N_t) = \mu^{N_t}, 
+	E S_t = E E (S_t \mid N_t) = \mu^{N_t}, 
 \]
 and 
 \[
-	\E S_t^2 = \E \E (S_t^2 \mid N_t) = (\mu^2 + \sigma^2)^{N_t}, 
+	E S_t^2 = E E (S_t^2 \mid N_t) = (\mu^2 + \sigma^2)^{N_t}, 
 \]
 The mean is 
 \[
-	\E S_t = \E \mu^{N_t} 
+	E S_t = E \mu^{N_t} 
 	= \sum_{n=0}^\infty e^{-\lambda t} \frac{(\lambda t)^n}{n!} 
 	=e^{-\lambda t}e^{-\mu \lambda t}
 	= e^{(\mu - 1)\lambda t}.
 \]
 For the second moment, we have 
 \[
-	\E S^2 = \E  (\mu^2 + \sigma^2)^{N_t} 
+	E S^2 = E  (\mu^2 + \sigma^2)^{N_t} 
 	= e^{-\lambda t} e^{(\mu^2+ \sigma^2)\lambda t} 
 	= e^{(\mu^2 + \sigma^2 -1)\lambda t},
 \]
 and so the variance is
 \[
-	\var S_t = \E S_t^2 - (\E S_t)^2 = e^{(\mu^2 + \sigma^2 -1)\lambda t} - e^{2(\mu - 1)\lambda t}.
+	\var S_t = E S_t^2 - (E S_t)^2 = e^{(\mu^2 + \sigma^2 -1)\lambda t} - e^{2(\mu - 1)\lambda t}.
 \]
 \end{proof}
 

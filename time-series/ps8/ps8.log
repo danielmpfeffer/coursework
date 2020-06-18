@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.15)  18 JUN 2020 14:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.15)  18 JUN 2020 16:06
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -814,7 +814,7 @@ live/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texl
 ive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texli
 ve/2019/texmf-dist/fonts/type1/public/doublestroke/dsrom8.pfb></usr/local/texli
 ve/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on ps8.pdf (12 pages, 330991 bytes).
+Output written on ps8.pdf (12 pages, 332273 bytes).
 PDF statistics:
  129 PDF objects out of 1000 (max. 8388607)
  86 compressed objects within 1 object stream

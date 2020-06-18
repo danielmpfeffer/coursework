@@ -4,11 +4,9 @@
 \usepackage{dsfont} 
 \usepackage{enumitem}
 
-\DeclareMathOperator{\E}{\mathrm{E}}
 \DeclareMathOperator{\var}{\mathrm{var}}
 \DeclareMathOperator{\cov}{\mathrm{cov}}
 \newcommand{\eps}{\varepsilon}
-\newcommand{\Ncal}{\mathcal{N}}
 \newcommand{\Geom}{\text{Geometric}}
 \newcommand{\Ucal}{\mathcal{U}}
 \newcommand{\Z}{\mathds{Z}}
@@ -38,7 +36,7 @@ Prove that $X_n$ is a Markov chain on $\Omega$, and find its transition matrix $
 \begin{proof}
 That $X_n$ is a Markov chain on $\Omega$ follows from the fact that is satisfies the Markov property:
 \begin{align*}
-	P(X_n = x_n & \mid X_{n-1} = x_{n-1}, X_{n-2} = x_{n-2}, \dotsc, X_0 = x_0) 
+	P(X_n = x_n \mid X_{n-1} = x_{n-1}, X_{n-2} = x_{n-2}, \dotsc, X_0 = x_0) \\
 	= \begin{cases}
 		0.3 & \text{if } x_n = (R,S), x_{n-1}= (S,S) \\
 		0.7 & \text{if } x_n = (S,S), x_{n-1}= (S,S) \\
@@ -156,7 +154,7 @@ We have
 \end{align*}
 \end{proof}
 \item
-Compute $\E(f(X_5), f(X_6) \mid X_4 = y)$ for the function with 
+Compute $E(f(X_5), f(X_6) \mid X_4 = y)$ for the function with 
 \[
 	f(r) = 2, \quad f(w) = 4, \quad f(b) = 7, \quad f(y) =3.
 \]
@@ -172,7 +170,7 @@ First note that
 \end{align*}
 Then
 \begin{align*}
-	\E(f(X_5), f(X_6) \mid X_4 = y) &= 0.2 \cdot 14 + 0.12 \cdot 16 + 0.18 \cdot 28 + 0.1 \cdot 6 + 0.15 \cdot 12 + 0.25 \cdot 9 \\
+	E(f(X_5), f(X_6) \mid X_4 = y) &= 0.2 \cdot 14 + 0.12 \cdot 16 + 0.18 \cdot 28 + 0.1 \cdot 6 + 0.15 \cdot 12 + 0.25 \cdot 9 \\
 	&= 14.41.
 \end{align*}
 \end{proof}

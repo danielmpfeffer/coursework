@@ -5,11 +5,9 @@
 \usepackage{tikz}
 \usepackage{enumitem}
 
-\DeclareMathOperator{\E}{\mathrm{E}}
 \DeclareMathOperator{\var}{\mathrm{var}}
 \DeclareMathOperator{\cov}{\mathrm{cov}}
-\newcommand{\eps}{\epsilon}
-\newcommand{\Ncal}{\mathcal{N}}
+\newcommand{\eps}{\varepsilon}
 \newcommand{\Ucal}{\mathcal{U}}
 \newcommand{\Pois}{\mathrm{Poisson}}
 \newcommand{\Exp}{\mathrm{Exponential}}
@@ -38,7 +36,7 @@ Let $X$ and $Y$ be two independent Poisson random variables with $X \sim \Pois(\
 \begin{proof}
 The PGF of $X$ is
 \[
-	G_X(s) = \E s^X = \sum_{k=0}^\infty s^k e^{-\lambda} \frac{\lambda^k}{k!} = e^{-\lambda} \sum_{k=0}^\infty \frac{(s\lambda^k)}{k!} = e^{-\lambda} e^{s\lambda} = e^{\lambda(s-1)},
+	G_X(s) = E s^X = \sum_{k=0}^\infty s^k e^{-\lambda} \frac{\lambda^k}{k!} = e^{-\lambda} \sum_{k=0}^\infty \frac{(s\lambda^k)}{k!} = e^{-\lambda} e^{s\lambda} = e^{\lambda(s-1)},
 \]
 and by the same logic, the PGF of $Y$ is $G_Y(s) =  e^{\mu(s-1)}$. By independence of $X$ and $Y$,
 \[
@@ -57,19 +55,19 @@ Find the probability generating function of $Z=\sum_{i=1}^N X_i$.
 \begin{proof}
 By the law of total expectation, we have
 \[
-	G_Z(s) = \E s^Z = \E \E(s^Z \mid N)
+	G_Z(s) = E s^Z = E E(s^Z \mid N)
 \]
 For $N=n$, 
 \begin{align*}
-	\E(s^Z \mid N= n) &= \E(s^{\sum_{i=1}^N X_i} \mid N = n) 
-	= \E(s^{\sum_{i=1}^n X_i} \mid N = n)  \\
-	&= \E s^{\sum_{i=1}^n X_i}  
-	= \prod_{i=1}^n \E s^{X_i}
+	E(s^Z \mid N= n) &= E(s^{\sum_{i=1}^N X_i} \mid N = n) 
+	= E(s^{\sum_{i=1}^n X_i} \mid N = n)  \\
+	&= E s^{\sum_{i=1}^n X_i}  
+	= \prod_{i=1}^n E s^{X_i}
 	= \prod_{i=1}^n (ps + (1-p)s) = (1 + p(s-1))^n,
 \end{align*}
-and so $\E(s^Z \mid N)= (1 + p(s-1))^N$. Then, using the result from Problem 1, 
+and so $E(s^Z \mid N)= (1 + p(s-1))^N$. Then, using the result from Problem 1, 
 \[
-	G_Z(s) = \E (1+p(s-1))^N  = G_N((1+p(s-1))^N ) = e^{\lambda(1+p(s-1) - 1)} = e^{\lambda p(s-1)}.
+	G_Z(s) = E (1+p(s-1))^N  = G_N((1+p(s-1))^N ) = e^{\lambda(1+p(s-1) - 1)} = e^{\lambda p(s-1)}.
 \]
 \end{proof}
 
