@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.15)  18 JUN 2020 14:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.15)  19 JUN 2020 08:06
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -729,7 +729,7 @@ runsystem(rm ps6.pyg)...executed.
 Here is how much of TeX's memory you used:
  16437 strings out of 492609
  324296 string characters out of 6129048
- 419658 words of memory out of 5000000
+ 419657 words of memory out of 5000000
  19856 multiletter control sequences out of 15000+600000
  9730 words of font info for 39 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
@@ -748,7 +748,7 @@ texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/te
 xlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/tex
 live/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texl
 ive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on ps6.pdf (8 pages, 212984 bytes).
+Output written on ps6.pdf (8 pages, 213804 bytes).
 PDF statistics:
  93 PDF objects out of 1000 (max. 8388607)
  66 compressed objects within 1 object stream

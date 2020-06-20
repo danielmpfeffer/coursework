@@ -221,8 +221,8 @@ The marginal likelihoods conditional on $\tau$ are $240.35$, $256.88$, $278.64$,
 Consider the state-space model:
 \begin{align}\label{eq:state-space}
 \begin{split}
-	y_t = \lambda s_t + \ups_t   \\
-	s_t = \phi s_{t-1} + \eps_t.
+	y_t &= \lambda s_t + \ups_t   \\
+	s_t &= \phi s_{t-1} + \eps_t.
 \end{split}
 \end{align}
 For now assume that $\ups_t \sim \text{iid }N(0,1)$, $\eps_t \sim \text{iid }N(0,1)$, and $\ups_t \perp\eps_t$.
@@ -231,20 +231,20 @@ For now assume that $\ups_t \sim \text{iid }N(0,1)$, $\eps_t \sim \text{iid }N(0
 Derive the autocovariance function for $y_t$.
 
 \begin{proof}
-Since state equation is an AR(1) process, its autocovariance function is
+Since state equation is an AR(1) process, we know its autocovariance function is
 \begin{align*}
 	\gamma_s(h)  = \begin{cases}
 		1/(1-\phi^2) & \text{if } h = 0 \\
 		\phi^{|h|}/(1-\phi^2) & \text{if } h \neq 0.				
 	\end{cases}
 \end{align*}
-Since $\ups_t$ and $\eps_t$ are orthogonal at all leads and lags, 
+Using the assumption that $\ups_t$ and $\eps_t$ are orthogonal at all leads and lags, we obtain
 \begin{align*}
 	\gamma_y(0) &= \var(y_t) = \var(\lambda s_t + \ups_t) 
 		= \gamma_s(0)\lambda^2 + 1 
 		= \frac{\lambda^2}{1-\phi^2} + 1 \\
 	\gamma_y(h) &= \cov(\lambda s_t + \ups_t, \lambda s_{t-h} + \ups_{t-h}) 
-		= \gamma_s(0) \lambda^2 \phi^{|h|} = \frac{\lambda^2}{1-\phi^2} \phi^{|h|}, \qquad h \neq 0.
+		= \gamma_s(0) \lambda^2 \phi^{|h|} = \frac{\lambda^2}{1-\phi^2} \phi^{|h|} 1_{\{h \neq\}} 0.
 \end{align*}
 \end{proof}
 
@@ -252,9 +252,13 @@ Since $\ups_t$ and $\eps_t$ are orthogonal at all leads and lags,
 Are the coefficients of the state-space model identified?
 
 \begin{proof}
-No. The factor loading $\lambda$ is unique only up an orthogonal transformation and therefore is not sign-identified. To see this point, let $\tilde s_t = -s_t$ and let $\tilde\eps_t = -\eps_t$, and 
+No. The factor loading $\lambda$ is unique only up an orthogonal transformation and therefore is not sign-identified. To see this point, let $\tilde s_t = -s_t$, $\tilde\eps_t = -\eps_t$,  
 \[
-	y_t = -\lambda \tilde s_t + \ups_t, \qquad \tilde s_t = \phi \tilde s_{t-1} + \tilde\eps_t.
+	y_t = -\lambda \tilde s_t + \ups_t,
+\]
+and
+\[
+	\tilde s_t = \phi \tilde s_{t-1} + \tilde\eps_t.
 \]
 Then 
 \begin{align*}
@@ -286,7 +290,7 @@ which has covariance structure
 \begin{align*}
 	\gamma_y(0) &= \sigma_\eta^2 \frac{1+\theta^2 + 2 \theta \rho}{1-\rho^2}  \\
 	\gamma_y(1) &= \sigma_\eta^2\frac{(1+  \theta \rho)(\rho +\theta)}{1-\rho^2}\\
-	\gamma_y(h) &= \gamma_y(1)  \rho^{|h|-1}, \qquad |h| \geq 1.
+	\gamma_y(h) &= \gamma_y(1)  \rho^{|h|-1} 1_{\{|h| \geq 1\}}.
 \end{align*}
 To obtain an observationally equivalent ARMA representation, we will match autocovariance functions. Evidently, for $h>1$, we require $\rho = \phi$, which gives the following $2 \times 2$ system:
 \begin{align*}
@@ -331,7 +335,7 @@ Now suppose that $\ups_t$ and $\eps_t$ are jointly normally distributed and have
 To find autocovariance function for $y_t$ when there is a non-zero correlation $\rho$ between $\ups_t$ and $\eps_t$, we simply add the cross product to our earlier calculations and obtain 
 \begin{align*}
 	\gamma_y(0) &= \frac{\lambda^2}{1-\phi^2} + 2 \lambda \rho \\
-	\gamma_y(h) &=  \left(\frac{\lambda^2}{1-\rho^2} + \lambda \rho \right)\phi^{|h|} , \qquad h \neq 0,
+	\gamma_y(h) &=  \left(\frac{\lambda^2}{1-\rho^2} + \lambda \rho \right)\phi^{|h|}  1_{\{h \neq 0\}},
 \end{align*}
 which imply that although $\lambda \rho$ is sign-identified, neither $\lambda$ nor $\phi$ nor $\rho$ is uniquely identified. 
 \par
